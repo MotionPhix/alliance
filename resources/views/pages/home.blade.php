@@ -57,6 +57,59 @@
     </div>
   </section>
 
+  <x-impact-stats :metrics="[
+        [
+            'icon' => 'users',
+            'title' => 'People Reached',
+            'metric' => '50,000+',
+            'description' => 'Individuals directly impacted across Malawi'
+        ],
+        [
+            'icon' => 'school',
+            'title' => 'Schools Supported',
+            'metric' => '32',
+            'description' => 'Educational institutions receiving our assistance'
+        ],
+        [
+            'icon' => 'medical',
+            'title' => 'Medical Camps',
+            'metric' => '85',
+            'description' => 'Health outreach programs conducted'
+        ],
+        [
+            'icon' => 'water',
+            'title' => 'Water Projects',
+            'metric' => '120',
+            'description' => 'Clean water access points installed'
+        ],
+        [
+            'icon' => 'training',
+            'title' => 'Training Sessions',
+            'metric' => '450+',
+            'description' => 'Skill development workshops conducted'
+        ],
+        [
+            'icon' => 'women',
+            'title' => 'Women Empowered',
+            'metric' => '15,000+',
+            'description' => 'Female participants in our programs'
+        ],
+        [
+            'icon' => 'agriculture',
+            'title' => 'Farmers Trained',
+            'metric' => '2,500+',
+            'description' => 'In sustainable agricultural practices'
+        ],
+        [
+            'icon' => 'volunteers',
+            'title' => 'Volunteers',
+            'metric' => '1,200+',
+            'description' => 'Active community volunteers'
+        ]
+    ]" />
+
+  <x-programs-section :programs="$programs" />
+
   <!-- Approaches Section -->
   <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">

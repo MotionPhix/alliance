@@ -2,15 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ImpactMetric;
+use App\Models\Program;
 use Illuminate\View\View;
 
 class HomeController extends Controller
 {
   public function index(): View
   {
+    $programs = Program::where('is_published', true)
+      ->orderBy('sort_order')
+      ->get();
+
+    $metrics = ImpactMetric::where('is_published', true)
+      ->orderBy('sort_order')
+      ->get();
+
     return view('pages.home', [
       'slides' => $this->getSliderData(),
       'approaches' => $this->getApproachData(),
+      'metrics' => $metrics,
+      'programs' => $programs
     ]);
   }
 
