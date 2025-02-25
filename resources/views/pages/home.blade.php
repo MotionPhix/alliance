@@ -65,86 +65,83 @@
     </div>
   </section>
 
-  <x-norminal-container>
+  <x-content-container>
     <x-impact-stats :metrics="[
-        [
-            'icon' => 'users',
-            'title' => 'People Reached',
-            'metric' => '50,000+',
-            'description' => 'Individuals directly impacted across Malawi'
-        ],
-        [
-            'icon' => 'school',
-            'title' => 'Schools Supported',
-            'metric' => '32',
-            'description' => 'Educational institutions receiving our assistance'
-        ],
-        [
-            'icon' => 'medical',
-            'title' => 'Medical Camps',
-            'metric' => '85',
-            'description' => 'Health outreach programs conducted'
-        ],
-        [
-            'icon' => 'water',
-            'title' => 'Water Projects',
-            'metric' => '120',
-            'description' => 'Clean water access points installed'
-        ],
-        [
-            'icon' => 'training',
-            'title' => 'Training Sessions',
-            'metric' => '450+',
-            'description' => 'Skill development workshops conducted'
-        ],
-        [
-            'icon' => 'women',
-            'title' => 'Women Empowered',
-            'metric' => '15,000+',
-            'description' => 'Female participants in our programs'
-        ],
-        [
-            'icon' => 'agriculture',
-            'title' => 'Farmers Trained',
-            'metric' => '2,500+',
-            'description' => 'In sustainable agricultural practices'
-        ],
-        [
-            'icon' => 'volunteers',
-            'title' => 'Volunteers',
-            'metric' => '1,200+',
-            'description' => 'Active community volunteers'
-        ]
-    ]"/>
+            [
+                'icon' => 'users',
+                'title' => 'People Reached',
+                'metric' => '50,000+',
+                'description' => 'Individuals directly impacted across Malawi'
+            ],
+            [
+                'icon' => 'school',
+                'title' => 'Schools Supported',
+                'metric' => '32',
+                'description' => 'Educational institutions receiving our assistance'
+            ],
+            [
+                'icon' => 'medical',
+                'title' => 'Medical Camps',
+                'metric' => '85',
+                'description' => 'Health outreach programs conducted'
+            ],
+            [
+                'icon' => 'water',
+                'title' => 'Water Projects',
+                'metric' => '120',
+                'description' => 'Clean water access points installed'
+            ],
+            [
+                'icon' => 'training',
+                'title' => 'Training Sessions',
+                'metric' => '450+',
+                'description' => 'Skill development workshops conducted'
+            ],
+            [
+                'icon' => 'women',
+                'title' => 'Women Empowered',
+                'metric' => '15,000+',
+                'description' => 'Female participants in our programs'
+            ],
+            [
+                'icon' => 'agriculture',
+                'title' => 'Farmers Trained',
+                'metric' => '2,500+',
+                'description' => 'In sustainable agricultural practices'
+            ],
+            [
+                'icon' => 'volunteers',
+                'title' => 'Volunteers',
+                'metric' => '1,200+',
+                'description' => 'Active community volunteers'
+            ]
+        ]"
+    />
 
     <x-programs-section :programs="$programs"/>
 
     <!-- Approaches Section -->
-    <section class="py-16 bg-gray-50">
-      <div class="container mx-auto px-4">
-        <div class="grid md:grid-cols-3 gap-8">
-          @foreach($approaches as $approach)
-            <div
-              class="bg-white rounded-lg shadow-lg p-8 transform hover:-translate-y-1 transition-transform duration-300">
-              <div class="w-16 h-16 bg-blue-600 text-white rounded-lg flex items-center justify-center mb-6">
+    <div class="grid md:grid-cols-3 gap-8">
+      @foreach($approaches as $approach)
+        <div
+          class="bg-white rounded-lg shadow-lg p-8 transform hover:-translate-y-1 transition-transform duration-300">
+          <div class="w-16 h-16 bg-blue-600 text-white rounded-lg flex items-center justify-center mb-6">
 
-                @if($approach['icon'] === 'chat-bubble-left-right')
-                  <x-heroicon-o-chat-bubble-left-right class="w-8 h-8"/>
-                @elseif($approach['icon'] === 'megaphone')
-                  <x-heroicon-o-megaphone class="w-8 h-8"/>
-                @else
-                  <x-heroicon-o-chart-bar class="w-8 h-8"/>
-                @endif
+            @if($approach['icon'] === 'chat-bubble-left-right')
+              <x-heroicon-o-chat-bubble-left-right class="w-8 h-8"/>
+            @elseif($approach['icon'] === 'megaphone')
+              <x-heroicon-o-megaphone class="w-8 h-8"/>
+            @else
+              <x-heroicon-o-chart-bar class="w-8 h-8"/>
+            @endif
 
-              </div>
+          </div>
 
-              <h3 class="text-xl font-semibold mb-4">{{ $approach['title'] }}</h3>
-              <p class="text-gray-600">{{ $approach['description'] }}</p>
-            </div>
-          @endforeach
+          <h3 class="text-xl font-semibold mb-4">{{ $approach['title'] }}</h3>
+          <p class="text-gray-600">{{ $approach['description'] }}</p>
         </div>
-      </div>
-    </section>
+      @endforeach
+    </div>
 
     <!-- About Section -->
     <section class="py-16">
@@ -153,17 +150,21 @@
           <div>
             <h2 class="text-3xl font-bold mb-6">Who We Are</h2>
             <p class="text-gray-600 leading-relaxed mb-8">
-              Citizen Alliance (CA) is a coalition of civil society organizations and citizen groups established in 2012
-              as a citizen-led engagement initiative on development and governance processes. The organization is
+              Citizen Alliance (CA) is a coalition of civil society organizations and citizen groups
+              established in 2012
+              as a citizen-led engagement initiative on development and governance processes. The
+              organization is
               registered
-              under the laws of Malawi as a company limited by guaranteed and operates in all the districts through
+              under the laws of Malawi as a company limited by guaranteed and operates in all the
+              districts through
               Citizen Forums (CFs).
             </p>
             <a href="{{ route('about') }}"
                class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300">
               Learn More
               <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"/>
               </svg>
             </a>
           </div>
@@ -176,7 +177,29 @@
       </div>
     </section>
 
-  </x-norminal-container>
+  </x-content-container>
+
+  <!-- Testimonials Section -->
+  <x-testimonials :testimonials="[
+  [
+  'name' => 'John Doe',
+  'role' => 'Community Leader',
+  'image' => 'images/testimonials/john-doe.jpg',
+  'quote' => 'Citizen Alliance has transformed our community through their education programs.'
+  ],
+  [
+  'name' => 'Jane Smith',
+  'role' => 'Health Worker',
+  'image' => 'images/testimonials/jane-smith.jpg',
+  'quote' => 'Their health initiatives have saved countless lives in our district.'
+  ],
+  [
+  'name' => 'Michael Johnson',
+  'role' => 'Farmer',
+  'image' => 'images/testimonials/michael-johnson.jpg',
+  'quote' => 'The agricultural training has helped me double my crop yields.'
+  ]
+  ]"/>
 
   <!-- Call to Action Section -->
   <section class="py-16 bg-blue-600 text-white relative overflow-hidden">

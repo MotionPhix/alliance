@@ -1,6 +1,6 @@
 <footer class="bg-gray-900 text-gray-300">
   <!-- Footer Top -->
-  <div class="container mx-auto px-4 py-16">
+  <x-content-container class="py-16">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
       <!-- About Column -->
       <div>
@@ -12,11 +12,11 @@
 
         <div class="flex space-x-4">
           <x-social-icons :links="[
-            'facebook' => '#',
-            'twitter' => '#',
-            'linkedin' => '#',
-            'instagram' => '#'
-          ]" class="text-gray-400" />
+                        'facebook' => '#',
+                        'twitter' => '#',
+                        'linkedin' => '#',
+                        'instagram' => '#'
+                    ]" class="text-gray-400 hover:text-white transition-colors duration-300" />
         </div>
       </div>
 
@@ -81,19 +81,19 @@
           Subscribe to our newsletter to get all our news in your inbox. Stay connected with our latest updates.
         </p>
         <form x-data="{
-                    email: '',
-                    loading: false,
-                    success: false,
-                    submit() {
-                        this.loading = true;
-                        // Add newsletter subscription logic here
-                        setTimeout(() => {
-                            this.loading = false;
-                            this.success = true;
-                            this.email = '';
-                        }, 1000);
-                    }
-                }" @submit.prevent="submit" class="relative">
+                            email: '',
+                            loading: false,
+                            success: false,
+                            submit() {
+                                this.loading = true;
+                                // Add newsletter subscription logic here
+                                setTimeout(() => {
+                                    this.loading = false;
+                                    this.success = true;
+                                    this.email = '';
+                                }, 1000);
+                            }
+                        }" @submit.prevent="submit" class="relative">
           <div class="flex">
             <input type="email"
                    x-model="email"
@@ -126,11 +126,11 @@
         </form>
       </div>
     </div>
-  </div>
+  </x-content-container>
 
   <!-- Copyright -->
   <div class="border-t border-gray-800">
-    <div class="container mx-auto px-4 py-6">
+    <x-content-container class="py-6">
       <div class="text-center text-xs">
         <p>&copy; {{ date('Y') }} Citizen Alliance. All Rights Reserved. Developed by
           <a href="https://ultrashots.net/"
@@ -140,6 +140,6 @@
           </a>
         </p>
       </div>
-    </div>
+    </x-content-container>
   </div>
 </footer>
