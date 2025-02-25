@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /* Timeline connector line styles */
+  .timeline-connector {
+    @apply absolute left-0 w-0.5 h-full bg-blue-600 transform -translate-x-1/2;
+  }
+
+  /* Timeline dot styles */
+  .timeline-dot {
+    @apply absolute left-0 w-4 h-4 bg-blue-600 rounded-full transform -translate-x-1/2;
+  }
+
+  /* Card hover effect */
+  .hover-card {
+    @apply transform transition duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  /* Section headers */
+  .section-header {
+    @apply text-3xl font-bold text-gray-900 mb-4;
+  }
+
+  .section-subheader {
+    @apply text-lg text-gray-600 mb-8;
+  }
+}
+
+/* Custom animations */
+@keyframes floatIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float-in {
+  animation: floatIn 0.5s ease-out forwards;
+}
