@@ -8,14 +8,14 @@
   <section class="relative">
     <div class="relative w-full h-[600px] overflow-hidden">
       <div x-data="{
-       activeSlide: 0,
-        slides: {{ json_encode($slides) }},
-        init() {
-          setInterval(() => {
-            this.activeSlide = (this.activeSlide + 1) % this.slides.length
-          }, 5000)
-        }
-      }" class="relative h-full">
+            activeSlide: 0,
+            slides: {{ json_encode($slides) }},
+            init() {
+                setInterval(() => {
+                    this.activeSlide = (this.activeSlide + 1) % this.slides.length
+                }, 5000)
+            }
+        }" class="relative h-full">
         <template x-for="(slide, index) in slides" :key="index">
           <div x-show="activeSlide === index"
                x-transition:enter="transition ease-out duration-300"
@@ -25,9 +25,9 @@
                x-transition:leave-start="opacity-100 transform translate-x-0"
                x-transition:leave-end="opacity-0 transform -translate-x-full"
                class="absolute inset-0">
-            <div class="absolute inset-0 bg-black/50"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/50 to-black/70"></div>
             <img :src="slide.image" :alt="slide.title"
-                 class="object-cover w-full h-full">
+                 class="object-cover w-full h-full transform hover:scale-105 transition-transform duration-500">
             <div class="absolute inset-0 flex items-center">
               <div class="container mx-auto px-4">
                 <div class="max-w-3xl text-white">
@@ -37,6 +37,14 @@
                   <p x-text="slide.description"
                      class="text-xl md:text-2xl mb-8 animate-fade-in-delay">
                   </p>
+                  <a href="#about"
+                     class="inline-flex items-center px-8 py-3 bg-ca-highlight text-white rounded-lg hover:bg-ca-primary transition-all duration-300">
+                    Learn More
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                  </a>
                 </div>
               </div>
             </div>
@@ -57,7 +65,8 @@
     </div>
   </section>
 
-  <x-impact-stats :metrics="[
+  <x-norminal-container>
+    <x-impact-stats :metrics="[
         [
             'icon' => 'users',
             'title' => 'People Reached',
@@ -106,66 +115,68 @@
             'metric' => '1,200+',
             'description' => 'Active community volunteers'
         ]
-    ]" />
+    ]"/>
 
-  <x-programs-section :programs="$programs" />
+    <x-programs-section :programs="$programs"/>
 
-  <!-- Approaches Section -->
-  <section class="py-16 bg-gray-50">
-    <div class="container mx-auto px-4">
-      <div class="grid md:grid-cols-3 gap-8">
-        @foreach($approaches as $approach)
-          <div
-            class="bg-white rounded-lg shadow-lg p-8 transform hover:-translate-y-1 transition-transform duration-300">
-            <div class="w-16 h-16 bg-blue-600 text-white rounded-lg flex items-center justify-center mb-6">
+    <!-- Approaches Section -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-3 gap-8">
+          @foreach($approaches as $approach)
+            <div
+              class="bg-white rounded-lg shadow-lg p-8 transform hover:-translate-y-1 transition-transform duration-300">
+              <div class="w-16 h-16 bg-blue-600 text-white rounded-lg flex items-center justify-center mb-6">
 
-              @if($approach['icon'] === 'chat-bubble-left-right')
-                <x-heroicon-o-chat-bubble-left-right class="w-8 h-8" />
-              @elseif($approach['icon'] === 'megaphone')
-                <x-heroicon-o-megaphone class="w-8 h-8" />
-              @else
-                <x-heroicon-o-chart-bar class="w-8 h-8" />
-              @endif
+                @if($approach['icon'] === 'chat-bubble-left-right')
+                  <x-heroicon-o-chat-bubble-left-right class="w-8 h-8"/>
+                @elseif($approach['icon'] === 'megaphone')
+                  <x-heroicon-o-megaphone class="w-8 h-8"/>
+                @else
+                  <x-heroicon-o-chart-bar class="w-8 h-8"/>
+                @endif
 
+              </div>
+
+              <h3 class="text-xl font-semibold mb-4">{{ $approach['title'] }}</h3>
+              <p class="text-gray-600">{{ $approach['description'] }}</p>
             </div>
+          @endforeach
+        </div>
+      </div>
+    </section>
 
-            <h3 class="text-xl font-semibold mb-4">{{ $approach['title'] }}</h3>
-            <p class="text-gray-600">{{ $approach['description'] }}</p>
+    <!-- About Section -->
+    <section class="py-16">
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="text-3xl font-bold mb-6">Who We Are</h2>
+            <p class="text-gray-600 leading-relaxed mb-8">
+              Citizen Alliance (CA) is a coalition of civil society organizations and citizen groups established in 2012
+              as a citizen-led engagement initiative on development and governance processes. The organization is
+              registered
+              under the laws of Malawi as a company limited by guaranteed and operates in all the districts through
+              Citizen Forums (CFs).
+            </p>
+            <a href="{{ route('about') }}"
+               class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300">
+              Learn More
+              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </a>
           </div>
-        @endforeach
+          <div class="relative h-[400px]">
+            <img src="{{ asset('images/about-image.jpg') }}"
+                 alt="About Citizen Alliance"
+                 class="object-cover w-full h-full rounded-lg shadow-xl">
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- About Section -->
-  <section class="py-16">
-    <div class="container mx-auto px-4">
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div>
-          <h2 class="text-3xl font-bold mb-6">Who We Are</h2>
-          <p class="text-gray-600 leading-relaxed mb-8">
-            Citizen Alliance (CA) is a coalition of civil society organizations and citizen groups established in 2012
-            as a citizen-led engagement initiative on development and governance processes. The organization is
-            registered
-            under the laws of Malawi as a company limited by guaranteed and operates in all the districts through
-            Citizen Forums (CFs).
-          </p>
-          <a href="{{ route('about') }}"
-             class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300">
-            Learn More
-            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-            </svg>
-          </a>
-        </div>
-        <div class="relative h-[400px]">
-          <img src="{{ asset('images/about-image.jpg') }}"
-               alt="About Citizen Alliance"
-               class="object-cover w-full h-full rounded-lg shadow-xl">
-        </div>
-      </div>
-    </div>
-  </section>
+  </x-norminal-container>
 
   <!-- Call to Action Section -->
   <section class="py-16 bg-blue-600 text-white relative overflow-hidden">

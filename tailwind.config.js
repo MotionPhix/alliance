@@ -25,6 +25,10 @@ export default {
         'ca-red': '#DC2626',
         'ca-amber': '#F59E0B',
         'ca-green': '#10B981',
+        'ca-primary': '#1A365D',
+        'ca-secondary': '#2D3748',
+        'ca-highlight': '#ECC94B',
+        'ca-success': '#48BB78'
       },
       scale: {
         '102': '1.02',
