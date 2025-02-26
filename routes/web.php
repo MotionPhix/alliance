@@ -13,8 +13,8 @@ Route::get(
 )->name('about');
 
 Route::get(
-  '/contact',
-  [HomeController::class, 'contact']
+  '/contact-us',
+  [\App\Http\Controllers\ContactController::class, 'index']
 )->name('contact');
 
 Route::get(

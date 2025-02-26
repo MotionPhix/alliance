@@ -42,6 +42,10 @@
         <x-nav-link href="{{ route('projects') }}" :active="request()->routeIs('projects')">
           Projects
         </x-nav-link>
+
+        <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
+          Contact Us
+        </x-nav-link>
       </div>
 
       <!-- Mobile menu button -->

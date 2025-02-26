@@ -95,7 +95,7 @@
 
   <!-- Features -->
   <div class="max-w-6xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-    <div class="min-h-[35vh] md:min-h-[75vh] bg-[url('/images/about-us.jpg')] bg-center bg-cover bg-no-repeat relative rounded-xl">
+    <div style="background-image: url({{ asset('images/about-us.jpg') }})" class="min-h-[35vh] md:min-h-[75vh] bg-center bg-cover bg-no-repeat relative rounded-xl">
       <div class="absolute bottom-0 start-0 end-0 max-w-xs text-center mx-auto p-6 md:start-auto md:text-start md:mx-0">
         <!-- Card -->
         <div class="px-5 py-4 inline-block bg-white rounded-lg md:p-7 dark:bg-neutral-800">

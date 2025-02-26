@@ -1,7 +1,7 @@
 @props(['metrics'])
 
 <section class="py-16 bg-white dark:bg-ca-primary">
-  <h2 class="text-3xl font-bold text-center mb-12 text-ca-primary dark:text-ca-highlight">
+  <h2 class="text-3xl font-bold text-center font-display mb-12 text-ca-primary dark:text-ca-highlight">
     Our Impact in Numbers
   </h2>
 

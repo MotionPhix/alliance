@@ -1,7 +1,7 @@
 @props(['programs'])
 
 <section class="py-16 dark:bg-ca-secondary">
-  <h2 class="text-3xl font-bold text-center mb-12 text-ca-primary dark:text-ca-highlight">
+  <h2 class="text-3xl font-display font-bold text-center mb-12 text-ca-primary dark:text-ca-highlight">
     Our Core Programs
   </h2>
 
@@ -20,7 +20,7 @@
             </svg>
           @endif
         </div>
-        <h3 class="text-xl font-semibold mb-2 text-gray-800 dark:text-gray-200">
+        <h3 class="text-xl font-display font-semibold mb-2 text-gray-800 dark:text-gray-200">
           {{ $program->title }}
         </h3>
         <p class="text-gray-600 dark:text-gray-300 mb-4">

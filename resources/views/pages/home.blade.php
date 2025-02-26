@@ -34,7 +34,7 @@
               <div class="container mx-auto px-4">
                 <div class="max-w-3xl text-white">
                   <h1 x-text="slide.title"
-                      class="text-4xl md:text-6xl font-bold mb-4 animate-fade-in">
+                      class="text-4xl font-display md:text-6xl font-bold mb-4 animate-fade-in">
                   </h1>
                   <p x-text="slide.description"
                      class="text-xl md:text-2xl mb-8 animate-fade-in-delay">
@@ -139,7 +139,7 @@
 
           </div>
 
-          <h3 class="text-xl font-semibold mb-4">{{ $approach['title'] }}</h3>
+          <h3 class="text-xl font-display font-semibold mb-4">{{ $approach['title'] }}</h3>
           <p class="text-gray-600">{{ $approach['description'] }}</p>
         </div>
       @endforeach
@@ -149,7 +149,7 @@
     <section class="py-16">
       <div class="grid md:grid-cols-2 gap-12 items-center">
         <div>
-          <h2 class="text-3xl font-bold mb-6">Who We Are</h2>
+          <h2 class="text-3xl font-bold mb-6 font-display">Who We Are</h2>
           <p class="text-gray-600 leading-relaxed mb-8">
             Citizen Alliance (CA) is a coalition of civil society organizations and citizen groups
             established in 2012
@@ -207,7 +207,7 @@
     <div class="absolute inset-0 bg-[url('/images/pattern.svg')] opacity-10"></div>
     <div class="container mx-auto px-4 relative">
       <div class="text-center max-w-3xl mx-auto">
-        <h2 class="text-3xl md:text-4xl font-bold mb-6">Support Citizen Alliance</h2>
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 font-display">Support Citizen Alliance</h2>
         <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8 mb-8">
           <a href="tel:+265991602233" class="flex items-center">
             <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -242,7 +242,7 @@
   <section class="py-16 bg-gray-50 dark:bg-ca-secondary">
     <div class="container mx-auto px-4">
       <div class="max-w-xl mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-4">Stay Updated</h2>
+        <h2 class="text-3xl font-bold mb-4 font-display">Stay Updated</h2>
         <p class="text-gray-600 dark:text-gray-300 mb-8">Subscribe to our newsletter to get all our news in your
           inbox.</p>
 
