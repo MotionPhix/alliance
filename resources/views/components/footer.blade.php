@@ -57,6 +57,14 @@
               Contact Us
             </a>
           </li>
+          <li>
+            <a href="{{ route('donation.form') }}" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center">
+              <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+              Donate
+            </a>
+          </li>
         </ul>
       </div>
 
@@ -82,19 +90,19 @@
           Subscribe to our newsletter to get all our news in your inbox. Stay connected with our latest updates.
         </p>
         <form x-data="{
-                            email: '',
-                            loading: false,
-                            success: false,
-                            submit() {
-                                this.loading = true;
-                                // Add newsletter subscription logic here
-                                setTimeout(() => {
-                                    this.loading = false;
-                                    this.success = true;
-                                    this.email = '';
-                                }, 1000);
-                            }
-                        }" @submit.prevent="submit" class="relative">
+            email: '',
+            loading: false,
+            success: false,
+            submit() {
+                this.loading = true;
+                // Add newsletter subscription logic here
+                setTimeout(() => {
+                    this.loading = false;
+                    this.success = true;
+                    this.email = '';
+                }, 1000);
+            }
+        }" @submit.prevent="submit" class="relative">
           <div class="flex">
             <input type="email"
                    x-model="email"

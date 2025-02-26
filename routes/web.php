@@ -35,3 +35,32 @@ Route::prefix('blogs')->name('blogs.')->group(function () {
   )->name('show');
 
 });
+
+Route::prefix('donate')->name('donation.')->group(function () {
+
+  Route::get(
+    '/',
+    [\App\Http\Controllers\DonationController::class, 'showDonationForm']
+  )->name('form');
+
+  Route::post(
+    '/process',
+    [\App\Http\Controllers\DonationController::class, 'processDonation']
+  )->name('process');
+
+  Route::get(
+    '/success',
+    [\App\Http\Controllers\DonationController::class, 'donationSuccess']
+  )->name('success');
+
+  Route::get(
+    '/cancel',
+    [\App\Http\Controllers\DonationController::class, 'donationCancel']
+  )->name('cancel');
+
+  Route::post(
+    '/callback',
+    [\App\Http\Controllers\DonationController::class, 'donationCallback']
+  )->name('callback');
+
+});
