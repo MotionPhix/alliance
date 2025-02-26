@@ -93,44 +93,35 @@
     </x-content-container>
   </section>
 
-  <!-- Announcement Banner -->
-  <div class="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto">
-    <div class="bg-blue-600 bg-[url('https://preline.co/assets/svg/examples/abstract-1.svg')] bg-no-repeat bg-cover bg-center p-4 rounded-lg text-center">
-      <p class="me-2 inline-block text-white">
-        Our Impact in Communities
-      </p>
+  <!-- Features -->
+  <div class="max-w-6xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+    <div class="min-h-[35vh] md:min-h-[75vh] bg-[url('/images/about-us.jpg')] bg-center bg-cover bg-no-repeat relative rounded-xl">
+      <div class="absolute bottom-0 start-0 end-0 max-w-xs text-center mx-auto p-6 md:start-auto md:text-start md:mx-0">
+        <!-- Card -->
+        <div class="px-5 py-4 inline-block bg-white rounded-lg md:p-7 dark:bg-neutral-800">
+          <div class="hidden md:block">
+            <h3 class="text-lg font-bold text-gray-800 sm:text-2xl dark:text-neutral-200">
+              Our Impact in Communities
+            </h3>
 
-      <a class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-full border-2 border-white text-white hover:border-white/70 hover:text-white/70 focus:outline-none focus:border-white/70 focus:text-white/70 disabled:opacity-50 disabled:pointer-events-none" href="../figma.html">
-        Learn more
-        <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-      </a>
+            <p class="mt-2 text-gray-800 dark:text-neutral-200">
+              Through our programs, we’ve reached thousands of individuals, empowering them to take an active role in
+              governance and development.
+            </p>
+          </div>
+
+          <div class="md:mt-16">
+            <a class="flex items-center gap-2 text-sm font-medium text-gray-800 hover:text-gray-500 focus:outline-none focus:text-gray-500 dark:text-white dark:hover:text-neutral-400 dark:focus:text-neutral-400" href="#">
+              <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Learn More
+            </a>
+          </div>
+        </div>
+        <!-- End Card -->
+      </div>
     </div>
   </div>
-  <!-- End Announcement Banner -->
-
-  <!-- Image Banner Section -->
-  <section class="py-16">
-    <x-content-container>
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div class="relative h-96 rounded-lg overflow-hidden">
-          <img src="{{ asset('images/about-us.jpg') }}"
-               alt="Community Engagement"
-               class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500">
-        </div>
-        <div>
-          <h2 class="text-3xl font-bold mb-6">Our Impact in Communities</h2>
-          <p class="text-gray-600 leading-relaxed mb-8">
-            Through our programs, we’ve reached thousands of individuals, empowering them to take an active role in
-            governance and development.
-          </p>
-          <a href="#"
-             class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300">
-            Learn More About Our Programs
-          </a>
-        </div>
-      </div>
-    </x-content-container>
-  </section>
+  <!-- End Features -->
 
   <!-- Team Section -->
   <section class="py-16">
