@@ -92,7 +92,7 @@
     <x-content-container>
       <div class="grid md:grid-cols-2 gap-12 items-center">
         <div class="relative h-96 rounded-lg overflow-hidden">
-          <img src="{{ asset('images/about-1.jpg') }}"
+          <img src="{{ asset('images/about-us.jpg') }}"
                alt="Community Engagement"
                class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500">
         </div>
