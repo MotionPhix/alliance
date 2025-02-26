@@ -4,7 +4,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
       <!-- About Column -->
       <div>
-        <h3 class="text-white text-lg font-semibold mb-6">About Us</h3>
+        <h3 class="text-white text-lg font-semibold mb-6 font-display">About Us</h3>
         <img src="{{ asset('images/logo-white.png') }}" alt="Citizen Alliance" class="h-12 mb-4">
         <p class="text-sm leading-relaxed mb-6">
           A coalition of civil society organizations and citizen groups established in 2012 as a citizen-led engagement initiative on development and governance processes.
@@ -23,7 +23,7 @@
 
       <!-- Quick Links -->
       <div>
-        <h3 class="text-white text-lg font-semibold mb-6">Quick Links</h3>
+        <h3 class="text-white text-lg font-semibold mb-6 font-display">Quick Links</h3>
         <ul class="space-y-4">
           <li>
             <a href="{{ route('home') }}" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center">
@@ -70,7 +70,7 @@
 
       <!-- Office Hours -->
       <div>
-        <h3 class="text-white text-lg font-semibold mb-6">Office Hours</h3>
+        <h3 class="text-white text-lg font-semibold mb-6 font-display">Office Hours</h3>
         <ul class="space-y-4">
           <li class="flex justify-between items-center">
             <span class="text-gray-400">Monday - Friday</span>
@@ -85,7 +85,7 @@
 
       <!-- Newsletter -->
       <div>
-        <h3 class="text-white text-lg font-semibold mb-6">Newsletter</h3>
+        <h3 class="text-white text-lg font-semibold mb-6 font-display">Newsletter</h3>
         <p class="text-sm text-gray-400 mb-4">
           Subscribe to our newsletter to get all our news in your inbox. Stay connected with our latest updates.
         </p>

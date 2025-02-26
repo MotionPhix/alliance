@@ -18,6 +18,7 @@ export default {
     extend: {
       fontFamily: {
         poppins: ['Poppins', ...defaultTheme.fontFamily.sans],
+        display: ['DM Serif Display', 'serif'],
       },
       colors: {
         'ca-blue': '#1E3A8A',

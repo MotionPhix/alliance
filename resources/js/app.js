@@ -2,6 +2,8 @@ import './bootstrap';
 import Swiper from 'swiper';
 import 'swiper/swiper-bundle.css';
 import Alpine from 'alpinejs'
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 window.Alpine = Alpine
 
@@ -25,4 +27,19 @@ const swiper = new Swiper('.swiper-container', {
   fadeEffect: {
     crossFade: true
   },
+});
+
+gsap.registerPlugin(ScrollTrigger);
+
+// Animate elements on scroll
+gsap.utils.toArray('.animate-on-scroll').forEach(element => {
+  gsap.from(element, {
+    opacity: 0,
+    y: 50,
+    duration: 1,
+    scrollTrigger: {
+      trigger: element,
+      start: 'top 80%',
+    },
+  });
 });

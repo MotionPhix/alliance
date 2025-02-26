@@ -55,7 +55,6 @@ class AboutController extends Controller
           'twitter' => '#',
         ],
       ],
-      // Add more team members here
     ];
   }
 
@@ -89,11 +88,10 @@ class AboutController extends Controller
   {
     return [
       [
-        'name' => 'Partner Organization 1',
-        'logo' => 'img/partners/partner1.png',
-        'website' => '#',
+        'name' => 'UNICEF',
+        'logo' => 'images/partners/unicef.png',
+        'website' => 'https://unicef.org',
       ],
-      // Add more partners here
     ];
   }
 }
