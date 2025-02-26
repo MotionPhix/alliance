@@ -6,10 +6,10 @@
 
   <!-- Hero Section -->
   <section class="relative">
-    <div class="relative w-full h-[400px] overflow-hidden">
-      <img src="{{ asset('images/contact-hero.jpg') }}" alt="Contact Us"
-           class="object-cover w-full h-full transform hover:scale-105 transition-transform duration-500">
+    <div
+      class="relative w-full h-[400px] overflow-hidden bg-blue-600 bg-[url('https://preline.co/assets/svg/examples/abstract-1.svg')] bg-no-repeat bg-cover bg-center p-4 rounded-lg text-center">
       <div class="absolute inset-0 bg-gradient-to-b from-black/50 to-black/70"></div>
+      
       <div class="absolute inset-0 flex items-center">
         <div class="container mx-auto px-4 text-center">
           <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">Contact Us</h1>
