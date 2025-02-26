@@ -62,15 +62,6 @@ class BlogPostResource extends Resource
       ]);
   }
 
-  public static function getPages(): array
-  {
-    return [
-      'index' => Pages\ListBlogPosts::route('/'),
-      'create' => Pages\CreateBlogPost::route('/create'),
-      'edit' => Pages\EditBlogPost::route('/{record}/edit'),
-    ];
-  }
-
   public static function getRelations(): array
   {
     return [
@@ -84,6 +75,7 @@ class BlogPostResource extends Resource
       'index' => Pages\ListBlogPosts::route('/'),
       'create' => Pages\CreateBlogPost::route('/create'),
       'edit' => Pages\EditBlogPost::route('/{record}/edit'),
+
     ];
   }
 }

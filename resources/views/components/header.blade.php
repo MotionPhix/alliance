@@ -2,7 +2,7 @@
   <!-- Top Bar -->
   <div class="bg-blue-600 dark:bg-blue-800">
     <div class="container mx-auto px-4 py-2">
-      <div class="flex justify-end space-x-4 text-white text-sm">
+      <div class="flex flex-col sm:flex-row sm:justify-end sm:space-x-4 text-white text-sm">
         <a href="tel:+265991602233" class="flex items-center hover:text-blue-200">
           <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
             <path
@@ -10,6 +10,7 @@
           </svg>
           +265 (0) 991 602 233
         </a>
+
         <a href="mailto:enquiries@citizenalliancemw.org" class="flex items-center hover:text-blue-200">
           <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
             <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>

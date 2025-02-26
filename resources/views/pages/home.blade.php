@@ -25,9 +25,11 @@
                x-transition:leave-start="opacity-100 transform translate-x-0"
                x-transition:leave-end="opacity-0 transform -translate-x-full"
                class="absolute inset-0">
-            <div class="absolute inset-0 bg-gradient-to-b from-black/50 to-black/70"></div>
             <img :src="slide.image" :alt="slide.title"
                  class="object-cover w-full h-full transform hover:scale-105 transition-transform duration-500">
+
+            <div class="absolute inset-0 bg-gradient-to-b from-black/50 to-black/70"></div>
+
             <div class="absolute inset-0 flex items-center">
               <div class="container mx-auto px-4">
                 <div class="max-w-3xl text-white">
@@ -38,7 +40,7 @@
                      class="text-xl md:text-2xl mb-8 animate-fade-in-delay">
                   </p>
                   <a href="#about"
-                     class="inline-flex items-center px-8 py-3 bg-ca-highlight text-white rounded-lg hover:bg-ca-primary transition-all duration-300">
+                     class="inline-flex items-center px-8 py-3 bg-ca-purple text-white rounded-lg hover:bg-ca-primary transition-all duration-300">
                     Learn More
                     <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -145,34 +147,32 @@
 
     <!-- About Section -->
     <section class="py-16">
-      <div class="container mx-auto px-4">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 class="text-3xl font-bold mb-6">Who We Are</h2>
-            <p class="text-gray-600 leading-relaxed mb-8">
-              Citizen Alliance (CA) is a coalition of civil society organizations and citizen groups
-              established in 2012
-              as a citizen-led engagement initiative on development and governance processes. The
-              organization is
-              registered
-              under the laws of Malawi as a company limited by guaranteed and operates in all the
-              districts through
-              Citizen Forums (CFs).
-            </p>
-            <a href="{{ route('about') }}"
-               class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300">
-              Learn More
-              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-              </svg>
-            </a>
-          </div>
-          <div class="relative h-[400px]">
-            <img src="{{ asset('images/about-image.jpg') }}"
-                 alt="About Citizen Alliance"
-                 class="object-cover w-full h-full rounded-lg shadow-xl">
-          </div>
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl font-bold mb-6">Who We Are</h2>
+          <p class="text-gray-600 leading-relaxed mb-8">
+            Citizen Alliance (CA) is a coalition of civil society organizations and citizen groups
+            established in 2012
+            as a citizen-led engagement initiative on development and governance processes. The
+            organization is
+            registered
+            under the laws of Malawi as a company limited by guaranteed and operates in all the
+            districts through
+            Citizen Forums (CFs).
+          </p>
+          <a href="{{ route('about') }}"
+             class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300">
+            Learn More
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+        </div>
+        <div class="relative h-[400px]">
+          <img src="{{ asset('images/about-image.jpg') }}"
+               alt="About Citizen Alliance"
+               class="object-cover w-full h-full rounded-lg shadow-xl">
         </div>
       </div>
     </section>
@@ -181,25 +181,26 @@
 
   <!-- Testimonials Section -->
   <x-testimonials :testimonials="[
-  [
-  'name' => 'John Doe',
-  'role' => 'Community Leader',
-  'image' => 'images/testimonials/john-doe.jpg',
-  'quote' => 'Citizen Alliance has transformed our community through their education programs.'
-  ],
-  [
-  'name' => 'Jane Smith',
-  'role' => 'Health Worker',
-  'image' => 'images/testimonials/jane-smith.jpg',
-  'quote' => 'Their health initiatives have saved countless lives in our district.'
-  ],
-  [
-  'name' => 'Michael Johnson',
-  'role' => 'Farmer',
-  'image' => 'images/testimonials/michael-johnson.jpg',
-  'quote' => 'The agricultural training has helped me double my crop yields.'
-  ]
-  ]"/>
+    [
+      'name' => 'John Doe',
+      'role' => 'Community Leader',
+      'image' => 'images/testimonials/john-doe.jpg',
+      'quote' => 'Citizen Alliance has transformed our community through their education programs.'
+    ],
+    [
+      'name' => 'Jane Smith',
+      'role' => 'Health Worker',
+      'image' => 'images/testimonials/jane-smith.jpg',
+      'quote' => 'Their health initiatives have saved countless lives in our district.'
+    ],
+    [
+      'name' => 'Michael Johnson',
+      'role' => 'Farmer',
+      'image' => 'images/testimonials/michael-johnson.jpg',
+      'quote' => 'The agricultural training has helped me double my crop yields.'
+    ]
+  ]"
+  />
 
   <!-- Call to Action Section -->
   <section class="py-16 bg-blue-600 text-white relative overflow-hidden">
@@ -238,47 +239,48 @@
   </section>
 
   <!-- Newsletter Section -->
-  <section class="py-16 bg-gray-50">
+  <section class="py-16 bg-gray-50 dark:bg-ca-secondary">
     <div class="container mx-auto px-4">
       <div class="max-w-xl mx-auto text-center">
         <h2 class="text-3xl font-bold mb-4">Stay Updated</h2>
-        <p class="text-gray-600 mb-8">Subscribe to our newsletter to get all our news in your inbox.</p>
+        <p class="text-gray-600 dark:text-gray-300 mb-8">Subscribe to our newsletter to get all our news in your
+          inbox.</p>
 
         <form x-data="{
-                  email: '',
-                  success: false,
-                  error: false,
-                  loading: false,
-                  submit() {
-                      this.loading = true;
-                      // Add your newsletter subscription logic here
-                      setTimeout(() => {
-                          this.loading = false;
-                          this.success = true;
-                          this.email = '';
-                      }, 1000);
-                  }
-              }" @submit.prevent="submit" class="relative">
-          <div class="flex gap-4">
+            email: '',
+            success: false,
+            error: false,
+            loading: false,
+            submit() {
+                this.loading = true;
+                // Add your newsletter subscription logic here
+                setTimeout(() => {
+                    this.loading = false;
+                    this.success = true;
+                    this.email = '';
+                }, 1000);
+            }
+          }" @submit.prevent="submit" class="relative">
+          <div class="flex flex-col md:flex-row">
             <input type="email"
                    x-model="email"
                    required
-                   class="w-full px-4 py-3 rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                   class="w-full px-4 py-3 rounded-b-none rounded-t-lg md:rounded-s-lg md:rounded-e-none border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                    placeholder="Enter your email">
             <button type="submit"
                     :disabled="loading"
-                    class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 disabled:opacity-50">
+                    class="px-6 py-3 bg-ca-highlight rounded-t-none rounded-b-lg md:rounded-e-lg md:rounded-s-none text-white hover:bg-ca-primary transition-colors duration-300 disabled:opacity-50">
               <span x-show="!loading">Subscribe</span>
               <span x-show="loading" class="flex items-center">
-                              <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
-                                   fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                        stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor"
-                                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                            Processing...
-                        </span>
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                     fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                            stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Processing...
+              </span>
             </button>
           </div>
 

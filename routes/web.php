@@ -22,3 +22,16 @@ Route::get(
   [HomeController::class, 'services']
 )->name('services');
 
+Route::prefix('blogs')->name('blogs.')->group(function () {
+
+  Route::get(
+    '/',
+    [\App\Http\Controllers\BlogPostController::class, 'index']
+  )->name('index');
+
+  Route::get(
+    '/{slug}',
+    [\App\Http\Controllers\BlogPostController::class, 'show']
+  )->name('show');
+
+});
