@@ -18,9 +18,9 @@ Route::get(
 )->name('contact');
 
 Route::get(
-  '/services',
-  [HomeController::class, 'services']
-)->name('services');
+  '/projects',
+  [\App\Http\Controllers\ProjectController::class, 'index']
+)->name('projects');
 
 Route::prefix('blogs')->name('blogs.')->group(function () {
 

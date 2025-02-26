@@ -34,24 +34,14 @@
         <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
           Home
         </x-nav-link>
+
         <x-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
           About Us
         </x-nav-link>
 
-        <x-dropdown>
-          <x-slot name="trigger">
-            Projects
-          </x-slot>
-
-          <x-dropdown-link href="#">
-            Current Projects
-          </x-dropdown-link>
-
-          <x-dropdown-link href="#">
-            Previous Projects
-          </x-dropdown-link>
-        </x-dropdown>
-        <!-- Add other navigation items -->
+        <x-nav-link href="{{ route('projects') }}" :active="request()->routeIs('projects')">
+          Projects
+        </x-nav-link>
       </div>
 
       <!-- Mobile menu button -->

@@ -46,10 +46,80 @@ class AboutController extends Controller
   {
     return [
       [
-        'name' => 'John Doe',
-        'position' => 'Executive Director',
-        'image' => 'img/team/director.jpg',
-        'bio' => 'Over 15 years of experience in civil society organizations and community development.',
+        'name' => 'Linda Harawa',
+        'position' => 'Chairperson',
+        'image' => 'img/team/linda-harawa.jpg',
+        'bio' => 'Over 15 years of experience in programme development, youth leadership, and child protection.',
+        'social' => [
+          'linkedin' => '#',
+          'twitter' => '#',
+        ],
+      ],
+      [
+        'name' => 'John Chipeta',
+        'position' => 'Vice Chairperson',
+        'image' => 'img/team/john-chipeta.jpg',
+        'bio' => 'Public policy expert with a focus on governance, leadership, and human rights.',
+        'social' => [
+          'linkedin' => '#',
+          'twitter' => '#',
+        ],
+      ],
+      [
+        'name' => 'Stella Nkhonya Chisangwala',
+        'position' => 'Board Member',
+        'image' => 'img/team/stella-nkhonya.jpg',
+        'bio' => 'Champion for disability rights and empowerment of women and girls with disabilities.',
+        'social' => [
+          'linkedin' => '#',
+          'twitter' => '#',
+        ],
+      ],
+      [
+        'name' => 'Alemekezezeke Chitanje',
+        'position' => 'Board Member',
+        'image' => 'img/team/alemekezezeke-chitanje.jpg',
+        'bio' => 'Lecturer in Teachers Education with a passion for philanthropic work and supporting vulnerable groups.',
+        'social' => [
+          'linkedin' => '#',
+          'twitter' => '#',
+        ],
+      ],
+      [
+        'name' => 'Cyprian Chimbinya',
+        'position' => 'Board Member',
+        'image' => 'img/team/cyprian-chimbinya.jpg',
+        'bio' => 'Governance and advocacy expert with extensive experience in community development and project management.',
+        'social' => [
+          'linkedin' => '#',
+          'twitter' => '#',
+        ],
+      ],
+      [
+        'name' => 'Viwemi Louis Chavula',
+        'position' => 'Programs Subcommittee Chairperson',
+        'image' => 'img/team/viwemi-chavula.jpg',
+        'bio' => 'Human rights advocate with over 20 years of experience in democratic governance and women\'s empowerment.',
+        'social' => [
+          'linkedin' => '#',
+          'twitter' => '#',
+        ],
+      ],
+      [
+        'name' => 'Jimmy Tsonga',
+        'position' => 'Finance Subcommittee Chairperson',
+        'image' => 'img/team/jimmy-tsonga.jpg',
+        'bio' => 'Chartered Accountant with expertise in grants and finance management.',
+        'social' => [
+          'linkedin' => '#',
+          'twitter' => '#',
+        ],
+      ],
+      [
+        'name' => 'Baxton Nkhoma',
+        'position' => 'Secretary to the Board',
+        'image' => 'img/team/baxton-nkhoma.jpg',
+        'bio' => 'Governance and human rights activist with a focus on policy advocacy and institutional development.',
         'social' => [
           'linkedin' => '#',
           'twitter' => '#',
@@ -88,9 +158,44 @@ class AboutController extends Controller
   {
     return [
       [
-        'name' => 'UNICEF',
-        'logo' => 'images/partners/unicef.png',
-        'website' => 'https://unicef.org',
+        'name' => 'United Nations Development Programme (UNDP)',
+        'logo' => 'images/partners/undp.png',
+        'website' => 'https://undp.org',
+      ],
+      [
+        'name' => 'European Union',
+        'logo' => 'images/partners/eu.png',
+        'website' => 'https://europa.eu',
+      ],
+      [
+        'name' => 'USAID',
+        'logo' => 'images/partners/usaid.png',
+        'website' => 'https://usaid.gov',
+      ],
+      [
+        'name' => 'Oxfam',
+        'logo' => 'images/partners/oxfam.png',
+        'website' => 'https://oxfam.org',
+      ],
+      [
+        'name' => 'Royal Norwegian Embassy',
+        'logo' => 'images/partners/norwegian-embassy.png',
+        'website' => 'https://norway.no',
+      ],
+      [
+        'name' => 'National Endowment for Democracy',
+        'logo' => 'images/partners/ned.png',
+        'website' => 'https://ned.org',
+      ],
+      [
+        'name' => 'ActionAid Malawi',
+        'logo' => 'images/partners/actionaid.png',
+        'website' => 'https://actionaid.org',
+      ],
+      [
+        'name' => 'NICE Trust',
+        'logo' => 'images/partners/nice-trust.png',
+        'website' => 'https://nicetrust.org',
       ],
     ];
   }
