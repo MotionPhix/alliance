@@ -23,8 +23,8 @@
   </div>
 
   <!-- Main Navigation -->
-  <nav x-data="{ isOpen: false }" class="container mx-auto px-4">
-    <div class="flex justify-between items-center py-4">
+  <nav x-data="{ isOpen: false }" class="container mx-auto px-4 sticky top-0">
+    <div class="flex justify-between items-center py-2">
       <a href="{{ route('home') }}" class="flex-shrink-0">
         <img src="{{ asset('images/logo.png') }}" alt="Citizen Alliance" class="h-12">
       </a>
@@ -46,6 +46,9 @@
         <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
           Contact Us
         </x-nav-link>
+
+        <!-- Add the mode-switch component here -->
+        <x-mode-switch />
       </div>
 
       <!-- Mobile menu button -->
@@ -117,6 +120,11 @@
           :active="request()->routeIs('contact')">
           Contact Us
         </x-mobile-nav-link>
+
+        <!-- Add the mode-switch component here for mobile -->
+        <div class="px-4 py-2">
+          <x-mode-switch />
+        </div>
       </div>
     </div>
   </nav>

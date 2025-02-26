@@ -43,3 +43,17 @@
 .animate-float-in {
   animation: floatIn 0.5s ease-out forwards;
 }
+
+/* Add dark mode styles for specific elements */
+.dark {
+  background-color: #1a202c; /* Dark background */
+  color: #f7fafc; /* Light text */
+}
+
+.dark .bg-white {
+  background-color: #2d3748; /* Darker background for white elements */
+}
+
+.dark .text-gray-800 {
+  color: #f7fafc; /* Light text for dark mode */
+}
