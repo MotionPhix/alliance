@@ -25,46 +25,11 @@
       <div>
         <h3 class="text-white text-lg font-semibold mb-6 font-display">Quick Links</h3>
         <ul class="space-y-4">
-          <li>
-            <a href="{{ route('home') }}" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center">
-              <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-              </svg>
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="{{ route('about') }}" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center">
-              <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-              </svg>
-              About Us
-            </a>
-          </li>
-          <li>
-            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center">
-              <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-              </svg>
-              Projects
-            </a>
-          </li>
-          <li>
-            <a href="{{ route('contact') }}" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center">
-              <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-              </svg>
-              Contact Us
-            </a>
-          </li>
-          <li>
-            <a href="{{ route('donation.form') }}" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center">
-              <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-              </svg>
-              Donate
-            </a>
-          </li>
+          <li><a href="{{ route('home') }}" class="text-gray-400 hover:text-white transition-colors duration-300">Home</a></li>
+          <li><a href="{{ route('about') }}" class="text-gray-400 hover:text-white transition-colors duration-300">Organisation</a></li>
+          <li><a href="{{ route('projects') }}" class="text-gray-400 hover:text-white transition-colors duration-300">Projects</a></li>
+          <li><a href="{{ route('contact') }}" class="text-gray-400 hover:text-white transition-colors duration-300">Contact Us</a></li>
+          <li><a href="{{ route('donation.form') }}" class="text-gray-400 hover:text-white transition-colors duration-300">Donate</a></li>
         </ul>
       </div>
 
@@ -72,11 +37,12 @@
       <div>
         <h3 class="text-white text-lg font-semibold mb-6 font-display">Office Hours</h3>
         <ul class="space-y-4">
-          <li class="flex justify-between items-center">
+          <li class="grid">
             <span class="text-gray-400">Monday - Friday</span>
-            <span class="text-white">8:00 AM - 16:00</span>
+            <span class="text-white">8:00 AM - 4:00 PM</span>
           </li>
-          <li class="flex justify-between items-center">
+
+          <li class="grid">
             <span class="text-gray-400">Saturday & Sunday</span>
             <span class="text-white">Closed</span>
           </li>
@@ -112,17 +78,15 @@
             <button type="submit"
                     :disabled="loading"
                     class="px-4 py-2 bg-blue-600 text-white rounded-r-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50">
-                            <span x-show="!loading">
-                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                                </svg>
-                            </span>
+              <span x-show="!loading">
+                Subscribe
+              </span>
               <span x-show="loading" class="flex items-center">
-                                <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                </svg>
-                            </span>
+                <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              </span>
             </button>
           </div>
           <div x-show="success"

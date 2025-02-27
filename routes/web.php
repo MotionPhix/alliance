@@ -8,7 +8,7 @@ Route::get(
 )->name('home');
 
 Route::get(
-  '/about',
+  '/organisation',
   [\App\Http\Controllers\AboutController::class, 'index']
 )->name('about');
 

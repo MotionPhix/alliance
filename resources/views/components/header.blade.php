@@ -1,4 +1,4 @@
-<header class="bg-white dark:bg-gray-900 shadow-sm">
+<header x-data="{ isOpen: false }" class="bg-white dark:bg-gray-900 shadow-sm">
   <!-- Top Bar -->
   <div class="bg-blue-600 dark:bg-blue-800">
     <div class="container mx-auto px-4 py-2">
@@ -23,7 +23,7 @@
   </div>
 
   <!-- Main Navigation -->
-  <nav x-data="{ isOpen: false }" class="container mx-auto px-4 sticky top-0">
+  <nav class="container mx-auto px-4 !sticky top-0 z-50 shadow-sm">
     <div class="flex justify-between items-center py-2">
       <a href="{{ route('home') }}" class="flex-shrink-0">
         <img src="{{ asset('images/logo.png') }}" alt="Citizen Alliance" class="h-12">
@@ -36,7 +36,7 @@
         </x-nav-link>
 
         <x-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
-          About Us
+          Organisation
         </x-nav-link>
 
         <x-nav-link href="{{ route('projects') }}" :active="request()->routeIs('projects')">
@@ -47,7 +47,6 @@
           Contact Us
         </x-nav-link>
 
-        <!-- Add the mode-switch component here -->
         <x-mode-switch />
       </div>
 

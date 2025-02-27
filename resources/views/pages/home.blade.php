@@ -68,7 +68,9 @@
   </section>
 
   <x-content-container>
-    <x-impact-stats :metrics="[
+
+    <x-impact-stats
+      :metrics="[
             [
                 'icon' => 'users',
                 'title' => 'People Reached',
@@ -123,6 +125,10 @@
     <x-programs-section :programs="$programs"/>
 
     <!-- Approaches Section -->
+    <h2 class="text-3xl font-bold text-center font-display mb-12 text-ca-primary dark:text-ca-highlight">
+      Our Approach
+    </h2>
+
     <div class="grid md:grid-cols-3 gap-8">
       @foreach($approaches as $approach)
         <div
