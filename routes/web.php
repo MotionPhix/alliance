@@ -34,6 +34,28 @@ Route::prefix('blogs')->name('blogs.')->group(function () {
     [\App\Http\Controllers\BlogPostController::class, 'show']
   )->name('show');
 
+// Comments
+  Route::post(
+    '/{slug}/comments',
+    [\App\Http\Controllers\CommentController::class, 'store']
+  )->name('comments.store');
+
+  Route::delete(
+    '/comments/{comment}',
+    [\App\Http\Controllers\CommentController::class, 'destroy']
+  )->name('comments.destroy');
+
+// Likes
+  Route::post(
+    '/{slug}/likes',
+    [\App\Http\Controllers\LikeController::class, 'store']
+  )->name('likes.store');
+
+  Route::delete(
+    '/likes/{like}',
+    [\App\Http\Controllers\LikeController::class, 'destroy']
+  )->name('likes.destroy');
+
 });
 
 Route::prefix('donate')->name('donation.')->group(function () {

@@ -22,4 +22,14 @@ class BlogPost extends Model
   protected $casts = [
     'published_at' => 'date',
   ];
+
+  public function comments()
+  {
+    return $this->hasMany(Comment::class);
+  }
+
+  public function likes()
+  {
+    return $this->hasMany(Like::class);
+  }
 }

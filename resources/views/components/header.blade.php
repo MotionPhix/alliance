@@ -47,6 +47,10 @@
           Contact Us
         </x-nav-link>
 
+        <x-nav-link href="{{ route('blogs.index') }}" :active="request()->routeIs('blogs.*')">
+          Blogs
+        </x-nav-link>
+
         <x-mode-switch />
       </div>
 
@@ -77,47 +81,25 @@
         </x-mobile-nav-link>
 
         <x-mobile-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
-          About Us
-        </x-mobile-nav-link>
-
-        <div x-data="{ open: false }" class="space-y-1">
-          <button @click="open = !open"
-                  class="w-full flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-gray-50">
-            <span>Projects</span>
-            <x-heroicon-o-chevron-down class="w-4 h-4 ml-2" ::class="{ 'rotate-180': open }"/>
-          </button>
-
-          <div x-show="open" class="pl-4 space-y-1" style="display: none;">
-            <x-mobile-nav-link
-              href="#"
-              :active="request()->routeIs('projects.current')">
-              Current Projects
-            </x-mobile-nav-link>
-
-            <x-mobile-nav-link
-              href="#"
-              :active="request()->routeIs('projects.previous')">
-              Previous Projects
-            </x-mobile-nav-link>
-          </div>
-        </div>
-
-        <x-mobile-nav-link
-          href="#"
-          :active="request()->routeIs('governance')">
-          Governance
+          Organisation
         </x-mobile-nav-link>
 
         <x-mobile-nav-link
-          href="#"
-          :active="request()->routeIs('partnerships')">
-          Partnerships
+          href="{{ route('projects') }}"
+          :active="request()->routeIs('projects')">
+          Projects
         </x-mobile-nav-link>
 
         <x-mobile-nav-link
           href="{{ route('contact') }}"
           :active="request()->routeIs('contact')">
           Contact Us
+        </x-mobile-nav-link>
+
+        <x-mobile-nav-link
+          href="{{ route('blogs.index') }}"
+          :active="request()->routeIs('blogs.*')">
+          Blogs
         </x-mobile-nav-link>
 
         <!-- Add the mode-switch component here for mobile -->
