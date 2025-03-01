@@ -61,23 +61,22 @@ export default {
         '102': '1.02',
       },
       animation: {
-        'fade-in': 'fadeIn 1s ease-in forwards',
-        'fade-in-delay': 'fadeIn 1s ease-in 0.5s forwards',
+        'fade-in': 'fadeIn 0.5s ease-in-out',
+        'scroll': 'scroll 40s linear infinite',
       },
       boxShadow: {
         'card': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
         'card-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'
       },
       keyframes: {
+        scroll: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
+
         fadeIn: {
-          '0%': {
-            opacity: '0',
-            transform: 'translateY(20px)',
-          },
-          '100%': {
-            opacity: '1',
-            transform: 'translateY(0)',
-          },
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
       },
     },

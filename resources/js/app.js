@@ -4,8 +4,11 @@ import 'swiper/swiper-bundle.css';
 import Alpine from 'alpinejs'
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import intersect from '@alpinejs/intersect'
 
 window.Alpine = Alpine
+
+Alpine.plugin(intersect)
 
 Alpine.start()
 

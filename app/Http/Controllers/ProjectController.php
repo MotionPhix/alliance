@@ -10,42 +10,92 @@ class ProjectController extends Controller
   {
     $partners = [
       [
-        'name' => 'United Nations Development Programme (UNDP)',
-        'logo' => asset('images/partners/undp-logo.png'),
-        'description' => 'Supporting the Spotlight Initiative to eliminate violence against women and girls.',
+        'name' => 'UNDP Malawi',
+        'logo' => asset('images/partners/undp.png'),
+        'description' => 'Supporting democratic governance and sustainable development initiatives.',
+        'website' => 'https://www.mw.undp.org'
       ],
       [
-        'name' => 'European Union',
-        'logo' => asset('images/partners/eu-logo.png'),
-        'description' => 'Funding governance and capacity-building initiatives across Malawi.',
+        'name' => 'ActionAid Malawi',
+        'logo' => asset('images/partners/actionaid.png'),
+        'description' => 'Working together to fight poverty and injustice in communities.',
+        'website' => 'https://malawi.actionaid.org'
       ],
       [
-        'name' => 'USAID',
-        'logo' => asset('images/partners/usaid-logo.png'),
-        'description' => 'Strengthening local government structures for improved accountability.',
+        'name' => 'World Bank Group',
+        'logo' => asset('images/partners/world-bank.png'),
+        'description' => 'Partnering on economic development and poverty reduction programs.',
+        'website' => 'https://www.worldbank.org'
       ],
-      // Add more partners as needed
     ];
 
     $projects = [
       [
-        'name' => 'Spotlight Initiative',
-        'description' => 'Eliminating violence against women and girls in Malawi.',
-        'funded_by' => 'UNDP and European Union',
+        'name' => 'Youth Empowerment Initiative',
+        'description' => 'Empowering young people through skills development and entrepreneurship training.',
+        'funded_by' => 'UNDP Malawi',
+        'duration' => '2024 - Present',
+        'image' => asset('images/projects/youth-empowerment.jpg'),
+        'status' => 'ongoing',
+        'key_achievements' => [
+          'Trained 500+ youth in digital skills',
+          'Launched 50 youth-led businesses',
+          'Created 200+ employment opportunities'
+        ]
       ],
       [
-        'name' => 'Civic Space',
-        'description' => 'Building the capacity of civil society and citizen groups.',
-        'funded_by' => 'National Endowment for Democracy',
+        'name' => 'Community Health Access Program',
+        'description' => 'Improving access to healthcare services in rural communities.',
+        'funded_by' => 'World Bank Group',
+        'duration' => '2023 - 2025',
+        'image' => asset('images/projects/health-access.jpg'),
+        'status' => 'ongoing',
+        'key_achievements' => [
+          'Established 15 mobile clinics',
+          'Served 10,000+ patients',
+          'Trained 100 community health workers'
+        ]
       ],
       [
-        'name' => '50-50 Campaign',
-        'description' => 'Increasing women\'s political representation in local government and Parliament.',
-        'funded_by' => 'Royal Norwegian Embassy',
+        'name' => 'Sustainable Agriculture Project',
+        'description' => 'Promoting climate-smart agriculture practices among smallholder farmers.',
+        'funded_by' => 'ActionAid Malawi',
+        'duration' => '2024 - 2026',
+        'image' => asset('images/projects/agriculture.jpg'),
+        'status' => 'ongoing',
+        'key_achievements' => [
+          'Trained 1,000+ farmers',
+          'Implemented irrigation systems',
+          'Increased crop yields by 40%'
+        ]
       ],
-      // Add more projects as needed
     ];
 
-    return view('pages.project', compact('partners', 'projects'));
+    $impactStats = [
+      [
+        'number' => '50000',
+        'suffix' => '+',
+        'label' => 'People Reached',
+        'icon' => 'users'
+      ],
+      [
+        'number' => '32',
+        'label' => 'Schools Supported',
+        'icon' => 'academic-cap'
+      ],
+      [
+        'number' => '85',
+        'label' => 'Medical Camps',
+        'icon' => 'heart'
+      ],
+      [
+        'number' => '450',
+        'suffix' => '+',
+        'label' => 'Training Sessions',
+        'icon' => 'academic-cap'
+      ],
+    ];
+
+    return view('pages.project', compact('partners', 'projects', 'impactStats'));
   }
 }

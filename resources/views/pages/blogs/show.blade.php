@@ -58,36 +58,74 @@
 
           <!-- Like Button -->
           <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-            <div x-data="{ liked: {{ $post->likes->contains('user_id', auth()->id()) ? 'true' : 'false' }} }">
-              <button @click="
-                axios.post('{{ route('blogs.likes.store', $post->slug) }}')
-                  .then(response => {
-                    liked = true;
-                    location.reload();
-                  })
-                  .catch(error => {
-                    if (error.response.status === 401) {
+            <div
+              x-data="{
+                liked: {{ $post->likes->contains('user_id', auth()->id()) ? 'true' : 'false' }},
+                likesCount: {{ $post->likes->count() }},
+                isProcessing: false,
+                async toggleLike() {
+                  if (this.isProcessing) return;
 
+                  this.isProcessing = true;
+
+                  try {
+                    if (!this.liked) {
+                      await axios.post('{{ route('blogs.likes.store', $post->slug) }}');
+                      this.liked = true;
+                      this.likesCount++;
+                    } else {
+                      await axios.delete('{{ url('blogs/likes') }}/' + this.likeId);
+                      this.liked = false;
+                      this.likesCount--;
                     }
-                  });
-              " x-show="!liked"
-                 class="inline-flex items-center px-6 py-3 bg-ca-primary text-white rounded-xl hover:bg-ca-highlight transition-colors duration-300">
-                <x-heroicon-o-heart class="h-5 w-5 mr-2" />
-{{--                window.location.href = '{{ route('login') }}';--}}
-                Like this post
+                  } catch (error) {
+                    if (error.response?.status === 401) {
+                      window.location.href = '/';
+                    }
+                  } finally {
+                    this.isProcessing = false;
+                  }
+                }
+              }"
+             class="flex flex-col items-center space-y-4">
+{{--              // {{ route('login') }}--}}
+              <button
+                @click="toggleLike"
+                :disabled="isProcessing"
+                :class="{
+                  'bg-ca-primary hover:bg-ca-highlight': !liked,
+                  'bg-red-600 hover:bg-red-700': liked,
+                  'opacity-75 cursor-not-allowed': isProcessing
+                }"
+                class="inline-flex items-center px-6 py-3 text-white rounded-xl transition-all duration-300">
+                <div class="relative">
+                  {{-- Background Heart (Always visible) --}}
+                  <x-heroicon-s-heart
+                    class="h-5 w-5 mr-2 transition-transform duration-300"
+                  />
+
+                  {{-- Filled Heart (Shows when liked) --}}
+                  <x-heroicon-s-heart
+                    class="h-5 w-5 mr-2 absolute inset-0 transition-transform duration-300"
+                  />
+                </div>
+
+                <span x-text="liked ? 'Unlike' : 'Like this post'"></span>
               </button>
 
-              <button @click="
-                axios.delete('{{ route('blogs.likes.destroy', $post->likes->where('user_id', auth()->id())->first()) }}')
-                  .then(response => {
-                    liked = false;
-                    location.reload();
-                  });
-              " x-show="liked"
-                      class="inline-flex items-center px-6 py-3 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-colors duration-300">
-                <x-heroicon-s-heart class="h-5 w-5 mr-2" />
-                Unlike
-              </button>
+
+
+              <!-- Like Counter with Animation -->
+              <div class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+                <x-heroicon-s-heart class="h-4 w-4 text-red-500" />
+                <span
+                  x-text="likesCount"
+                  class="transition-all duration-300"
+                  :class="{ 'scale-125': isProcessing }">
+                </span>
+
+                <span x-text="likesCount === 1 ? 'Like' : 'Likes'"></span>
+              </div>
             </div>
           </div>
         </div>
@@ -101,13 +139,13 @@
           <!-- Comment Form -->
           <div x-data="{ content: '' }" class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-6 mb-8">
             <form @submit.prevent="
-              axios.post('{{ route('comments.store', $post->slug) }}', { content: content })
+              axios.post('{{ route('blogs.comments.store', $post->slug) }}', { content: content })
                 .then(response => {
                   location.reload();
                 })
                 .catch(error => {
                   if (error.response.status === 401) {
-                    window.location.href = '{{ route('login') }}';
+                    window.location.href = '/';
                   }
                 });
             ">
