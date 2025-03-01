@@ -2,33 +2,62 @@
 
 namespace App\Filament\Forms\Components;
 
-use Filament\Forms\Components\Field;
-use Spatie\Tags\Tag;
+use Closure;
+use Filament\Forms\Components\TagsInput;
 
-class SpatieTagsInput extends Field
+class SpatieTagsInput extends TagsInput
 {
-  protected string $view = 'filament.forms.components.spatie-tags-input';
-
-  protected string $type = 'default';
+  protected ?string $type = null;
 
   public function type(string $type): static
   {
     $this->type = $type;
+
     return $this;
   }
 
-  public function getTags(): array
+  public function dehydrateState(array &$state, bool $isDehydrated = true): void
   {
-    return Tag::query()
-      ->where('type', $this->type)
-      ->pluck('name')
-      ->toArray();
+    parent::dehydrateState($state, $isDehydrated);
   }
 
-  public function getViewData(): array
+  public function afterStateHydrated(?Closure $callback = null): static
   {
-    return array_merge(parent::getViewData(), [
-      'tags' => $this->getTags(),
-    ]);
+    if ($callback !== null) {
+      return parent::afterStateHydrated($callback);
+    }
+
+    $record = $this->getRecord();
+
+    if (! $record) {
+      return $this;
+    }
+
+    $this->state($record->tags->where('type', $this->type)->pluck('name')->toArray());
+
+    return $this;
+  }
+
+  public function beforeStateDehydrated(?Closure $callback = null): static
+  {
+    if ($callback !== null) {
+      return parent::beforeStateDehydrated($callback);
+    }
+
+    $record = $this->getRecord();
+
+    if (! $record) {
+      return $this;
+    }
+
+    $tags = $this->getState() ?? [];
+
+    if ($this->type) {
+      $record->syncTagsWithType($tags, $this->type);
+    } else {
+      $record->syncTags($tags);
+    }
+
+    return $this;
   }
 }

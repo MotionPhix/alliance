@@ -2,168 +2,217 @@
   <x-slot name="title">{{ $post->title }}</x-slot>
   <x-slot name="description">{{ $post->excerpt }}</x-slot>
 
-  <div class="container mx-auto px-4 py-12">
-    <!-- Blog Post -->
-    <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-      <!-- Post Image -->
-      @if($post->image)
-        <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}"
-             class="w-full h-64 object-cover rounded-lg mb-6">
+  <article class="min-h-screen bg-gray-50 dark:bg-gray-900 pt-12 pb-24">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Article Header -->
+      <header class="max-w-4xl mx-auto text-center mb-12">
+        @if($post->tags->isNotEmpty())
+          <div class="flex flex-wrap justify-center gap-2 mb-6">
+            @foreach($post->tags as $tag)
+              <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-ca-primary/10 text-ca-primary">
+                {{ $tag->name }}
+              </span>
+            @endforeach
+          </div>
+        @endif
+
+        <h1 class="text-4xl md:text-5xl font-display font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+          {{ $post->title }}
+        </h1>
+
+        <div class="flex items-center justify-center space-x-6 text-gray-600 dark:text-gray-400">
+          <div class="flex items-center">
+            <x-heroicon-o-user-circle class="h-5 w-5 mr-2" />
+            <span>{{ $post->user->name }}</span>
+          </div>
+          <div class="flex items-center">
+            <x-heroicon-o-calendar class="h-5 w-5 mr-2" />
+            <span>{{ $post->published_at->format('M d, Y') }}</span>
+          </div>
+          <div class="flex items-center">
+            <x-heroicon-o-heart class="h-5 w-5 mr-2" />
+            <span>{{ $post->likes->count() }} Likes</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Featured Image -->
+      @if($post->hasMedia('blog_images'))
+        <div class="max-w-5xl mx-auto mb-12">
+          <div class="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-xl">
+            <img
+              src="{{ $post->getFirstMediaUrl('blog_images') }}"
+              alt="{{ $post->title }}"
+              class="w-full h-full object-cover"
+            >
+          </div>
+        </div>
       @endif
 
-      <!-- Post Title -->
-      <h1 class="text-3xl font-display font-bold text-gray-800 dark:text-gray-200 mb-4">
-        {{ $post->title }}
-      </h1>
+      <!-- Article Content -->
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-8 md:p-12">
+          <div class="prose dark:prose-invert prose-lg max-w-none">
+            {!! $post->content !!}
+          </div>
 
-      <!-- Post Meta -->
-      <div class="flex items-center space-x-4 text-gray-600 dark:text-gray-400 mb-6">
-        <span>{{ $post->published_at->format('M d, Y') }}</span>
-        <span>•</span>
-        <span>{{ $post->likes->count() }} Likes</span>
-      </div>
+          <!-- Like Button -->
+          <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+            <div x-data="{ liked: {{ $post->likes->contains('user_id', auth()->id()) ? 'true' : 'false' }} }">
+              <button @click="
+                axios.post('{{ route('blogs.likes.store', $post->slug) }}')
+                  .then(response => {
+                    liked = true;
+                    location.reload();
+                  })
+                  .catch(error => {
+                    if (error.response.status === 401) {
 
-      <!-- Post Content -->
-      <div class="prose dark:prose-invert max-w-none">
-        {!! $post->content !!}
-      </div>
+                    }
+                  });
+              " x-show="!liked"
+                 class="inline-flex items-center px-6 py-3 bg-ca-primary text-white rounded-xl hover:bg-ca-highlight transition-colors duration-300">
+                <x-heroicon-o-heart class="h-5 w-5 mr-2" />
+{{--                window.location.href = '{{ route('login') }}';--}}
+                Like this post
+              </button>
 
-      <!-- Like Button -->
-      <div class="mt-8">
-        <form action="{{ route('likes.store', $post->slug) }}" method="POST" class="inline">
-          @csrf
-          <div x-data="{ liked: {{ $post->likes->contains('user_id', auth()->id()) ? 'true' : 'false' }}">
-            <button @click="
-              axios.post('{{ route('likes.store', $post->slug) }}')
+              <button @click="
+                axios.delete('{{ route('blogs.likes.destroy', $post->likes->where('user_id', auth()->id())->first()) }}')
+                  .then(response => {
+                    liked = false;
+                    location.reload();
+                  });
+              " x-show="liked"
+                      class="inline-flex items-center px-6 py-3 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-colors duration-300">
+                <x-heroicon-s-heart class="h-5 w-5 mr-2" />
+                Unlike
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comments Section -->
+        <section class="mt-12">
+          <h2 class="text-2xl font-display font-bold text-gray-900 dark:text-white mb-8">
+            Comments ({{ $post->comments->count() }})
+          </h2>
+
+          <!-- Comment Form -->
+          <div x-data="{ content: '' }" class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-6 mb-8">
+            <form @submit.prevent="
+              axios.post('{{ route('comments.store', $post->slug) }}', { content: content })
                 .then(response => {
-                  liked = true;
-                  location.reload(); // Refresh the page to update like count
+                  location.reload();
                 })
                 .catch(error => {
                   if (error.response.status === 401) {
                     window.location.href = '{{ route('login') }}';
                   }
                 });
-            " x-show="!liked"
-               class="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-            </svg>
-            Like
-            </button>
+            ">
+              <textarea
+                x-model="content"
+                rows="4"
+                class="w-full p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-ca-primary focus:border-transparent transition duration-200 ease-in-out"
+                placeholder="Share your thoughts..."
+              ></textarea>
 
-            <button @click="
-              axios.delete('{{ route('likes.destroy', $post->likes->where('user_id', auth()->id())->first()) }}')
-                .then(response => {
-                  liked = false;
-                  location.reload(); // Refresh the page to update like count
-                });
-            " x-show="liked"
-                    class="flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-300">
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-              </svg>
-              Unlike
-            </button>
+              <div class="mt-4 flex justify-end">
+                <button
+                  type="submit"
+                  class="inline-flex items-center px-6 py-3 bg-ca-primary text-white rounded-xl hover:bg-ca-highlight transition-colors duration-300">
+                  <x-heroicon-o-paper-airplane class="h-5 w-5 mr-2" />
+                  Post Comment
+                </button>
+              </div>
+            </form>
           </div>
-        </form>
-      </div>
-    </article>
 
-    <!-- Comments Section -->
-    <section class="mt-12">
-      <h2 class="text-2xl font-display font-bold text-gray-800 dark:text-gray-200 mb-6">
-        Comments ({{ $post->comments->count() }})
-      </h2>
-
-      <!-- Comment Form -->
-      <form x-data="{ content: '' }" @submit.prevent="
-          axios.post('{{ route('comments.store', $post->slug) }}', { content: content })
-            .then(response => {
-              location.reload(); // Refresh the page to show the new comment
-            })
-            .catch(error => {
-              if (error.response.status === 401) {
-                window.location.href = '{{ route('login') }}';
-              }
-            });
-        ">
-        @csrf
-        <textarea
-          x-model="content" rows="4"
-          class="w-full p-4 rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-blue-500"
-          placeholder="Write a comment...">
-        </textarea>
-
-        <button
-          type="submit"
-          class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300">
-          Submit Comment
-        </button>
-      </form>
-
-      <!-- Comments List -->
-      <div class="space-y-6">
-        @foreach($post->comments as $comment)
-          <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-            <div class="flex items-center justify-between mb-4">
-              <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                  <span class="text-gray-600 dark:text-gray-400">{{ substr($comment->user->name, 0, 1) }}</span>
-                </div>
-                <div>
-                  <p class="font-semibold text-gray-800 dark:text-gray-200">{{ $comment->user->name }}</p>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">{{ $comment->created_at->diffForHumans() }}</p>
+          <!-- Comments List -->
+          <div class="space-y-6">
+            @foreach($post->comments->sortByDesc('created_at') as $comment)
+              <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-6">
+                <div class="flex items-start space-x-4">
+                  <div class="flex-shrink-0">
+                    <div class="w-12 h-12 rounded-full bg-ca-primary/10 flex items-center justify-center">
+                      <span class="text-ca-primary font-semibold text-lg">
+                        {{ substr($comment->user->name, 0, 1) }}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center justify-between mb-2">
+                      <div>
+                        <h4 class="text-lg font-semibold text-gray-900 dark:text-white">
+                          {{ $comment->user->name }}
+                        </h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                          {{ $comment->created_at->diffForHumans() }}
+                        </p>
+                      </div>
+                      @if(auth()->id() === $comment->user_id)
+                        <form action="{{ route('comments.destroy', $comment) }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit"
+                                  class="text-red-600 hover:text-red-800 dark:hover:text-red-400 transition-colors duration-300">
+                            <x-heroicon-o-trash class="h-5 w-5" />
+                          </button>
+                        </form>
+                      @endif
+                    </div>
+                    <p class="text-gray-700 dark:text-gray-300">
+                      {{ $comment->content }}
+                    </p>
+                  </div>
                 </div>
               </div>
-              @if(auth()->id() === $comment->user_id)
-                <form action="{{ route('comments.destroy', $comment) }}" method="POST">
-                  @csrf
-                  @method('DELETE')
-                  <button type="submit"
-                          class="text-red-600 hover:text-red-800 dark:hover:text-red-400 transition-colors duration-300">
-                    Delete
-                  </button>
-                </form>
-              @endif
-            </div>
-            <p class="text-gray-700 dark:text-gray-300">{{ $comment->content }}</p>
+            @endforeach
           </div>
-        @endforeach
+        </section>
       </div>
+    </div>
 
-      <!-- Feedback Messages -->
-      <div x-data="{ showMessage: false, message: '', isError: false }" x-init="
-        @if(session('success'))
-          showMessage = true;
-          message = '{{ session('success') }}';
-          isError = false;
-          setTimeout(() => showMessage = false, 3000);
-        @endif
-        @if(session('error'))
-          showMessage = true;
-          message = '{{ session('error') }}';
-          isError = true;
-          setTimeout(() => showMessage = false, 3000);
-        @endif
-      ">
-        <div x-show="showMessage" x-transition:enter="transition ease-out duration-300"
-             x-transition:enter-start="opacity-0 transform translate-y-2"
-             x-transition:enter-end="opacity-100 transform translate-y-0"
-             x-transition:leave="transition ease-in duration-200"
-             x-transition:leave-start="opacity-100 transform translate-y-0"
-             x-transition:leave-end="opacity-0 transform translate-y-2"
-             class="fixed bottom-4 right-4 z-50">
-          <div :class="{
-      'bg-green-500': !isError,
-      'bg-red-500': isError
-    }" class="text-white px-6 py-3 rounded-lg shadow-lg">
-            <p x-text="message"></p>
+    <!-- Toast Messages -->
+    <div x-data="{ showMessage: false, message: '', isError: false }"
+         x-init="
+           @if(session('success'))
+             showMessage = true;
+             message = '{{ session('success') }}';
+             isError = false;
+             setTimeout(() => showMessage = false, 3000);
+           @endif
+           @if(session('error'))
+             showMessage = true;
+             message = '{{ session('error') }}';
+             isError = true;
+             setTimeout(() => showMessage = false, 3000);
+           @endif
+         ">
+      <div x-show="showMessage"
+           x-transition:enter="transition ease-out duration-300"
+           x-transition:enter-start="opacity-0 transform translate-y-2"
+           x-transition:enter-end="opacity-100 transform translate-y-0"
+           x-transition:leave="transition ease-in duration-200"
+           x-transition:leave-start="opacity-100 transform translate-y-0"
+           x-transition:leave-end="opacity-0 transform translate-y-2"
+           class="fixed bottom-4 right-4 z-50">
+        <div :class="{
+          'bg-green-500': !isError,
+          'bg-red-500': isError
+        }" class="flex items-center space-x-2 text-white px-6 py-4 rounded-xl shadow-lg">
+          <div class="flex-shrink-0">
+            <template x-if="!isError">
+              <x-heroicon-o-check-circle class="h-5 w-5" />
+            </template>
+            <template x-if="isError">
+              <x-heroicon-o-x-circle class="h-5 w-5" />
+            </template>
           </div>
+          <p x-text="message" class="font-medium"></p>
         </div>
       </div>
-    </section>
-  </div>
+    </div>
+  </article>
 </x-app-layout>

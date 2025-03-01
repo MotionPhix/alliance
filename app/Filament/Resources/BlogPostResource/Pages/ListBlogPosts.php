@@ -8,12 +8,12 @@ use Filament\Resources\Pages\ListRecords;
 
 class ListBlogPosts extends ListRecords
 {
-    protected static string $resource = BlogPostResource::class;
+  protected static string $resource = BlogPostResource::class;
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\CreateAction::make(),
-        ];
-    }
+  protected function getHeaderActions(): array
+  {
+    return [
+      Actions\CreateAction::make(),
+    ];
+  }
 }

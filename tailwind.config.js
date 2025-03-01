@@ -26,11 +26,37 @@ export default {
         'ca-red': '#DC2626',
         'ca-amber': '#F59E0B',
         'ca-green': '#10B981',
-        'ca-primary': '#1A365D',
+        'ca-primary': '#4F46E5',
         'ca-secondary': '#2D3748',
-        'ca-highlight': '#ECC94B',
+        'ca-highlight': '#4338CA',
         'ca-success': '#48BB78'
       },
+      typography: (theme) => ({
+        DEFAULT: {
+          css: {
+            color: theme('colors.gray.700'),
+            maxWidth: 'none',
+            a: {
+              color: theme('colors.ca-primary'),
+              '&:hover': {
+                color: theme('colors.ca-highlight'),
+              },
+            },
+          },
+        },
+
+        dark: {
+          css: {
+            color: theme('colors.gray.300'),
+            a: {
+              color: theme('colors.ca-primary'),
+              '&:hover': {
+                color: theme('colors.ca-highlight'),
+              },
+            },
+          },
+        },
+      }),
       scale: {
         '102': '1.02',
       },
@@ -61,6 +87,7 @@ export default {
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
     require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/line-clamp'),
   ],
 }
 

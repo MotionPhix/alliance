@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-use Spatie\Tags\HasSlug;
 use Spatie\Tags\HasTags;
 
 class BlogPost extends Model implements HasMedia
@@ -26,6 +26,7 @@ class BlogPost extends Model implements HasMedia
 
   protected $casts = [
     'published_at' => 'date',
+    'is_published' => 'boolean',
   ];
 
   // Spatie Sluggable
