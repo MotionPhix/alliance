@@ -7,12 +7,16 @@
       <!-- Search and Filters -->
       <div class="mb-8">
         <form action="{{ route('blogs.index') }}" method="GET" class="relative flex items-center">
-          <input type="text" name="search" placeholder="Search posts..." value="{{ request('search') }}"
-                 class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-blue-500">
+          <input
+            type="text" name="search"
+            placeholder="Search posts..." value="{{ request('search') }}"
+            class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-blue-500">
+
           <button
             type="submit"
-            class="absolute right-0 flex items-center px-6 py-3 bg-ca-primary text-white rounded-e-lg hover:bg-ca-highlight transition-colors duration-300">
-            <x-heroicon-o-search /> <span>Search</span>
+            class="absolute right-0 flex gap-x-2 items-center px-4 py-3 bg-ca-primary text-white rounded-e-lg hover:bg-ca-highlight transition-colors duration-300">
+            <x-heroicon-o-magnifying-glass class="shrink-0 h-5 w-5" />
+            <span>Search</span>
           </button>
         </form>
       </div>
@@ -30,14 +34,21 @@
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
               <a href="{{ route('blog.show', $post->slug) }}">
                 @if($post->image)
-                  <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}"
-                       class="w-full h-48 object-cover rounded-t-lg">
+                  <img
+                    src="{{ asset('storage/' . $post->image) }}"
+                    alt="{{ $post->title }}"
+                    class="w-full h-48 object-cover rounded-t-lg">
                 @endif
+
                 <div class="p-6">
                   <h3 class="text-xl font-display font-semibold text-gray-800 dark:text-gray-200 mb-2">
                     {{ $post->title }}
                   </h3>
-                  <p class="text-gray-600 dark:text-gray-400 mb-4">{{ $post->excerpt }}</p>
+
+                  <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    {{ $post->excerpt }}
+                  </p>
+
                   <div class="flex items-center space-x-4 text-gray-600 dark:text-gray-400">
                     <span>{{ $post->published_at->format('M d, Y') }}</span>
                     <span>•</span>
