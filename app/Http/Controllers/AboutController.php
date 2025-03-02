@@ -48,82 +48,66 @@ class AboutController extends Controller
       [
         'name' => 'Linda Harawa',
         'position' => 'Chairperson',
-        'image' => 'img/team/linda-harawa.jpg',
+        'image' => 'images/team/linda-harawa.jpg',
         'bio' => 'Over 15 years of experience in programme development, youth leadership, and child protection.',
-        'social' => [
-          'linkedin' => '#',
-          'twitter' => '#',
-        ],
+        'linkedin' => 'https://linkedin.com/in/grace-banda',
+        'twitter' => 'https://twitter.com/drgraceb'
       ],
       [
         'name' => 'John Chipeta',
         'position' => 'Vice Chairperson',
-        'image' => 'img/team/john-chipeta.jpg',
+        'image' => 'images/team/john-chipeta.jpg',
         'bio' => 'Public policy expert with a focus on governance, leadership, and human rights.',
-        'social' => [
-          'linkedin' => '#',
-          'twitter' => '#',
-        ],
+        'linkedin' => 'https://linkedin.com/in/grace-banda',
+        'twitter' => 'https://twitter.com/drgraceb'
       ],
       [
         'name' => 'Stella Nkhonya Chisangwala',
         'position' => 'Board Member',
-        'image' => 'img/team/stella-nkhonya.jpg',
+        'image' => 'images/team/stella-nkhonya.jpg',
         'bio' => 'Champion for disability rights and empowerment of women and girls with disabilities.',
-        'social' => [
-          'linkedin' => '#',
-          'twitter' => '#',
-        ],
+        'linkedin' => 'https://linkedin.com/in/grace-banda',
+        'twitter' => 'https://twitter.com/drgraceb'
       ],
       [
         'name' => 'Alemekezezeke Chitanje',
         'position' => 'Board Member',
-        'image' => 'img/team/alemekezezeke-chitanje.jpg',
+        'image' => 'images/team/alemekezezeke-chitanje.jpg',
         'bio' => 'Lecturer in Teachers Education with a passion for philanthropic work and supporting vulnerable groups.',
-        'social' => [
-          'linkedin' => '#',
-          'twitter' => '#',
-        ],
+        'linkedin' => 'https://linkedin.com/in/grace-banda',
+        'twitter' => 'https://twitter.com/drgraceb'
       ],
       [
         'name' => 'Cyprian Chimbinya',
         'position' => 'Board Member',
-        'image' => 'img/team/cyprian-chimbinya.jpg',
+        'image' => 'images/team/cyprian-chimbinya.jpg',
         'bio' => 'Governance and advocacy expert with extensive experience in community development and project management.',
-        'social' => [
-          'linkedin' => '#',
-          'twitter' => '#',
-        ],
+        'linkedin' => 'https://linkedin.com/in/grace-banda',
+        'twitter' => 'https://twitter.com/drgraceb'
       ],
       [
         'name' => 'Viwemi Louis Chavula',
         'position' => 'Programs Subcommittee Chairperson',
-        'image' => 'img/team/viwemi-chavula.jpg',
+        'image' => 'images/team/viwemi-chavula.jpg',
         'bio' => 'Human rights advocate with over 20 years of experience in democratic governance and women\'s empowerment.',
-        'social' => [
-          'linkedin' => '#',
-          'twitter' => '#',
-        ],
+        'linkedin' => 'https://linkedin.com/in/grace-banda',
+        'twitter' => 'https://twitter.com/drgraceb'
       ],
       [
         'name' => 'Jimmy Tsonga',
         'position' => 'Finance Subcommittee Chairperson',
-        'image' => 'img/team/jimmy-tsonga.jpg',
+        'image' => 'images/team/jimmy-tsonga.jpg',
         'bio' => 'Chartered Accountant with expertise in grants and finance management.',
-        'social' => [
-          'linkedin' => '#',
-          'twitter' => '#',
-        ],
+        'linkedin' => 'https://linkedin.com/in/grace-banda',
+        'twitter' => 'https://twitter.com/drgraceb'
       ],
       [
         'name' => 'Baxton Nkhoma',
         'position' => 'Secretary to the Board',
-        'image' => 'img/team/baxton-nkhoma.jpg',
+        'image' => 'images/team/baxton-nkhoma.jpg',
         'bio' => 'Governance and human rights activist with a focus on policy advocacy and institutional development.',
-        'social' => [
-          'linkedin' => '#',
-          'twitter' => '#',
-        ],
+        'linkedin' => 'https://linkedin.com/in/grace-banda',
+        'twitter' => 'https://twitter.com/drgraceb'
       ],
     ];
   }
@@ -134,23 +118,33 @@ class AboutController extends Controller
       [
         'year' => '2012',
         'title' => 'Foundation',
-        'description' => 'Establishment of Citizen Alliance as a coalition of civil society organizations.',
+        'description' => 'Citizen Alliance was established with a vision to empower citizens and strengthen democratic governance in Malawi.'
       ],
       [
         'year' => '2015',
-        'title' => 'Growth Phase',
-        'description' => 'Expanded operations to cover all districts through Citizen Forums.',
+        'title' => 'First Major Initiative',
+        'description' => 'Launched our flagship Citizen Voice program, reaching over 10,000 citizens across five districts.'
       ],
       [
         'year' => '2018',
-        'title' => 'Major Milestone',
-        'description' => 'Successfully implemented nationwide governance monitoring program.',
+        'title' => 'National Recognition',
+        'description' => 'Received the National Civil Society Excellence Award for our community engagement work.'
+      ],
+      [
+        'year' => '2020',
+        'title' => 'Digital Transformation',
+        'description' => 'Introduced digital platforms to enhance citizen participation and feedback mechanisms.'
       ],
       [
         'year' => '2023',
-        'title' => 'Digital Transformation',
-        'description' => 'Launched digital platforms for enhanced citizen engagement.',
+        'title' => 'Regional Expansion',
+        'description' => 'Extended our programs to all regions of Malawi, impacting over 50,000 citizens.'
       ],
+      [
+        'year' => '2025',
+        'title' => 'Strategic Vision',
+        'description' => 'Launched our 2025-2030 strategic plan focusing on sustainable development and digital inclusion.'
+      ]
     ];
   }
 

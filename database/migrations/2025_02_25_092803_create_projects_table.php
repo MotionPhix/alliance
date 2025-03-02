@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
   /**
    * Run the migrations.
    */
@@ -17,13 +16,19 @@ return new class extends Migration
       $table->string('slug')->unique();
       $table->text('description');
       $table->text('content');
-      $table->string('featured_image')->nullable();
       $table->date('start_date');
+      $table->string('funded_by');
       $table->date('end_date')->nullable();
+      $table->json('key_achievements')->nullable();
       $table->enum('status', ['current', 'completed', 'upcoming']);
-      $table->json('gallery')->nullable();
+      $table->integer('people_reached')->default(0);
+      $table->decimal('budget', 15, 2)->nullable();
       $table->json('meta_data')->nullable();
+      $table->boolean('is_featured')->default(false);
+      $table->integer('order')->default(0); // Added for sorting
       $table->timestamps();
+      $table->softDeletes();
+
       $table->fullText(['title', 'description', 'content']);
     });
   }
