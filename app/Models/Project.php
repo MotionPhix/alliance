@@ -62,7 +62,7 @@ class Project extends Model implements HasMedia
       ->nonQueued();
 
     $this->addMediaConversion('hero')
-      ->fit(Manipulations::FIT_MAX, 1920, 1080)
+      ->withoutManipulations(Manipulations::FIT_MAX, 1920, 1080)
       ->nonQueued();
   }
 
@@ -71,11 +71,33 @@ class Project extends Model implements HasMedia
     $this->addMediaCollection('project_image')
       ->singleFile()
       ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp'])
-      ->withResponsiveImages();
+      ->withResponsiveImages()
+      ->registerMediaConversions(function (Media $media) {
+        $this->addMediaConversion('thumbnail')
+          ->fit(Manipulations::FIT_CROP, 300, 300)
+          ->nonQueued();
+
+        $this->addMediaConversion('preview')
+          ->fit(Manipulations::FIT_CROP, 800, 600)
+          ->nonQueued();
+
+        $this->addMediaConversion('hero')
+          ->fit(Manipulations::FIT_MAX, 1920, 1080)
+          ->nonQueued();
+      });
 
     $this->addMediaCollection('project_gallery')
       ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp'])
-      ->withResponsiveImages();
+      ->withResponsiveImages()
+      ->registerMediaConversions(function (Media $media) {
+        $this->addMediaConversion('thumbnail')
+          ->fit(Manipulations::FIT_CROP, 300, 300)
+          ->nonQueued();
+
+        $this->addMediaConversion('preview')
+          ->fit(Manipulations::FIT_CROP, 800, 600)
+          ->nonQueued();
+      });
   }
 
   public function scopeFeatured($query)
