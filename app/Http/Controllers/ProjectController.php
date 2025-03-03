@@ -28,13 +28,13 @@ class ProjectController extends Controller
       ->filter()
       ->values();
 
-    return view('pages.project', compact('projects', 'featuredProjects', 'impactStats'));
+    return view('pages.projects.index', compact('projects', 'featuredProjects', 'impactStats'));
   }
 
   public function show(Project $project)
   {
     $project->load(['media', 'tags']);
 
-    return view('pages.project-detail', compact('project'));
+    return view('pages.projects.show', compact('project'));
   }
 }
