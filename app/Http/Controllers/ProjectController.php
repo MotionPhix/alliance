@@ -18,7 +18,7 @@ class ProjectController extends Controller
     $projects = Project::with(['media', 'tags'])
       ->orderBy('order')
       ->orderBy('start_date', 'desc')
-      ->get();
+      ->paginate(12);
 
     $impactStats = Project::pluck('meta_data')
       ->filter()

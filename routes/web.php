@@ -30,7 +30,7 @@ Route::prefix('projects')->name('projects.')->group(function () {
   )->name('preview');
 
   Route::get(
-    '/s/{project}',
+    '/s/{project:slug}',
     [\App\Http\Controllers\ProjectController::class, 'show']
   )->name('show');
 
