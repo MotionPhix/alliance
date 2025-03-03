@@ -1,227 +1,177 @@
-<x-app-layout>
-  <x-slot name="title">Our Projects & Partnerships</x-slot>
-  <x-slot name="description">
-    Discover how Citizen Alliance collaborates with global and local partners to drive development and governance initiatives in Malawi.
-  </x-slot>
-
-  <!-- Hero Section with Parallax Effect -->
-  <section class="relative h-[500px] overflow-hidden">
-    <div class="absolute inset-0 w-full h-full">
-      <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50 z-10"></div>
-      <img
-        src="{{ asset('images/partnerships-hero.jpg') }}"
-        alt="Partnerships"
-        class="w-full h-full object-cover transform scale-110"
-        x-data="{}"
-        x-init="window.addEventListener('scroll', () => {
-          const scrolled = window.pageYOffset;
-          $el.style.transform = `scale(1.1) translateY(${scrolled * 0.5}px)`;
-        })"
-      >
+<x-guest-layout>
+  <!-- Hero Section -->
+  <div class="relative bg-gradient-to-r from-indigo-700 to-indigo-900">
+    <div class="absolute inset-0">
+      <img class="h-full w-full object-cover mix-blend-multiply" src="{{ asset('images/projects-hero.jpg') }}" alt="Projects background">
     </div>
-    <div class="relative z-20 h-full flex items-center">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl">
-          <h1 class="text-4xl md:text-6xl font-display font-bold text-white mb-6 leading-tight">
-            Transforming Lives Through Partnership
-          </h1>
-          <p class="text-xl text-white/90 max-w-2xl">
-            Join us in our mission to create lasting change and empower communities across Malawi.
-          </p>
-        </div>
-      </div>
+    <div class="relative mx-auto max-w-7xl py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+      <h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">Our Projects</h1>
+      <p class="mt-6 max-w-3xl text-xl text-indigo-100">
+        Discover how we're making a difference in communities across Malawi through our various initiatives and projects.
+      </p>
     </div>
-  </section>
+  </div>
 
-  <!-- Stats Section with Animation -->
-  <section class="relative -mt-16 z-30">
-    <div class="container mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        @foreach([
-          ['number' => '50,000+', 'label' => 'People Reached', 'icon' => 'users'],
-          ['number' => '32', 'label' => 'Schools Supported', 'icon' => 'academic-cap'],
-          ['number' => '85', 'label' => 'Medical Camps', 'icon' => 'heart'],
-          ['number' => '450+', 'label' => 'Training Sessions', 'icon' => 'academic-cap']
-        ] as $stat)
-          <div
-            class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transform hover:-translate-y-1 transition-all duration-300"
-            x-data="{ inView: false }"
-            x-intersect="inView = true"
-          >
-            <div class="flex items-center space-x-4">
-              <div class="p-3 bg-ca-primary/10 rounded-lg">
-                <x-dynamic-component
-                  :component="'heroicon-o-' . $stat['icon']"
-                  class="w-6 h-6 text-ca-primary"
-                />
-              </div>
-              <div>
-                <p
-                  class="text-3xl font-bold text-gray-900 dark:text-white"
-                  x-data="{ number: 0 }"
-                  x-init="if (inView) {
-                    $nextTick(() => {
-                      const end = parseInt('{{ str_replace('+', '', $stat['number']) }}');
-                      const duration = 2000;
-                      const start = Date.now();
-                      const step = () => {
-                        const now = Date.now();
-                        const progress = Math.min((now - start) / duration, 1);
-                        number = Math.floor(progress * end);
-                        if (progress < 1) requestAnimationFrame(step);
-                        else number = '{{ $stat['number'] }}';
-                      };
-                      requestAnimationFrame(step);
-                    });
-                  }"
-                  x-text="number"
-                ></p>
-                <p class="text-sm text-gray-600 dark:text-gray-400">{{ $stat['label'] }}</p>
-              </div>
-            </div>
+  <!-- Main Content -->
+  <div class="bg-white py-16 sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <!-- Featured Projects Section -->
+      @if($featuredProjects->count() > 0)
+        <section aria-labelledby="featured-projects">
+          <div class="sm:flex sm:items-center sm:justify-between">
+            <h2 id="featured-projects" class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+              Featured Projects
+            </h2>
+            <p class="mt-2 text-sm text-gray-500 sm:mt-0">
+              Our most impactful initiatives
+            </p>
           </div>
-        @endforeach
-      </div>
-    </div>
-  </section>
 
-  <!-- Partners Section with Grid -->
-  <section class="py-20">
-    <x-content-container>
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white mb-4">
-          Our Trusted Partners
-        </h2>
-        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          Working together with leading organizations to create sustainable impact.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        @foreach($partners as $partner)
-          <div
-            class="group bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-lg p-8 transition-all duration-300"
-            x-data="{ showDetails: false }"
-            @mouseenter="showDetails = true"
-            @mouseleave="showDetails = false"
-          >
-            <div class="relative h-32 flex items-center justify-center mb-6">
-              <img
-                src="{{ $partner['logo'] }}"
-                alt="{{ $partner['name'] }}"
-                class="h-full w-auto object-contain transition-opacity duration-300"
-                :class="{ 'opacity-10': showDetails }"
-              >
-              <div
-                class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300"
-                :class="{ 'opacity-100': showDetails }"
-              >
-                <p class="text-sm text-gray-600 dark:text-gray-400 text-center px-4">
-                  {{ $partner['description'] }}
-                </p>
-              </div>
-            </div>
-            <h3 class="text-xl font-semibold text-center text-gray-900 dark:text-white">
-              {{ $partner['name'] }}
-            </h3>
-          </div>
-        @endforeach
-      </div>
-    </x-content-container>
-  </section>
-
-  <!-- Projects Section with Timeline -->
-  <section class="py-20 bg-gray-50 dark:bg-gray-900/50">
-    <x-content-container>
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white mb-4">
-          Featured Projects
-        </h2>
-        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          Discover our initiatives that are making a difference in communities.
-        </p>
-      </div>
-
-      <div class="space-y-8">
-        @foreach($projects as $index => $project)
-          <div
-            class="relative bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 md:p-8"
-            x-data="{ expanded: false }"
-            x-intersect="expanded = true"
-          >
-            <div class="md:grid md:grid-cols-5 md:gap-8">
-              <div class="md:col-span-2">
-                <div class="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400 mb-2">
-                  <x-heroicon-o-calendar class="w-4 h-4" />
-                  <span>{{ $project['duration'] ?? 'Ongoing' }}</span>
-                </div>
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                  {{ $project['name'] }}
-                </h3>
-                <p class="text-gray-600 dark:text-gray-400 mb-4">
-                  {{ $project['description'] }}
-                </p>
-                <div class="flex items-center space-x-2 text-sm">
-                  <span class="text-gray-500 dark:text-gray-400">Funded by:</span>
-                  <span class="font-medium text-gray-900 dark:text-white">
-                    {{ $project['funded_by'] }}
-                  </span>
-                </div>
-              </div>
-              <div class="hidden md:block md:col-span-3 relative">
-                <div
-                  class="h-full w-full bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden"
-                  :class="{ 'transform translate-x-0 opacity-100': expanded, 'transform translate-x-8 opacity-0': !expanded }"
-                >
-                  @if(isset($project['image']))
+          <div class="mt-8 grid gap-8 lg:grid-cols-3 sm:grid-cols-2">
+            @foreach($featuredProjects as $project)
+              <article class="group relative overflow-hidden rounded-lg bg-white shadow transition hover:shadow-lg">
+                <div class="aspect-h-2 aspect-w-3 relative overflow-hidden">
+                  @if($project->getFirstMedia('project_image'))
                     <img
-                      src="{{ $project['image'] }}"
-                      alt="{{ $project['name'] }}"
-                      class="w-full h-full object-cover"
-                    >
+                      src="{{ $project->getFirstMedia('project_image')->getUrl('preview') }}"
+                      alt="{{ $project->title }}"
+                      class="h-full w-full object-cover object-center transition duration-300 group-hover:scale-105"
+                    />
                   @else
-                    <div class="flex items-center justify-center h-full">
-                      <x-heroicon-o-photo class="w-12 h-12 text-gray-400" />
+                    <div class="flex h-full items-center justify-center bg-gray-100">
+                      <svg class="h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M4 4h16v12H4z"/>
+                        <path d="M4 16h16v4H4z"/>
+                      </svg>
                     </div>
                   @endif
+
+                  <!-- Status Badge -->
+                  <div class="absolute top-4 right-4">
+                                        <span @class([
+                                            'inline-flex items-center rounded-full px-3 py-0.5 text-sm font-medium',
+                                            'bg-yellow-100 text-yellow-800' => $project->status === 'upcoming',
+                                            'bg-green-100 text-green-800' => $project->status === 'current',
+                                            'bg-blue-100 text-blue-800' => $project->status === 'completed',
+                                        ])>
+                                            {{ ucfirst($project->status) }}
+                                        </span>
+                  </div>
                 </div>
-              </div>
+
+                <div class="p-6">
+                  <h3 class="text-xl font-semibold text-gray-900">
+                    <a href="{{ route('projects.show', $project) }}">
+                      <span class="absolute inset-0"></span>
+                      {{ $project->title }}
+                    </a>
+                  </h3>
+                  <p class="mt-3 text-base text-gray-500 line-clamp-2">
+                    {{ $project->description }}
+                  </p>
+
+                  <div class="mt-6 flex items-center gap-x-6">
+                    <div class="flex items-center gap-x-2">
+                      <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      <span class="text-sm text-gray-500">
+                                                {{ $project->start_date->format('M Y') }}
+                                            </span>
+                    </div>
+
+                    @if($project->people_reached)
+                      <div class="flex items-center gap-x-2">
+                        <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        <span class="text-sm text-gray-500">
+                                                    {{ number_format($project->people_reached) }} reached
+                                                </span>
+                      </div>
+                    @endif
+                  </div>
+                </div>
+              </article>
+            @endforeach
+          </div>
+        </section>
+      @endif
+
+      <!-- All Projects Section -->
+      <section aria-labelledby="all-projects" class="mt-16">
+        <div class="sm:flex sm:items-center sm:justify-between">
+          <h2 id="all-projects" class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            All Projects
+          </h2>
+
+          <!-- Filter Buttons -->
+          <div class="mt-4 sm:mt-0 sm:ml-4">
+            <div class="flex space-x-2">
+              @foreach(['all', 'current', 'upcoming', 'completed'] as $filter)
+                <button
+                  type="button"
+                  @click="activeFilter = '{{ $filter }}'"
+                  :class="{
+                                        'bg-indigo-600 text-white': activeFilter === '{{ $filter }}',
+                                        'bg-white text-gray-700 hover:bg-gray-50': activeFilter !== '{{ $filter }}'
+                                    }"
+                  class="rounded-md px-3 py-2 text-sm font-medium shadow-sm ring-1 ring-inset ring-gray-300"
+                >
+                  {{ ucfirst($filter) }}
+                </button>
+              @endforeach
             </div>
           </div>
-        @endforeach
-      </div>
-    </x-content-container>
-  </section>
+        </div>
 
-  <!-- Call to Action Section -->
-  <section class="relative py-20 overflow-hidden">
-    <div class="absolute inset-0 bg-ca-primary"></div>
-    <div
-      class="absolute inset-0 bg-[url('/images/pattern.svg')] opacity-10"
-      x-data="{}"
-      x-init="window.addEventListener('mousemove', (e) => {
-        const { clientX, clientY } = e;
-        const xPos = (clientX / window.innerWidth - 0.5) * 20;
-        const yPos = (clientY / window.innerHeight - 0.5) * 20;
-        $el.style.transform = `translate(${xPos}px, ${yPos}px)`;
-      })"
-    ></div>
-    <div class="relative z-10 container mx-auto px-4">
-      <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-6">
-          Ready to Make an Impact?
-        </h2>
-        <p class="text-xl text-white/90 mb-8">
-          Join our network of partners and help us create lasting change in Malawi.
-        </p>
-        <a
-          href="{{ route('contact') }}"
-          class="inline-flex items-center px-8 py-4 bg-white text-ca-primary rounded-xl hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-        >
-          Partner With Us
-          <x-heroicon-o-arrow-right class="w-5 h-5 ml-2" />
-        </a>
-      </div>
+        <div class="mt-8">
+          @if($projects->count() > 0)
+            <div class="grid gap-8 lg:grid-cols-3 sm:grid-cols-2">
+              <!-- Project cards here (same as featured projects) -->
+              @foreach($projects as $project)
+                <!-- Same project card structure as featured projects -->
+              @endforeach
+            </div>
+          @else
+            <!-- Empty State -->
+            <div class="relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-12 text-center">
+              <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              </svg>
+              <h3 class="mt-2 text-sm font-medium text-gray-900">No projects</h3>
+              <p class="mt-1 text-sm text-gray-500">
+                @if($activeFilter === 'all')
+                  We haven't started any projects yet.
+                @else
+                  No {{ $activeFilter }} projects at the moment.
+                @endif
+              </p>
+            </div>
+          @endif
+        </div>
+
+        <!-- Pagination (if needed) -->
+        @if($projects->hasPages())
+          <div class="mt-8">
+            {{ $projects->links() }}
+          </div>
+        @endif
+      </section>
     </div>
-  </section>
-</x-app-layout>
+  </div>
+</x-guest-layout>
+
+@push('scripts')
+  <script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('projectsPage', () => ({
+        activeFilter: 'all',
+        init() {
+          const urlParams = new URLSearchParams(window.location.search);
+          this.activeFilter = urlParams.get('filter') || 'all';
+        }
+      }))
+    })
+  </script>
+@endpush

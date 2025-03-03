@@ -498,7 +498,7 @@
             <x-heroicon-o-arrow-right class="w-5 h-5 ml-2"/>
           </a>
           <a
-            href="{{ route('projects') }}"
+            href="{{ route('projects.index') }}"
             class="inline-flex items-center px-8 py-4 border-2 border-white text-white rounded-xl hover:bg-white/10 transition-all duration-300"
           >
             View Our Projects

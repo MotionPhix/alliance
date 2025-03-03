@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProjectResource\Pages;
-use App\Filament\Resources\ProjectResource\RelationManagers;
 use App\Models\Project;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProjectResource extends Resource
 {
@@ -61,12 +58,18 @@ class ProjectResource extends Resource
             \App\Filament\Forms\Components\SpatieMediaLibraryFileUpload::make('project_image')
               ->collection('project_image')
               ->conversion('thumbnail')
+              ->withResponsiveImages()
+              ->image()
+              ->imageEditor()
               ->columnSpan('full'),
 
             \App\Filament\Forms\Components\SpatieMediaLibraryFileUpload::make('project_gallery')
               ->collection('project_gallery')
-              ->multiple()
               ->conversion('thumbnail')
+              ->withResponsiveImages()
+              ->multiple()
+              ->image()
+              ->imageEditor()
               ->maxFiles(5)
               ->columnSpan('full'),
 
@@ -108,7 +111,7 @@ class ProjectResource extends Resource
       ]);
   }
 
-  public static function table(Table $table): Table
+  /*public static function table(Table $table): Table
   {
     return $table
       ->columns([
@@ -136,6 +139,55 @@ class ProjectResource extends Resource
       ->actions([
         Tables\Actions\EditAction::make(),
         Tables\Actions\DeleteAction::make(),
+      ])
+      ->bulkActions([
+        Tables\Actions\DeleteBulkAction::make(),
+      ])
+      ->reorderable('order');
+  }*/
+
+  public static function table(Table $table): Table
+  {
+    return $table
+      ->columns([
+        Tables\Columns\SpatieMediaLibraryImageColumn::make('project_image')
+          ->collection('project_image')
+          ->circular(),
+        Tables\Columns\TextColumn::make('title')
+          ->searchable(['title', 'description', 'content'])
+          ->sortable(),
+        Tables\Columns\TextColumn::make('funded_by')
+          ->searchable(),
+        Tables\Columns\BadgeColumn::make('status')
+          ->colors([
+            'warning' => 'upcoming',
+            'success' => 'current',
+            'primary' => 'completed',
+          ]),
+        Tables\Columns\BooleanColumn::make('is_featured')
+          ->trueIcon('heroicon-o-star')
+          ->falseIcon('heroicon-o-x-mark'),
+        Tables\Columns\TextColumn::make('updated_at')
+          ->dateTime()
+          ->sortable(),
+      ])
+      ->defaultSort('order', 'asc')
+      ->filters([
+        Tables\Filters\SelectFilter::make('status')
+          ->options([
+            'current' => 'Current',
+            'completed' => 'Completed',
+            'upcoming' => 'Upcoming',
+          ])
+          ->label('Project Status')
+          ->indicator('Status'),
+        Tables\Filters\TernaryFilter::make('is_featured')
+          ->label('Featured Projects')
+          ->indicator('Featured'),
+      ])
+      ->actions([
+        Tables\Actions\ViewAction::make(),
+        Tables\Actions\EditAction::make(),
       ])
       ->bulkActions([
         Tables\Actions\DeleteBulkAction::make(),

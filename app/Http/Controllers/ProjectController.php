@@ -4,35 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
-  public function index(Request $request)
+  public function index()
   {
-    $projects = Project::orderBy('order')
-      ->get()
-      ->map(function ($project) {
-        return [
-          'name' => $project->name,
-          'description' => $project->description,
-          'funded_by' => $project->funded_by,
-          'duration' => $project->duration,
-          'image' => $project->image ? Storage::url($project->image) : null,
-          'key_achievements' => $project->key_achievements ?? [],
-        ];
-      });
-
     $featuredProjects = Project::featured()
+      ->with(['media', 'tags'])
       ->orderBy('order')
       ->take(3)
       ->get();
 
-    $impactStats = Project::pluck('impact_stats')
-      ->flatten(1)
+    $projects = Project::with(['media', 'tags'])
+      ->orderBy('order')
+      ->orderBy('start_date', 'desc')
+      ->get();
+
+    $impactStats = Project::pluck('meta_data')
+      ->filter()
+      ->map(function ($meta) {
+        return collect($meta)->only(['number', 'suffix', 'label'])->toArray();
+      })
       ->filter()
       ->values();
 
     return view('pages.project', compact('projects', 'featuredProjects', 'impactStats'));
+  }
+
+  public function show(Project $project)
+  {
+    $project->load(['media', 'tags']);
+
+    return view('pages.project-detail', compact('project'));
   }
 }

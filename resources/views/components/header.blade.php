@@ -39,7 +39,7 @@
           Organisation
         </x-nav-link>
 
-        <x-nav-link href="{{ route('projects') }}" :active="request()->routeIs('projects')">
+        <x-nav-link href="{{ route('projects.index') }}" :active="request()->routeIs('projects.*')">
           Projects
         </x-nav-link>
 
@@ -85,8 +85,8 @@
         </x-mobile-nav-link>
 
         <x-mobile-nav-link
-          href="{{ route('projects') }}"
-          :active="request()->routeIs('projects')">
+          href="{{ route('projects.index') }}"
+          :active="request()->routeIs('projects.*')">
           Projects
         </x-mobile-nav-link>
 

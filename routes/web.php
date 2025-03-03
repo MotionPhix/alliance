@@ -17,10 +17,24 @@ Route::get(
   [\App\Http\Controllers\ContactController::class, 'index']
 )->name('contact');
 
-Route::get(
-  '/projects',
-  [\App\Http\Controllers\ProjectController::class, 'index']
-)->name('projects');
+Route::prefix('projects')->name('projects.')->group(function () {
+
+  Route::get(
+    '/',
+    [\App\Http\Controllers\ProjectController::class, 'index'],
+  )->name('index');
+
+  Route::get(
+    '/preview/{project}',
+    [\App\Http\Controllers\ProjectController::class, 'preview']
+  )->name('preview');
+
+  Route::get(
+    '/s/{project}',
+    [\App\Http\Controllers\ProjectController::class, 'show']
+  )->name('show');
+
+});
 
 Route::prefix('blogs')->name('blogs.')->group(function () {
 

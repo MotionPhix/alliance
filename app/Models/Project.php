@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\Conversions\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Tags\HasTags;
@@ -14,6 +16,8 @@ use Spatie\Tags\HasTags;
 class Project extends Model implements HasMedia
 {
   use HasFactory, HasSlug, InteractsWithMedia, HasTags, SoftDeletes;
+
+  public static string $mediaFolder = 'projects';
 
   protected $fillable = [
     'title',
@@ -45,6 +49,21 @@ class Project extends Model implements HasMedia
     return SlugOptions::create()
       ->generateSlugsFrom('title')
       ->saveSlugsTo('slug');
+  }
+
+  public function registerMediaConversions(Media $media = null): void
+  {
+    $this->addMediaConversion('thumbnail')
+      ->fit(Manipulations::FIT_CROP, 300, 300)
+      ->nonQueued();
+
+    $this->addMediaConversion('preview')
+      ->fit(Manipulations::FIT_CROP, 800, 600)
+      ->nonQueued();
+
+    $this->addMediaConversion('hero')
+      ->fit(Manipulations::FIT_MAX, 1920, 1080)
+      ->nonQueued();
   }
 
   public function registerMediaCollections(): void
