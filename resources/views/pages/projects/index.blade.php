@@ -8,8 +8,6 @@
     projects.
   </x-slot>
 
-  @dd($projects)
-
   {{-- Hero Section with Dynamic Background --}}
   <section class="relative bg-gradient-to-r from-ca-primary to-ca-highlight overflow-hidden">
     <div class="absolute inset-0 bg-grid-white/[0.1] bg-[size:60px_60px]"></div>
@@ -23,12 +21,14 @@
         <p class="text-xl text-gray-200 mb-8 leading-relaxed">
           Our projects focus on sustainable development, community empowerment, and lasting social change across Malawi.
         </p>
+
         <div class="flex flex-wrap gap-4">
           <a href="#featured-projects"
              class="inline-flex items-center px-6 py-3 bg-white text-ca-primary rounded-full hover:bg-gray-100 transition-colors duration-300">
             <span>View Projects</span>
             <x-heroicon-o-arrow-down class="w-5 h-5 ml-2"/>
           </a>
+          
           <a href="{{ route('contact') }}"
              class="inline-flex items-center px-6 py-3 bg-ca-highlight text-white rounded-full hover:bg-ca-highlight/90 transition-colors duration-300">
             <span>Partner With Us</span>

@@ -17,8 +17,6 @@ class Project extends Model implements HasMedia
 {
   use HasFactory, HasSlug, InteractsWithMedia, HasTags, SoftDeletes;
 
-  public static string $mediaFolder = 'projects';
-
   protected $fillable = [
     'title',
     'slug',
