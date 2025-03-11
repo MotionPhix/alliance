@@ -6,7 +6,7 @@
 
   <!-- Hero Slider Section -->
   <section class="relative">
-    <div class="relative w-full h-[600px] overflow-hidden">
+    <div class="relative w-full h-[700px] overflow-hidden">
       <div x-data="{
             activeSlide: 0,
             slides: {{ json_encode($slides) }},
@@ -159,7 +159,7 @@
         <div class="relative z-10 mt-auto w-2/3 md:max-w-full ps-5 pb-5 md:ps-10 md:pb-10">
           <span class="block text-lg text-white mb-2">Who We Are</span>
 
-          <span class="block text-white text-xl md:text-3xl">
+          <span class="block text-white text-xl md:text-2xl">
             Citizen Alliance (CA) is a coalition of civil society organizations and citizen groups
             established in 2012 as a citizen-led engagement initiative on development and governance processes. The
             organization is registered under the laws of Malawi as a company limited by guaranteed and operates in all the

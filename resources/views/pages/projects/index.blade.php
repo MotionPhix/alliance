@@ -28,7 +28,7 @@
             <span>View Projects</span>
             <x-heroicon-o-arrow-down class="w-5 h-5 ml-2"/>
           </a>
-          
+
           <a href="{{ route('contact') }}"
              class="inline-flex items-center px-6 py-3 bg-ca-highlight text-white rounded-full hover:bg-ca-highlight/90 transition-colors duration-300">
             <span>Partner With Us</span>
@@ -136,22 +136,23 @@
 
   <!-- Slider Item -->
   <div
-    class="h-[30rem] md:h-[calc(100vh-106px)] flex flex-col bg-cover bg-center bg-no-repeat bg-[url('https://images.unsplash.com/photo-1615615228002-890bb61cac6e?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]">
+    style="background-image: url('/images/projects-image.jpg')"
+    class="h-[calc(60vh)] lg:h-[calc(100vh-106px)] flex flex-col bg-cover bg-center bg-no-repeat">
     <div class="mt-auto ps-5 pb-5 md:ps-10 max-w-6xl w-full mx-auto">
 
       <div class="md:pb-10 w-full max-w-xl">
-        <span class="block text-white">Nike React</span>
+        <span class="block text-white">Supporting communities</span>
         <span class="block text-white text-xl md:text-3xl">
-        Rewriting sport's playbook for billions of athletes
+        Promoting active citizen participation in development, particularly vulnerable groups like women, youth, children and persons with disabilities
       </span>
 
-        <div class="mt-5">
-          <a
-            class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl bg-white border border-transparent text-black hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
-            href="#">
-            Read more
-          </a>
-        </div>
+{{--        <div class="mt-5">--}}
+{{--          <a--}}
+{{--            class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl bg-white border border-transparent text-black hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"--}}
+{{--            href="#">--}}
+{{--            Read more--}}
+{{--          </a>--}}
+{{--        </div>--}}
       </div>
 
     </div>

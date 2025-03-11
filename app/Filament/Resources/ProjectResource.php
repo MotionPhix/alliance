@@ -108,7 +108,8 @@ class ProjectResource extends Resource
               ->helperText('Lower numbers will be displayed first'),
           ])
           ->columns(2),
-      ]);
+      ])
+      ->model(Project::class);
   }
 
   /*public static function table(Table $table): Table

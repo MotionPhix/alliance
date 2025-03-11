@@ -206,7 +206,7 @@
         </div>
 
         <!-- Content -->
-        <div class="relative px-6 lg:px-0" x-data="{ shown: false }" x-intersect="shown = true">
+        <div class="relative pt-12 sm:pt-0 px-6 lg:px-0" x-data="{ shown: false }" x-intersect="shown = true">
           <div class="mb-12">
             <div
               class="flex items-center space-x-2 text-ca-primary mb-6"

@@ -90,6 +90,7 @@ class BlogPostResource extends Resource
           ])
           ->columnSpan(['lg' => 1]),
       ])
+      ->model(BlogPost::class)
       ->columns(3);
   }
 
