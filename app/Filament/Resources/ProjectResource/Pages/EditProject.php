@@ -33,8 +33,8 @@ class EditProject extends EditRecord
 
   protected function afterSave(): void
   {
-    // This method is called after the record is saved
-    // You can add any post-save logic here if needed
+    // Refresh the record to get the latest media
+    $this->record->refresh();
   }
 
   // Optional: Add this if you want to handle deletion of media
