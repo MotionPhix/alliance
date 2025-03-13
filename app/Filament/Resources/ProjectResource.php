@@ -94,75 +94,37 @@ class ProjectResource extends Resource
 
             SpatieMediaLibraryFileUpload::make('project_image')
               ->collection('project_image')
-              ->conversion('thumbnail')
-              ->responsiveImages()
               ->image()
               ->imageEditor()
               ->columnSpan('full')
-              //->loadStateFromRelationshipsUsing(fn ($component) => $component->state([]))
-              ->saveRelationshipsUsing(fn ($component) => $component->saveUploadedFiles()),
+              // Add these lines for better UX during updates
+              ->downloadable()
+              ->openable()
+              ->preserveFilenames()
+              // Show a preview of the image
+              ->previewable(true),
 
             SpatieMediaLibraryFileUpload::make('project_gallery')
               ->collection('project_gallery')
-              ->conversion('thumbnail')
-              ->responsiveImages()
               ->multiple()
               ->image()
               ->imageEditor()
               ->maxFiles(5)
               ->columnSpan('full')
               ->panelLayout('grid')
-              //->loadStateFromRelationshipsUsing(fn ($component) => $component->state([]))
-              ->saveRelationshipsUsing(fn ($component) => $component->saveUploadedFiles()),
+              // Add these lines for better UX during updates
+              ->downloadable()
+              ->openable()
+              ->preserveFilenames()
+              ->previewable(true)
+              // Allow reordering of gallery images
+              ->reorderable(),
           ])
           ->columns(2),
       ])
       ->statePath('data')
       ->model(Project::class);
   }
-
-  public function create(): void
-  {
-    $project = Project::create($this->form->getState());
-
-    // Save the relationships from the form to the project after it is created.
-    $this->form->model($project)->saveRelationships();
-  }
-
-  /*public static function table(Table $table): Table
-  {
-    return $table
-      ->columns([
-        Tables\Columns\ImageColumn::make('image')
-          ->square(),
-        Tables\Columns\TextColumn::make('name')
-          ->searchable()
-          ->sortable(),
-        Tables\Columns\TextColumn::make('funded_by')
-          ->searchable(),
-        Tables\Columns\TextColumn::make('duration'),
-        Tables\Columns\BooleanColumn::make('is_featured')
-          ->trueIcon('heroicon-o-star')
-          ->falseIcon('heroicon-o-x'),
-        Tables\Columns\TextColumn::make('order')
-          ->sortable(),
-        Tables\Columns\TextColumn::make('updated_at')
-          ->dateTime()
-          ->sortable(),
-      ])
-      ->defaultSort('order', 'asc')
-      ->filters([
-        Tables\Filters\TernaryFilter::make('is_featured'),
-      ])
-      ->actions([
-        Tables\Actions\EditAction::make(),
-        Tables\Actions\DeleteAction::make(),
-      ])
-      ->bulkActions([
-        Tables\Actions\DeleteBulkAction::make(),
-      ])
-      ->reorderable('order');
-  }*/
 
   public static function table(Table $table): Table
   {
@@ -171,20 +133,25 @@ class ProjectResource extends Resource
         SpatieMediaLibraryImageColumn::make('Image')
           ->collection('project_image')
           ->conversion('thumbnail'),
+
         Tables\Columns\TextColumn::make('title')
           ->searchable(['title', 'description', 'content'])
           ->sortable(),
+
         Tables\Columns\TextColumn::make('funded_by')
           ->searchable(),
+
         Tables\Columns\BadgeColumn::make('status')
           ->colors([
             'warning' => 'upcoming',
             'success' => 'current',
             'primary' => 'completed',
           ]),
+
         Tables\Columns\BooleanColumn::make('is_featured')
           ->trueIcon('heroicon-o-star')
           ->falseIcon('heroicon-o-x-mark'),
+
         Tables\Columns\TextColumn::make('updated_at')
           ->dateTime()
           ->sortable(),

@@ -12,6 +12,7 @@
     <div class="absolute inset-0">
 {{--      @dd($project->getFirstMedia('project_image'))--}}
       @if($project->hasMedia('project_image'))
+        <img src="{{ $project->featured_image }}" alt="{{ $project->title }}">
         {{
             $project->getFirstMedia('project_image')
               ->img('hero', [

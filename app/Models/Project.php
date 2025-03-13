@@ -49,8 +49,12 @@ class Project extends Model implements HasMedia
       ->saveSlugsTo('slug');
   }
 
-  public function registerMediaConversions(?Media $media = null): void
+  public function registerMediaConversions(Media $media = null): void
   {
+    if ($media === null) {
+      return;
+    }
+
     $this->addMediaConversion('thumbnail')
       ->fit(Fit::Crop, 300, 300)
       ->nonQueued();
@@ -60,7 +64,7 @@ class Project extends Model implements HasMedia
       ->nonQueued();
 
     $this->addMediaConversion('hero')
-      ->withoutManipulations(Fit::Max, 1920, 1080)
+      ->fit(Fit::Max, 1920, 1080)
       ->nonQueued();
   }
 
@@ -69,33 +73,11 @@ class Project extends Model implements HasMedia
     $this->addMediaCollection('project_image')
       ->singleFile()
       ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp'])
-      ->withResponsiveImages()
-      ->registerMediaConversions(function (Media $media) {
-        $this->addMediaConversion('thumbnail')
-          ->fit(Fit::Crop, 300, 300)
-          ->nonQueued();
-
-        $this->addMediaConversion('preview')
-          ->fit(FIt::Crop, 800, 600)
-          ->nonQueued();
-
-        $this->addMediaConversion('hero')
-          ->fit(Fit::Max, 1920, 1080)
-          ->nonQueued();
-      });
+      ->withResponsiveImages();
 
     $this->addMediaCollection('project_gallery')
       ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp'])
-      ->withResponsiveImages()
-      ->registerMediaConversions(function (Media $media) {
-        $this->addMediaConversion('thumbnail')
-          ->fit(Fit::Crop, 300, 300)
-          ->nonQueued();
-
-        $this->addMediaConversion('preview')
-          ->fit(Fit::Crop, 800, 600)
-          ->nonQueued();
-      });
+      ->withResponsiveImages();
   }
 
   public function scopeFeatured($query)
@@ -106,5 +88,23 @@ class Project extends Model implements HasMedia
   public function scopeByStatus($query, $status)
   {
     return $query->where('status', $status);
+  }
+
+  // Helper method to get the featured image URL
+  public function getFeaturedImageAttribute()
+  {
+    return $this->getFirstMediaUrl('project_image', 'preview') ?: null;
+  }
+
+  // Helper method to get the gallery images
+  public function getGalleryImagesAttribute()
+  {
+    return $this->getMedia('project_gallery')
+      ->map(fn($media) => [
+        'id' => $media->id,
+        'url' => $media->getUrl('preview'),
+        'thumbnail' => $media->getUrl('thumbnail'),
+        'original' => $media->getUrl(),
+      ]);
   }
 }
