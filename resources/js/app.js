@@ -1,59 +1,15 @@
 import './bootstrap';
 import Swiper from 'swiper';
 import 'swiper/swiper-bundle.css';
-import Alpine from 'alpinejs'
+import Alpine from 'alpinejs';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import intersect from '@alpinejs/intersect'
+import intersect from '@alpinejs/intersect';
 import 'leaflet/dist/leaflet.css';
-import 'leaflet.markercluster/dist/MarkerCluster.css';
-import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import 'leaflet.fullscreen/Control.FullScreen.css';
 
 import L from 'leaflet';
-import 'leaflet.markercluster';
 import 'leaflet.fullscreen';
-
-window.Alpine = Alpine
-
-Alpine.plugin(intersect)
-
-Alpine.start()
-
-const swiper = new Swiper('.swiper-container', {
-  loop: true,
-  speed: 1000,
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-  },
-  autoplay: {
-    delay: 5000,
-  },
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-  effect: 'fade',
-  fadeEffect: {
-    crossFade: true
-  },
-});
-
-gsap.registerPlugin(ScrollTrigger);
-
-// Animate elements on scroll
-gsap.utils.toArray('.animate-on-scroll').forEach(element => {
-  gsap.from(element, {
-    opacity: 0,
-    y: 50,
-    duration: 1,
-    scrollTrigger: {
-      trigger: element,
-      start: 'top 80%',
-    },
-  });
-});
 
 // Fix Leaflet's icon path issues with Webpack
 delete L.Icon.Default.prototype._getIconUrl;
@@ -83,53 +39,22 @@ window.initContactMap = function() {
   // Add office marker
   const office = L.marker([-13.987654, 33.774123])
     .bindPopup(`
-            <div class="text-center">
-                <h3 class="font-bold mb-2">Citizen Alliance</h3>
-                <p class="text-sm">Area 47/2/113, Lilongwe Street</p>
-                <p class="text-sm">P.O. Box 619</p>
-                <p class="text-sm">Lilongwe, Malawi</p>
-                <a href="https://www.google.com/maps/dir/?api=1&destination=-13.987654,33.774123"
-                   class="text-blue-500 hover:text-blue-700 text-sm block mt-2"
-                   target="_blank">
-                    Get Directions
-                </a>
-            </div>
-        `, {
+      <div class="text-center">
+        <h3 class="font-bold mb-2">Citizen Alliance</h3>
+        <p class="text-sm">Area 47/2/113, Lilongwe Street</p>
+        <p class="text-sm">P.O. Box 619</p>
+        <p class="text-sm">Lilongwe, Malawi</p>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=-13.987654,33.774123"
+           class="text-blue-500 hover:text-blue-700 text-sm block mt-2"
+           target="_blank">
+          Get Directions
+        </a>
+      </div>
+    `, {
       maxWidth: 300
     })
     .addTo(map);
 
-  // Points of interest
-  const pois = [
-    {
-      position: [-13.986, 33.775],
-      name: 'City Center',
-      type: 'landmark'
-    },
-    {
-      position: [-13.989, 33.773],
-      name: 'Local Market',
-      type: 'shopping'
-    }
-  ];
-
-  // Create marker cluster group
-  const markers = L.markerClusterGroup();
-
-  // Add POIs to cluster
-  pois.forEach(poi => {
-    markers.addLayer(
-      L.marker(poi.position)
-        .bindPopup(`
-                    <div class="text-center">
-                        <h4 class="font-bold">${poi.name}</h4>
-                        <p class="text-sm text-gray-600">${poi.type}</p>
-                    </div>
-                `)
-    );
-  });
-
-  map.addLayer(markers);
   L.control.scale().addTo(map);
 
   // Custom "Center Map" control
@@ -140,10 +65,10 @@ window.initContactMap = function() {
       container.innerHTML = `
         <a href="#" class="flex items-center justify-center w-10 h-10 bg-white text-gray-700 hover:bg-gray-100"
            title="Center map on office">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-            </svg>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
         </a>
       `;
 
@@ -165,3 +90,44 @@ window.initContactMap = function() {
 
   return map;
 };
+
+// Alpine setup
+window.Alpine = Alpine;
+Alpine.plugin(intersect);
+Alpine.start();
+
+// Swiper initialization
+const swiper = new Swiper('.swiper-container', {
+  loop: true,
+  speed: 1000,
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+  autoplay: {
+    delay: 5000,
+  },
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+  effect: 'fade',
+  fadeEffect: {
+    crossFade: true
+  },
+});
+
+// GSAP animations
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.utils.toArray('.animate-on-scroll').forEach(element => {
+  gsap.from(element, {
+    opacity: 0,
+    y: 50,
+    duration: 1,
+    scrollTrigger: {
+      trigger: element,
+      start: 'top 80%',
+    },
+  });
+});

@@ -18,10 +18,10 @@ class ContactController extends Controller
 
   public function submit(ContactFormRequest $request): RedirectResponse
   {
-    // Rate limiting: 3 submissions per hour per IP
+    // Rate limiting: 2 submissions per hour per IP
     $key = 'contact-form:' . $request->ip();
 
-    if (RateLimiter::tooManyAttempts($key, 3)) {
+    if (RateLimiter::tooManyAttempts($key, 2)) {
       return back()->with('error', 'Too many attempts. Please try again in ' .
         RateLimiter::availableIn($key) . ' seconds.');
     }
