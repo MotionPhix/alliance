@@ -28,7 +28,7 @@
           <li><a href="{{ route('home') }}" class="text-gray-400 hover:text-white transition-colors duration-300">Home</a></li>
           <li><a href="{{ route('about') }}" class="text-gray-400 hover:text-white transition-colors duration-300">Organisation</a></li>
           <li><a href="{{ route('projects.index') }}" class="text-gray-400 hover:text-white transition-colors duration-300">Projects</a></li>
-          <li><a href="{{ route('contact') }}" class="text-gray-400 hover:text-white transition-colors duration-300">Contact Us</a></li>
+          <li><a href="{{ route('contact.index') }}" class="text-gray-400 hover:text-white transition-colors duration-300">Contact Us</a></li>
           <li><a href="{{ route('donation.form') }}" class="text-gray-400 hover:text-white transition-colors duration-300">Donate</a></li>
         </ul>
       </div>

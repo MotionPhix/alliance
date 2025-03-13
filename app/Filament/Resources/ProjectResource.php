@@ -49,16 +49,6 @@ class ProjectResource extends Resource
 
                 Forms\Components\RichEditor::make('content')
                   ->required()
-                  ->toolbarButtons([
-                    'bold',
-                    'italic',
-                    'link',
-                    'bulletList',
-                    'orderedList',
-                    'blockquote',
-                    'h2',
-                    'h3',
-                  ])
                   ->columnSpan('full'),
 
                 Forms\Components\Grid::make(2)
@@ -110,7 +100,7 @@ class ProjectResource extends Resource
                   ->preserveFilenames()
                   ->previewable(true)
                   ->reorderable()
-                  ->maxFiles(5)
+                  ->maxFiles(8)
                   ->imageCropAspectRatio('16:9')
                   ->imageResizeTargetWidth('800')
                   ->imageResizeTargetHeight('600')
@@ -142,14 +132,21 @@ class ProjectResource extends Resource
                       ->minValue(0)
                       ->suffix('people'),
 
-                    Forms\Components\TextInput::make('budget')
+                    /*Forms\Components\TextInput::make('budget')
                       ->numeric()
                       ->prefix('MWK')
                       ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask
                         ->numeric()
                         ->thousandsSeparator(',')
                         ->decimalPlaces(2)
-                      ),
+                      ),*/
+
+                    Forms\Components\TextInput::make('budget')
+                      ->numeric()
+                      ->prefix('MWK')
+                      ->inputMode('decimal')
+                      ->step('0.01')
+                      ->formatStateUsing(fn ($state) => $state ? number_format($state, 2) : null)
                   ]),
 
                 Forms\Components\KeyValue::make('meta_data')

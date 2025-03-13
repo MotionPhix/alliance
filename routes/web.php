@@ -12,10 +12,19 @@ Route::get(
   [\App\Http\Controllers\AboutController::class, 'index']
 )->name('about');
 
-Route::get(
-  '/contact-us',
-  [\App\Http\Controllers\ContactController::class, 'index']
-)->name('contact');
+Route::prefix('contact')->name('contact.')->group(function () {
+
+  Route::get(
+    '/',
+    [\App\Http\Controllers\ContactController::class, 'index']
+  )->name('index');
+
+  Route::post(
+    '/',
+    [\App\Http\Controllers\ContactController::class, 'submit']
+  )->name('submit');
+
+});
 
 Route::prefix('projects')->name('projects.')->group(function () {
 

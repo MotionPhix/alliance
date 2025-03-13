@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd3183d23cc703fa95d69577553690e1",
+    "content-hash": "5af8f70489c864068c8074712442e406",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -5235,6 +5235,65 @@
                 }
             ],
             "time": "2025-02-25T09:09:36+00:00"
+        },
+        {
+            "name": "scyllaly/hcaptcha",
+            "version": "4.4.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Scyllaly/hcaptcha.git",
+                "reference": "b9b362a354fc5904c94ddcdc347eab7709ec58cd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Scyllaly/hcaptcha/zipball/b9b362a354fc5904c94ddcdc347eab7709ec58cd",
+                "reference": "b9b362a354fc5904c94ddcdc347eab7709ec58cd",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.*|6.*|7.*|8.*|^9.0|10.*|^11.0|^12.0",
+                "php": ">=5.5.5"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.8|^9.5.10|^10.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "HCaptcha": "Scyllaly\\HCaptcha\\Facades\\HCaptcha"
+                    },
+                    "providers": [
+                        "Scyllaly\\HCaptcha\\HCaptchaServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Scyllaly\\HCaptcha\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "scyllaly",
+                    "email": "scyllaly@github.com"
+                }
+            ],
+            "description": "hCaptcha for Laravel",
+            "keywords": [
+                "captcha",
+                "hcaptcha",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/Scyllaly/hcaptcha/issues",
+                "source": "https://github.com/Scyllaly/hcaptcha/tree/4.4.8"
+            },
+            "time": "2025-02-22T17:44:21+00:00"
         },
         {
             "name": "spatie/color",

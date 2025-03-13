@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.10.1",
         "pelmered/filament-money-field": "^1.5",
         "postare/blade-mdi": "^1.0",
+        "scyllaly/hcaptcha": "^4.4",
         "spatie/laravel-medialibrary": "^11.12",
         "spatie/laravel-sluggable": "^3.7",
         "spatie/laravel-tags": "^4.9"

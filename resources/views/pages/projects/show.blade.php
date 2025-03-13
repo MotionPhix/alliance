@@ -106,7 +106,7 @@
         <div>
           {{-- Project Stats --}}
           <div class="bg-gray-50 dark:bg-ca-secondary rounded-2xl p-8 mb-8">
-            <h3 class="text-xl font-display text-ca-primary dark:text-white mb-6">
+            <h3 class="text-2xl font-display text-ca-primary dark:text-white mb-6">
               Project Overview
             </h3>
 
@@ -158,14 +158,16 @@
             <div class="flex gap-4">
               <a href="https://twitter.com/intent/tweet?url={{ url()->current() }}&text={{ urlencode($project->title) }}"
                  target="_blank"
-                 class="flex-1 flex items-center justify-center p-3 bg-[#1DA1F2] text-white rounded-xl hover:opacity-90 transition-opacity duration-300">
+                 class="flex-1 flex h-full w-full items-center justify-center p-3 bg-[#1DA1F2] text-white rounded-xl hover:opacity-90 transition-opacity duration-300">
                 <x-heroicon-o-link class="w-5 h-5" />
               </a>
+
               <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}"
                  target="_blank"
                  class="flex-1 flex items-center justify-center p-3 bg-[#4267B2] text-white rounded-xl hover:opacity-90 transition-opacity duration-300">
                 <x-heroicon-o-share class="w-5 h-5" />
               </a>
+
               <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ url()->current() }}&title={{ urlencode($project->title) }}"
                  target="_blank"
                  class="flex-1 flex items-center justify-center p-3 bg-[#0077B5] text-white rounded-xl hover:opacity-90 transition-opacity duration-300">
@@ -207,26 +209,37 @@
           <div x-show="selected !== null"
                x-transition
                class="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
+               @keydown.escape.window="selected = null"
                @click.self="selected = null">
             <button @click="selected = null" class="absolute top-4 right-4 text-white">
               <x-heroicon-o-x-mark class="w-8 h-8" />
             </button>
 
-            <div
-              class="relative max-w-4xl mx-auto">
+            <div class="relative max-w-4xl mx-auto">
               <button
                 @click="selected = selected > 0 ? selected - 1 : {{ $project->getMedia('project_gallery')->count() - 1 }}"
                 class="absolute left-4 top-1/2 -translate-y-1/2 text-white">
                 <x-heroicon-o-chevron-left class="w-8 h-8" />
               </button>
 
-              <img
-                :src="'{{ asset('storage/') }}/' + '{{ $project->getMedia('project_gallery')->pluck('id')->join(',') }}'.split(',')[selected]"
-                 class="max-h-[80vh] w-auto"
-                 alt="{{ $project->title }}">
+              {{-- Store URLs in a JavaScript array --}}
+              <div x-data="{
+            urls: [
+                @foreach($project->getMedia('project_gallery') as $media)
+                    '{{ $media->getUrl() }}',
+                @endforeach
+            ]
+        }">
+                <img
+                  :src="urls[selected]"
+                  class="max-h-[80vh] w-auto mx-auto"
+                  :alt="`${@js($project->title)} - Image ${selected + 1}`"
+                  loading="lazy">
+              </div>
 
-              <button @click="selected = selected < {{ $project->getMedia('project_gallery')->count() - 1 }} ? selected + 1 : 0"
-                      class="absolute right-4 top-1/2 -translate-y-1/2 text-white">
+              <button
+                @click="selected = selected < {{ $project->getMedia('project_gallery')->count() - 1 }} ? selected + 1 : 0"
+                class="absolute right-4 top-1/2 -translate-y-1/2 text-white">
                 <x-heroicon-o-chevron-right class="w-8 h-8" />
               </button>
             </div>

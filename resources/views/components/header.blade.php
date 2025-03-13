@@ -43,7 +43,7 @@
           Projects
         </x-nav-link>
 
-        <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
+        <x-nav-link href="{{ route('contact.index') }}" :active="request()->routeIs('contact')">
           Contact Us
         </x-nav-link>
 
@@ -91,7 +91,7 @@
         </x-mobile-nav-link>
 
         <x-mobile-nav-link
-          href="{{ route('contact') }}"
+          href="{{ route('contact.index') }}"
           :active="request()->routeIs('contact')">
           Contact Us
         </x-mobile-nav-link>
