@@ -10,6 +10,7 @@
   {{-- Project Hero Section --}}
   <section class="relative min-h-[60vh] flex items-center bg-gradient-to-br from-ca-primary to-ca-highlight overflow-hidden">
     <div class="absolute inset-0">
+{{--      @dd($project->getFirstMedia('project_image'))--}}
       @if($project->hasMedia('project_image'))
         {{
             $project->getFirstMedia('project_image')

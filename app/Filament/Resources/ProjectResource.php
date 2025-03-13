@@ -55,24 +55,6 @@ class ProjectResource extends Resource
               ])
               ->required(),
 
-            \App\Filament\Forms\Components\SpatieMediaLibraryFileUpload::make('project_image')
-              ->collection('project_image')
-              ->conversion('thumbnail')
-              ->withResponsiveImages()
-              ->image()
-              ->imageEditor()
-              ->columnSpan('full'),
-
-            \App\Filament\Forms\Components\SpatieMediaLibraryFileUpload::make('project_gallery')
-              ->collection('project_gallery')
-              ->conversion('thumbnail')
-              ->withResponsiveImages()
-              ->multiple()
-              ->image()
-              ->imageEditor()
-              ->maxFiles(5)
-              ->columnSpan('full'),
-
             \App\Filament\Forms\Components\SpatieTagsInput::make('tags')
               ->type('project')
               ->columnSpan('full'),
@@ -106,10 +88,41 @@ class ProjectResource extends Resource
               ->numeric()
               ->default(0)
               ->helperText('Lower numbers will be displayed first'),
+
+            \App\Filament\Forms\Components\SpatieMediaLibraryFileUpload::make('project_image')
+              ->collection('project_image')
+              ->conversion('thumbnail')
+              ->withResponsiveImages()
+              ->image()
+              ->imageEditor()
+              ->columnSpan('full')
+              ->loadStateFromRelationshipsUsing(fn ($component) => $component->state([]))
+              ->saveRelationshipsUsing(fn ($component) => $component->saveUploadedFiles()),
+
+            \App\Filament\Forms\Components\SpatieMediaLibraryFileUpload::make('project_gallery')
+              ->collection('project_gallery')
+              ->conversion('thumbnail')
+              ->withResponsiveImages()
+              ->multiple()
+              ->image()
+              ->imageEditor()
+              ->maxFiles(5)
+              ->columnSpan('full')
+              ->loadStateFromRelationshipsUsing(fn ($component) => $component->state([]))
+              ->saveRelationshipsUsing(fn ($component) => $component->saveUploadedFiles()),
           ])
           ->columns(2),
       ])
+      ->statePath('data')
       ->model(Project::class);
+  }
+
+  public function create(): void
+  {
+    $project = Project::create($this->form->getState());
+
+    // Save the relationships from the form to the project after it is created.
+    $this->form->model($project)->saveRelationships();
   }
 
   /*public static function table(Table $table): Table
@@ -151,9 +164,8 @@ class ProjectResource extends Resource
   {
     return $table
       ->columns([
-        Tables\Columns\SpatieMediaLibraryImageColumn::make('project_image')
-          ->collection('project_image')
-          ->circular(),
+        Tables\Columns\ImageColumn::make('image')
+          ->square(),
         Tables\Columns\TextColumn::make('title')
           ->searchable(['title', 'description', 'content'])
           ->sortable(),
@@ -199,7 +211,8 @@ class ProjectResource extends Resource
   public static function getRelations(): array
   {
     return [
-      //
+      // RelationManagers\MediaRelationManager::class
+      // ProjectResource\RelationManagers\MediaRelationManager::class
     ];
   }
 

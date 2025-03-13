@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\MediaLibrary\Conversions\Manipulations;
+use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -49,18 +49,18 @@ class Project extends Model implements HasMedia
       ->saveSlugsTo('slug');
   }
 
-  public function registerMediaConversions(Media $media = null): void
+  public function registerMediaConversions(?Media $media = null): void
   {
     $this->addMediaConversion('thumbnail')
-      ->fit(Manipulations::FIT_CROP, 300, 300)
+      ->fit(Fit::Crop, 300, 300)
       ->nonQueued();
 
     $this->addMediaConversion('preview')
-      ->fit(Manipulations::FIT_CROP, 800, 600)
+      ->fit(Fit::Contain, 800, 600)
       ->nonQueued();
 
     $this->addMediaConversion('hero')
-      ->withoutManipulations(Manipulations::FIT_MAX, 1920, 1080)
+      ->withoutManipulations(Fit::Max, 1920, 1080)
       ->nonQueued();
   }
 
@@ -72,15 +72,15 @@ class Project extends Model implements HasMedia
       ->withResponsiveImages()
       ->registerMediaConversions(function (Media $media) {
         $this->addMediaConversion('thumbnail')
-          ->fit(Manipulations::FIT_CROP, 300, 300)
+          ->fit(Fit::Crop, 300, 300)
           ->nonQueued();
 
         $this->addMediaConversion('preview')
-          ->fit(Manipulations::FIT_CROP, 800, 600)
+          ->fit(FIt::Crop, 800, 600)
           ->nonQueued();
 
         $this->addMediaConversion('hero')
-          ->fit(Manipulations::FIT_MAX, 1920, 1080)
+          ->fit(Fit::Max, 1920, 1080)
           ->nonQueued();
       });
 
@@ -89,11 +89,11 @@ class Project extends Model implements HasMedia
       ->withResponsiveImages()
       ->registerMediaConversions(function (Media $media) {
         $this->addMediaConversion('thumbnail')
-          ->fit(Manipulations::FIT_CROP, 300, 300)
+          ->fit(Fit::Crop, 300, 300)
           ->nonQueued();
 
         $this->addMediaConversion('preview')
-          ->fit(Manipulations::FIT_CROP, 800, 600)
+          ->fit(Fit::Crop, 800, 600)
           ->nonQueued();
       });
   }
