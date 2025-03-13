@@ -2,11 +2,11 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Forms\Components\SpatieMediaLibraryFileUpload;
-use App\Filament\Forms\Components\SpatieTagsInput;
 use App\Filament\Resources\BlogPostResource\Pages;
 use App\Models\BlogPost;
 use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\SpatieTagsInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -36,8 +36,7 @@ class BlogPostResource extends Resource
                   ->required()
                   ->live(onBlur: true)
                   ->maxLength(255)
-                  ->afterStateUpdated(fn (string $state, Forms\Set $set) =>
-                  $set('slug', Str::slug($state))),
+                  ->afterStateUpdated(fn(string $state, Forms\Set $set) => $set('slug', Str::slug($state))),
 
                 Forms\Components\RichEditor::make('content')
                   ->required()
@@ -72,7 +71,7 @@ class BlogPostResource extends Resource
                   ->type('blog_tags')
                   ->placeholder('Add tags...')
                   ->separator(','),
-                  // ->suggestion(fn (string $state): string => Str::title($state)),
+                // ->suggestion(fn (string $state): string => Str::title($state)),
 
                 Forms\Components\DatePicker::make('published_at')
                   ->label('Publish Date'),
@@ -126,10 +125,10 @@ class BlogPostResource extends Resource
           ->relationship('user', 'name'),
 
         Tables\Filters\Filter::make('published')
-          ->query(fn (Builder $query): Builder => $query->where('is_published', true)),
+          ->query(fn(Builder $query): Builder => $query->where('is_published', true)),
 
         Tables\Filters\Filter::make('unpublished')
-          ->query(fn (Builder $query): Builder => $query->where('is_published', false)),
+          ->query(fn(Builder $query): Builder => $query->where('is_published', false)),
       ])
       ->actions([
         Tables\Actions\EditAction::make(),

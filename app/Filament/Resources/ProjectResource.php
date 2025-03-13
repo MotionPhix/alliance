@@ -5,9 +5,12 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ProjectResource\Pages;
 use App\Models\Project;
 use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\SpatieTagsInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Table;
 
 class ProjectResource extends Resource
@@ -55,7 +58,7 @@ class ProjectResource extends Resource
               ])
               ->required(),
 
-            \App\Filament\Forms\Components\SpatieTagsInput::make('tags')
+            SpatieTagsInput::make('tags')
               ->type('project')
               ->columnSpan('full'),
 
@@ -89,26 +92,27 @@ class ProjectResource extends Resource
               ->default(0)
               ->helperText('Lower numbers will be displayed first'),
 
-            \App\Filament\Forms\Components\SpatieMediaLibraryFileUpload::make('project_image')
+            SpatieMediaLibraryFileUpload::make('project_image')
               ->collection('project_image')
               ->conversion('thumbnail')
-              ->withResponsiveImages()
+              ->responsiveImages()
               ->image()
               ->imageEditor()
               ->columnSpan('full')
-              ->loadStateFromRelationshipsUsing(fn ($component) => $component->state([]))
+              //->loadStateFromRelationshipsUsing(fn ($component) => $component->state([]))
               ->saveRelationshipsUsing(fn ($component) => $component->saveUploadedFiles()),
 
-            \App\Filament\Forms\Components\SpatieMediaLibraryFileUpload::make('project_gallery')
+            SpatieMediaLibraryFileUpload::make('project_gallery')
               ->collection('project_gallery')
               ->conversion('thumbnail')
-              ->withResponsiveImages()
+              ->responsiveImages()
               ->multiple()
               ->image()
               ->imageEditor()
               ->maxFiles(5)
               ->columnSpan('full')
-              ->loadStateFromRelationshipsUsing(fn ($component) => $component->state([]))
+              ->panelLayout('grid')
+              //->loadStateFromRelationshipsUsing(fn ($component) => $component->state([]))
               ->saveRelationshipsUsing(fn ($component) => $component->saveUploadedFiles()),
           ])
           ->columns(2),
@@ -164,8 +168,9 @@ class ProjectResource extends Resource
   {
     return $table
       ->columns([
-        Tables\Columns\ImageColumn::make('image')
-          ->square(),
+        SpatieMediaLibraryImageColumn::make('Image')
+          ->collection('project_image')
+          ->conversion('thumbnail'),
         Tables\Columns\TextColumn::make('title')
           ->searchable(['title', 'description', 'content'])
           ->sortable(),
