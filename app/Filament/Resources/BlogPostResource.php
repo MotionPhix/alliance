@@ -11,6 +11,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
@@ -103,9 +104,16 @@ class BlogPostResource extends Resource
   {
     return $table
       ->columns([
-        Tables\Columns\ImageColumn::make('blog_images')
-          ->label('Image')
-          ->circular(),
+        SpatieMediaLibraryImageColumn::make('Image')
+          ->collection('blog_images')
+          ->conversion('thumb')
+          ->circular(false)
+          ->circular()
+          ->defaultImageUrl(fn ($record) =>
+          $record->hasMedia('blog_images')
+            ? $record->getFirstMediaUrl('blog_images', 'thumb')
+            : null
+          ),
 
         Tables\Columns\TextColumn::make('title')
           ->searchable()
@@ -174,8 +182,8 @@ class BlogPostResource extends Resource
   public static function getRelations(): array
   {
     return [
-      CommentsRelationManager::class,
-      LikesRelationManager::class,
+      \App\Filament\Resources\BlogPostResource\RelationManagers\CommentsRelationManager::class,
+      \App\Filament\Resources\BlogPostResource\RelationManagers\LikesRelationManager::class,
     ];
   }
 

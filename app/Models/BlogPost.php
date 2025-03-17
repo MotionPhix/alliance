@@ -42,7 +42,18 @@ class BlogPost extends Model implements HasMedia
   public function registerMediaCollections(): void
   {
     $this->addMediaCollection('blog_images')
-      ->singleFile(); // Only one image per blog post
+      ->singleFile()
+      ->registerMediaConversions(function () {
+        $this->addMediaConversion('thumb')
+          ->width(200)
+          ->height(200)
+          ->sharpen(10);
+
+        $this->addMediaConversion('featured')
+          ->width(800)
+          ->height(450)
+          ->sharpen(10);
+      });
   }
 
   // Relationship to User (Author/Publisher/Owner)
@@ -87,4 +98,11 @@ class BlogPost extends Model implements HasMedia
     $minutes = ceil($words / 200);
     return $minutes;
   }
+
+  public function tags()
+  {
+    return $this->morphToMany(Tag::class, 'taggable', 'taggables', null, 'tag_id')
+      ->where('type', 'blog_tags');
+  }
 }
+
