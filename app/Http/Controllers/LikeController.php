@@ -8,18 +8,33 @@ use Illuminate\Http\Request;
 
 class LikeController extends Controller
 {
-  public function store(BlogPost $post)
+  public function __construct()
   {
+    $this->middleware('auth');
+  }
+  public function store(Request $request, BlogPost $post)
+  {
+    if ($post->isLikedBy($request->user())) {
+      return response()->json(['message' => 'Already liked'], 409);
+    }
+
     $post->likes()->create([
-      'user_id' => auth()->id(),
+      'user_id' => $request->user()->id
     ]);
 
-    return redirect()->back()->with('success', 'Post liked successfully!');
+    return response()->json([
+      'likes_count' => $post->likes()->count(),
+      'message' => 'Post liked successfully'
+    ]);
   }
 
-  public function destroy(Like $like)
+  public function destroy(BlogPost $post)
   {
-    $like->delete();
-    return redirect()->back()->with('success', 'Post unliked successfully!');
+    $post->likes()->where('user_id', auth()->id())->delete();
+
+    return response()->json([
+      'likes_count' => $post->likes()->count(),
+      'message' => 'Post unliked successfully'
+    ]);
   }
 }

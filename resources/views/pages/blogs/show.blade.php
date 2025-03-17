@@ -25,13 +25,25 @@
             <x-heroicon-o-user-circle class="h-5 w-5 mr-2" />
             <span>{{ $post->user->name }}</span>
           </div>
+
           <div class="flex items-center">
             <x-heroicon-o-calendar class="h-5 w-5 mr-2" />
             <span>{{ $post->published_at->format('M d, Y') }}</span>
           </div>
+
           <div class="flex items-center">
             <x-heroicon-o-heart class="h-5 w-5 mr-2" />
             <span>{{ $post->likes->count() }} Likes</span>
+          </div>
+
+          <div class="flex items-center">
+            <x-heroicon-o-clock class="h-5 w-5 mr-2" />
+            <span>{{ $post->reading_time }} min read</span>
+          </div>
+
+          <div class="flex items-center">
+            <x-heroicon-o-eye class="h-5 w-5 mr-2" />
+            <span>{{ $post->view_count }} views</span>
           </div>
         </div>
       </header>
@@ -209,6 +221,21 @@
             @endforeach
           </div>
         </section>
+
+        {{-- Add related posts section --}}
+        @if($relatedPosts->isNotEmpty())
+          <div class="mt-16">
+            <h3 class="text-2xl font-display font-bold text-gray-900 dark:text-white mb-8">
+              Related Posts
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              @foreach($relatedPosts as $relatedPost)
+                {{-- Add related post card component --}}
+                <x-blog-post-card :post="$relatedPost" />
+              @endforeach
+            </div>
+          </div>
+        @endif
       </div>
     </div>
 

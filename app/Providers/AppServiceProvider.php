@@ -37,5 +37,23 @@ class AppServiceProvider extends ServiceProvider
         }
 
       });
+
+      // Add view composers for sidebar and popular posts
+      View::composer('pages.blogs.*', function ($view) {
+        $view->with('popularPosts', Cache::remember('popular_posts', 3600, function () {
+          return BlogPost::published()
+            ->orderBy('view_count', 'desc')
+            ->limit(5)
+            ->get();
+        }));
+
+        $view->with('tags', Cache::remember('blog_tags', 3600, function () {
+          return \Spatie\Tags\Tag::withType('blog_tags')
+            ->withCount('blogPosts')
+            ->orderBy('blog_posts_count', 'desc')
+            ->limit(10)
+            ->get();
+        }));
+      });
     }
 }

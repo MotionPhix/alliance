@@ -9,24 +9,56 @@ class BlogPostController extends Controller
 {
   public function index(Request $request)
   {
-    $query = BlogPost::where('is_published', true)
+    $query = BlogPost::published()
+      ->with(['user', 'tags', 'media'])
       ->orderBy('published_at', 'desc');
 
     if ($request->has('search')) {
-      $query->where('title', 'like', '%' . $request->input('search') . '%')
-        ->orWhere('excerpt', 'like', '%' . $request->input('search') . '%');
+      $search = $request->input('search');
+      $query->where(function($q) use ($search) {
+        $q->where('title', 'like', "%{$search}%")
+          ->orWhere('excerpt', 'like', "%{$search}%")
+          ->orWhere('content', 'like', "%{$search}%");
+      });
     }
 
-    $posts = $query->paginate(6);
+    if ($request->has('tag')) {
+      $query->withAnyTags([$request->input('tag')]);
+    }
+
+    $posts = $query->paginate(8)->withQueryString();
 
     return view('pages.blogs.index', compact('posts'));
   }
 
-  public function show($slug)
+  /*public function show($slug)
   {
     $post = BlogPost::where('slug', $slug)->firstOrFail();
     $comments = $post->comments()->paginate(10);
 
     return view('pages.blogs.show', compact('post', 'comments'));
+  }*/
+
+  public function show($slug)
+  {
+    $post = Cache::remember("blog_post.{$slug}", 3600, function () use ($slug) {
+      return BlogPost::where('slug', $slug)
+        ->with(['user', 'tags', 'comments.user', 'media'])
+        ->firstOrFail();
+    });
+
+    // Increment view count
+    if (!session()->has("viewed_post_{$post->id}")) {
+      $post->incrementViewCount();
+      session()->put("viewed_post_{$post->id}", true);
+    }
+
+    $relatedPosts = BlogPost::published()
+      ->where('id', '!=', $post->id)
+      ->withAnyTags($post->tags->pluck('name')->toArray())
+      ->limit(3)
+      ->get();
+
+    return view('pages.blogs.show', compact('post', 'relatedPosts'));
   }
 }

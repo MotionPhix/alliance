@@ -27,6 +27,7 @@ class BlogPost extends Model implements HasMedia
   protected $casts = [
     'published_at' => 'date',
     'is_published' => 'boolean',
+    'view_count' => 'integer',
   ];
 
   // Spatie Sluggable
@@ -58,5 +59,32 @@ class BlogPost extends Model implements HasMedia
   public function likes()
   {
     return $this->hasMany(Like::class);
+  }
+
+  // Add scope for published posts
+  public function scopePublished($query)
+  {
+    return $query->where('is_published', true)
+      ->where('published_at', '<=', now());
+  }
+
+  // Add method to increment view count
+  public function incrementViewCount()
+  {
+    $this->increment('view_count');
+  }
+
+  // Add method to check if post is liked by user
+  public function isLikedBy($user)
+  {
+    return $this->likes()->where('user_id', $user->id)->exists();
+  }
+
+  // Add method to get reading time
+  public function getReadingTimeAttribute()
+  {
+    $words = str_word_count(strip_tags($this->content));
+    $minutes = ceil($words / 200);
+    return $minutes;
   }
 }
