@@ -85,6 +85,12 @@ class BlogPostResource extends Resource
                   ->relationship('user', 'name')
                   ->searchable()
                   ->required(),
+
+                Forms\Components\TextInput::make('view_count')
+                  ->numeric()
+                  ->readOnly()
+                  ->visible(fn ($record) => $record !== null)
+                  ->default(0),
               ]),
           ])
           ->columnSpan(['lg' => 1]),
@@ -112,6 +118,23 @@ class BlogPostResource extends Resource
         Tables\Columns\TagsColumn::make('tags.name')
           ->label('Tags'),
 
+        Tables\Columns\TextColumn::make('view_count')
+          ->label('Views')
+          ->sortable()
+          ->alignCenter(),
+
+        Tables\Columns\TextColumn::make('comments_count')
+          ->counts('comments')
+          ->label('Comments')
+          ->sortable()
+          ->alignCenter(),
+
+        Tables\Columns\TextColumn::make('likes_count')
+          ->counts('likes')
+          ->label('Likes')
+          ->sortable()
+          ->alignCenter(),
+
         Tables\Columns\IconColumn::make('is_published')
           ->boolean()
           ->sortable(),
@@ -137,6 +160,13 @@ class BlogPostResource extends Resource
       ->bulkActions([
         Tables\Actions\BulkActionGroup::make([
           Tables\Actions\DeleteBulkAction::make(),
+          Tables\Actions\BulkAction::make('publishAll')
+            ->label('Publish Selected')
+            ->action(function (Collection $records): void {
+              $records->each->update(['is_published' => true]);
+            })
+            ->requiresConfirmation()
+            ->deselectRecordsAfterCompletion(),
         ]),
       ]);
   }
@@ -144,7 +174,8 @@ class BlogPostResource extends Resource
   public static function getRelations(): array
   {
     return [
-      //
+      CommentsRelationManager::class,
+      LikesRelationManager::class,
     ];
   }
 
