@@ -38,16 +38,22 @@
 
       <!-- Featured Image -->
       @if($post->hasMedia('blog_images'))
-        <div class="max-w-5xl mx-auto mb-12">
-          <div class="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-xl">
+    <div class="max-w-5xl mx-auto mb-12">
+        <div class="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-xl">
             <img
-              src="{{ $post->getFirstMediaUrl('blog_images') }}"
-              alt="{{ $post->title }}"
-              class="w-full h-full object-cover"
+                src="{{ $post->getFirstMediaUrl('blog_images', 'preview') }}"
+                srcset="{{ $post->getFirstMediaUrl('blog_images', 'thumbnail') }} 400w,
+                        {{ $post->getFirstMediaUrl('blog_images') }} 1200w"
+                sizes="(max-width: 768px) 100vw,
+                       (max-width: 1200px) 85vw,
+                       1200px"
+                alt="{{ $post->title }}"
+                class="w-full h-full object-cover"
+                loading="lazy"
             >
-          </div>
         </div>
-      @endif
+    </div>
+@endif
 
       <!-- Article Content -->
       <div class="max-w-4xl mx-auto">
