@@ -104,5 +104,10 @@ class BlogPost extends Model implements HasMedia
     return $this->morphToMany(Tag::class, 'taggable', 'taggables', null, 'tag_id')
       ->where('type', 'blog_tags');
   }
+
+  public static function getTagClassName(): string
+  {
+    return Tag::class;
+  }
 }
 
