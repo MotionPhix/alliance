@@ -15,7 +15,7 @@ return new class extends Migration {
       $table->string('title');
       $table->string('slug')->unique();
       $table->text('description');
-      $table->text('content');
+      $table->longText('content');
       $table->date('start_date');
       $table->string('funded_by');
       $table->date('end_date')->nullable();

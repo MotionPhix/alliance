@@ -1,0 +1,33 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+/* Custom styles */
+.fi-sidebar {
+  @apply bg-primary-800 dark:bg-gray-900;
+}
+
+.fi-sidebar-header {
+  @apply bg-primary-900 dark:bg-gray-950;
+}
+
+.fi-main-ctn {
+  @apply bg-gray-50 dark:bg-gray-900;
+}
+
+.fi-topbar {
+  @apply bg-white dark:bg-gray-900 border-b dark:border-gray-800;
+}
+
+/* Custom card styles */
+.fi-card {
+  @apply rounded-xl shadow-sm border-0 dark:bg-gray-800;
+}
+
+/* Custom button styles */
+.fi-btn {
+  @apply rounded-lg;
+}
+
+/* Custom form field styles */
+.fi-input-wrp {
+  @apply rounded-lg;
+}

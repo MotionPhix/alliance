@@ -15,9 +15,10 @@ return new class extends Migration {
       $table->string('title');
       $table->string('slug')->unique();
       $table->text('excerpt');
-      $table->text('content');
+      $table->longText('content');
       $table->date('published_at')->nullable();
       $table->boolean('is_published')->default(true);
+      $table->integer('view_count')->default(0);
       $table->foreignId('user_id')->constrained()->onDelete('cascade');
       $table->timestamps();
     });

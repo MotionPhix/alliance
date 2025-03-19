@@ -10,13 +10,11 @@
   {{-- Project Hero Section --}}
   <section class="relative min-h-[60vh] flex items-center bg-gradient-to-br from-ca-primary to-ca-highlight overflow-hidden">
     <div class="absolute inset-0">
-{{--      @dd($project->getFirstMedia('project_image'))--}}
       @if($project->hasMedia('project_image'))
-        <img src="{{ $project->featured_image }}" alt="{{ $project->title }}">
+        <img class="object-cover w-full" src="{{ $project->featured_image }}" alt="{{ $project->title }}">
         {{
             $project->getFirstMedia('project_image')
               ->img('hero', [
-                'class' => 'w-full h-full object-cover',
                 'alt' => $project->title
               ])
         }}
@@ -142,7 +140,7 @@
             </div>
 
             <div class="mt-8">
-              <a href="{{ route('contact') }}"
+              <a href="{{ route('contact.index') }}"
                  class="inline-flex items-center justify-center w-full px-6 py-3 bg-ca-highlight text-white rounded-xl hover:bg-ca-highlight/90 transition-colors duration-300">
                 <x-heroicon-o-chat-bubble-left-right class="w-5 h-5 mr-2" />
                 Get Involved

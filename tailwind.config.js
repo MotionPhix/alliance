@@ -6,6 +6,7 @@ export default {
 
   content: [
     "./resources/**/*.blade.php",
+    "./vendor/filament/**/*.blade.php",
     "./resources/**/*.js",
     "./resources/**/*.vue",
   ],
@@ -29,7 +30,20 @@ export default {
         'ca-primary': '#4F46E5',
         'ca-secondary': '#2D3748',
         'ca-highlight': '#4338CA',
-        'ca-success': '#48BB78'
+        'ca-success': '#48BB78',
+        'primary': {
+          50: '#fdf4e7',
+          100: '#fbe8cf',
+          200: '#f7d19f',
+          300: '#f3ba6f',
+          400: '#efa33f',
+          500: '#eb8c0f',
+          600: '#bc700c',
+          700: '#8d5409',
+          800: '#5e3806',
+          900: '#2f1c03',
+          950: '#180e02',
+        },
       },
       typography: (theme) => ({
         DEFAULT: {
