@@ -13,7 +13,7 @@ class ProjectsOverviewWidget extends BaseWidget
     return [
       Card::make('Total Projects', Project::count())
         ->description('All projects in the system')
-        ->descriptionIcon('heroicon-s-collection')
+        ->descriptionIcon('heroicon-o-briefcase')
         ->chart(Project::query()
           ->selectRaw('DATE(created_at) as date, COUNT(*) as count')
           ->groupBy('date')

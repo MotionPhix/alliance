@@ -6,13 +6,11 @@ use App\Filament\Resources\BlogPostResource\Pages;
 use App\Models\BlogPost;
 use Filament\Forms;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
-use Filament\Forms\Components\SpatieTagsInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Table;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
-use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Table;
 use Illuminate\Support\Str;
 
 class BlogPostResource extends Resource
@@ -29,53 +27,64 @@ class BlogPostResource extends Resource
   {
     return $form
       ->schema([
-        Forms\Components\Group::make()
-          ->schema([
-            Forms\Components\Section::make('Main Content')
+        Forms\Components\Tabs::make('Blog Post')
+          ->tabs([
+            Forms\Components\Tabs\Tab::make('Content')
               ->schema([
                 Forms\Components\TextInput::make('title')
                   ->required()
-                  ->live(onBlur: true)
                   ->maxLength(255)
-                  ->afterStateUpdated(fn(string $state, Forms\Set $set) => $set('slug', Str::slug($state))),
+                  ->live(onBlur: true)
+                  ->afterStateUpdated(fn (string $state, Forms\Set $set) =>
+                  $set('slug', Str::slug($state))),
+
+                Forms\Components\TextInput::make('slug')
+                  ->required()
+                  ->unique(ignoreRecord: true)
+                  ->disabled(),
 
                 Forms\Components\RichEditor::make('content')
                   ->required()
+                  ->toolbarButtons([
+                    'bold',
+                    'italic',
+                    'link',
+                    'bulletList',
+                    'orderedList',
+                  ])
                   ->columnSpanFull(),
-              ]),
 
-            Forms\Components\Section::make('Image')
+                Forms\Components\Textarea::make('excerpt')
+                  ->required()
+                  ->rows(3)
+                  ->maxLength(255)
+                  ->columnSpanFull(),
+              ])
+              ->columns(2),
+
+            Forms\Components\Tabs\Tab::make('Media')
               ->schema([
                 SpatieMediaLibraryFileUpload::make('blog_images')
                   ->collection('blog_images')
                   ->image()
                   ->imageEditor()
-                  ->imageEditorAspectRatios([
-                    '16:9',
-                    '4:3',
-                    '1:1',
-                  ])
-                  ->required(),
+                  ->imageEditorMode(2)
+                  ->downloadable()
+                  ->openable()
+                  ->preserveFilenames()
+                  ->previewable(true)
+                  ->imageCropAspectRatio('16:9')
+                  ->imageResizeTargetWidth('1920')
+                  ->imageResizeTargetHeight('1080')
+                  ->helperText('Recommended size: 1920x1080px. Will be used as the hero image.')
+                  ->columnSpanFull(),
               ]),
-          ])
-          ->columnSpan(['lg' => 2]),
 
-        Forms\Components\Group::make()
-          ->schema([
-            Forms\Components\Section::make('Meta')
+            Forms\Components\Tabs\Tab::make('Publishing')
               ->schema([
-                Forms\Components\Textarea::make('excerpt')
-                  ->required()
-                  ->rows(4),
-
-                SpatieTagsInput::make('tags')
-                  ->type('blog_tags')
-                  ->placeholder('Add tags...')
-                  ->separator(','),
-                // ->suggestion(fn (string $state): string => Str::title($state)),
-
-                Forms\Components\DatePicker::make('published_at')
-                  ->label('Publish Date'),
+                Forms\Components\DateTimePicker::make('published_at')
+                  ->label('Publish Date')
+                  ->default(now()),
 
                 Forms\Components\Toggle::make('is_published')
                   ->label('Published')
@@ -87,17 +96,12 @@ class BlogPostResource extends Resource
                   ->searchable()
                   ->required(),
 
-                Forms\Components\TextInput::make('view_count')
-                  ->numeric()
-                  ->readOnly()
-                  ->visible(fn ($record) => $record !== null)
-                  ->default(0),
+                Forms\Components\SpatieTagsInput::make('tags')
+                  ->type('blog_tags'),
               ]),
           ])
-          ->columnSpan(['lg' => 1]),
-      ])
-      ->model(BlogPost::class)
-      ->columns(3);
+          ->columnSpanFull(),
+      ]);
   }
 
   public static function table(Table $table): Table
@@ -106,60 +110,43 @@ class BlogPostResource extends Resource
       ->columns([
         SpatieMediaLibraryImageColumn::make('Image')
           ->collection('blog_images')
-          ->conversion('thumb')
+          ->conversion('thumbnail')
           ->circular(false)
-          ->circular()
+          ->square()
           ->defaultImageUrl(fn ($record) =>
           $record->hasMedia('blog_images')
-            ? $record->getFirstMediaUrl('blog_images', 'thumb')
+            ? $record->getFirstMediaUrl('blog_images', 'thumbnail')
             : null
           ),
 
         Tables\Columns\TextColumn::make('title')
           ->searchable()
-          ->sortable(),
+          ->sortable()
+          ->limit(50),
 
         Tables\Columns\TextColumn::make('user.name')
           ->label('Author')
           ->sortable(),
-
-        Tables\Columns\TagsColumn::make('tags.name')
-          ->label('Tags'),
-
-        Tables\Columns\TextColumn::make('view_count')
-          ->label('Views')
-          ->sortable()
-          ->alignCenter(),
-
-        Tables\Columns\TextColumn::make('comments_count')
-          ->counts('comments')
-          ->label('Comments')
-          ->sortable()
-          ->alignCenter(),
-
-        Tables\Columns\TextColumn::make('likes_count')
-          ->counts('likes')
-          ->label('Likes')
-          ->sortable()
-          ->alignCenter(),
 
         Tables\Columns\IconColumn::make('is_published')
           ->boolean()
           ->sortable(),
 
         Tables\Columns\TextColumn::make('published_at')
-          ->date()
+          ->dateTime()
+          ->sortable(),
+
+        Tables\Columns\TextColumn::make('view_count')
+          ->label('Views')
           ->sortable(),
       ])
       ->filters([
         Tables\Filters\SelectFilter::make('user')
           ->relationship('user', 'name'),
 
-        Tables\Filters\Filter::make('published')
-          ->query(fn(Builder $query): Builder => $query->where('is_published', true)),
-
-        Tables\Filters\Filter::make('unpublished')
-          ->query(fn(Builder $query): Builder => $query->where('is_published', false)),
+        Tables\Filters\TernaryFilter::make('is_published')
+          ->label('Published Status')
+          ->indicator('Publication'),
       ])
       ->actions([
         Tables\Actions\EditAction::make(),
@@ -168,13 +155,6 @@ class BlogPostResource extends Resource
       ->bulkActions([
         Tables\Actions\BulkActionGroup::make([
           Tables\Actions\DeleteBulkAction::make(),
-          Tables\Actions\BulkAction::make('publishAll')
-            ->label('Publish Selected')
-            ->action(function (Collection $records): void {
-              $records->each->update(['is_published' => true]);
-            })
-            ->requiresConfirmation()
-            ->deselectRecordsAfterCompletion(),
         ]),
       ]);
   }
@@ -182,8 +162,7 @@ class BlogPostResource extends Resource
   public static function getRelations(): array
   {
     return [
-      \App\Filament\Resources\BlogPostResource\RelationManagers\CommentsRelationManager::class,
-      \App\Filament\Resources\BlogPostResource\RelationManagers\LikesRelationManager::class,
+      //
     ];
   }
 
@@ -194,10 +173,5 @@ class BlogPostResource extends Resource
       'create' => Pages\CreateBlogPost::route('/create'),
       'edit' => Pages\EditBlogPost::route('/{record}/edit'),
     ];
-  }
-
-  public static function getNavigationBadge(): ?string
-  {
-    return static::getModel()::count();
   }
 }

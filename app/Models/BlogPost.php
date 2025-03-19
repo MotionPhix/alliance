@@ -2,17 +2,19 @@
 
 namespace App\Models;
 
+use App\Traits\HasMediaUrls;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Tags\HasTags;
 
 class BlogPost extends Model implements HasMedia
 {
-  use HasFactory, HasSlug, InteractsWithMedia, HasTags;
+  use HasFactory, HasSlug, InteractsWithMedia, HasTags, HasMediaUrls;
 
   protected $fillable = [
     'title',
@@ -22,6 +24,7 @@ class BlogPost extends Model implements HasMedia
     'published_at',
     'is_published',
     'user_id',
+    'view_count',
   ];
 
   protected $casts = [
@@ -30,7 +33,6 @@ class BlogPost extends Model implements HasMedia
     'view_count' => 'integer',
   ];
 
-  // Spatie Sluggable
   public function getSlugOptions(): SlugOptions
   {
     return SlugOptions::create()
@@ -38,25 +40,55 @@ class BlogPost extends Model implements HasMedia
       ->saveSlugsTo('slug');
   }
 
-  // Spatie Media Library
+  public function registerMediaConversions(Media $media = null): void
+  {
+    if ($media === null) {
+      return;
+    }
+
+    $this->addMediaConversion('thumbnail')
+      ->width(400)
+      ->height(400)
+      ->sharpen(10)
+      ->nonQueued();
+
+    $this->addMediaConversion('preview')
+      ->width(800)
+      ->height(600)
+      ->sharpen(10)
+      ->nonQueued();
+
+    $this->addMediaConversion('hero')
+      ->width(1920)
+      ->height(1080)
+      ->sharpen(10)
+      ->nonQueued();
+  }
+
   public function registerMediaCollections(): void
   {
     $this->addMediaCollection('blog_images')
       ->singleFile()
-      ->registerMediaConversions(function () {
-        $this->addMediaConversion('thumb')
-          ->width(200)
-          ->height(200)
-          ->sharpen(10);
-
-        $this->addMediaConversion('featured')
-          ->width(800)
-          ->height(450)
-          ->sharpen(10);
-      });
+      ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp'])
+      ->withResponsiveImages();
   }
 
-  // Relationship to User (Author/Publisher/Owner)
+  // Helper method to get the featured image URL with different sizes
+  public function getFeaturedImageAttribute()
+  {
+    if (!$this->hasMedia('blog_images')) {
+      return null;
+    }
+
+    return [
+      'thumbnail' => $this->getFirstMediaUrl('blog_images', 'thumbnail'),
+      'preview' => $this->getFirstMediaUrl('blog_images', 'preview'),
+      'hero' => $this->getFirstMediaUrl('blog_images', 'hero'),
+      'original' => $this->getFirstMediaUrl('blog_images'),
+    ];
+  }
+
+  // Relationship to User (Author)
   public function user()
   {
     return $this->belongsTo(User::class);
@@ -95,19 +127,12 @@ class BlogPost extends Model implements HasMedia
   public function getReadingTimeAttribute()
   {
     $words = str_word_count(strip_tags($this->content));
-    $minutes = ceil($words / 200);
-    return $minutes;
+    return ceil($words / 200);
   }
 
   public function tags()
   {
-    return $this->morphToMany(Tag::class, 'taggable', 'taggables', null, 'tag_id')
+    return $this->morphToMany(Tag::class, 'taggable')
       ->where('type', 'blog_tags');
   }
-
-  public static function getTagClassName(): string
-  {
-    return Tag::class;
-  }
 }
-

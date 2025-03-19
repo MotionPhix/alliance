@@ -29,7 +29,7 @@
             <x-heroicon-o-arrow-down class="w-5 h-5 ml-2"/>
           </a>
 
-          <a href="{{ route('contact') }}"
+          <a href="{{ route('contact.index') }}"
              class="inline-flex items-center px-6 py-3 bg-ca-highlight text-white rounded-full hover:bg-ca-highlight/90 transition-colors duration-300">
             <span>Partner With Us</span>
             <x-heroicon-o-arrow-right class="w-5 h-5 ml-2"/>
@@ -350,7 +350,7 @@
           Join us in our mission to create lasting positive change in communities across Malawi.
         </p>
         <div class="flex flex-wrap justify-center gap-4">
-          <a href="{{ route('contact') }}"
+          <a href="{{ route('contact.index') }}"
              class="inline-flex items-center px-8 py-4 bg-white text-ca-primary rounded-full hover:bg-gray-100 transition-colors duration-300">
             <span>Partner With Us</span>
             <x-heroicon-o-arrow-right class="w-5 h-5 ml-2"/>

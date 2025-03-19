@@ -2,8 +2,8 @@
 
 namespace App\Filament\Widgets;
 
+use App\Models\Tag;
 use Filament\Widgets\PieChartWidget;
-use Spatie\Tags\Tag;
 
 class ProjectTagsWidget extends PieChartWidget
 {

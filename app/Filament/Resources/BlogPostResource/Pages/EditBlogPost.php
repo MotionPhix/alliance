@@ -16,4 +16,21 @@ class EditBlogPost extends EditRecord
       Actions\DeleteAction::make(),
     ];
   }
+
+  protected function afterSave(): void
+  {
+    // Refresh the record to get the latest media
+    $this->record->refresh();
+  }
+
+  public function deleteMedia(string $mediaId): void
+  {
+    $media = $this->record->media()->find($mediaId);
+
+    if ($media) {
+      $media->delete();
+
+      $this->notify('success', 'Media deleted successfully');
+    }
+  }
 }

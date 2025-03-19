@@ -2,17 +2,30 @@
 
 namespace App\Models;
 
-use Spatie\Tags\Tag as SpatieTag;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Spatie\Tags\Tag as BaseTag;
 
-class Tag extends SpatieTag
+class Tag extends BaseTag
 {
-  public function blogPosts()
+  public function projects(): MorphToMany
   {
-    return $this->morphedByMany(BlogPost::class, 'taggable');
+    return $this->morphedByMany(
+      Project::class,
+      'taggable',
+      'taggables',
+      'tag_id',
+      'taggable_id'
+    );
   }
 
-  public static function getTagClassName(): string
+  public function blogPosts(): MorphToMany
   {
-    return Tag::class;
+    return $this->morphedByMany(
+      BlogPost::class,
+      'taggable',
+      'taggables',
+      'tag_id',
+      'taggable_id'
+    );
   }
 }

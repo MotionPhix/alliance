@@ -2,30 +2,29 @@
 
 namespace App\Filament\Pages;
 
-use App\Filament\Widgets\ProjectsOverviewWidget;
-use App\Filament\Widgets\LatestProjectsWidget;
-use App\Filament\Widgets\ProjectStatisticsWidget;
-use App\Filament\Widgets\ProjectTagsWidget;
 use Filament\Pages\Dashboard as BaseDashboard;
 
 class Dashboard extends BaseDashboard
 {
-  public function getWidgets(): array
-  {
-    return [
-      ProjectsOverviewWidget::class,
-      LatestProjectsWidget::class,
-      ProjectStatisticsWidget::class,
-      ProjectTagsWidget::class,
-    ];
-  }
+  protected static string $view = 'filament.pages.dashboard';
 
-  public function getColumns(): int | array
+  public function getColumns(): int|string|array
   {
     return [
       'default' => 1,
       'sm' => 2,
-      'lg' => 3,
+      'md' => 3,
+      'lg' => 4,
+    ];
+  }
+
+  public function getWidgets(): array
+  {
+    return [
+      \App\Filament\Widgets\StatsOverview::class,
+      \App\Filament\Widgets\LatestBlogPosts::class,
+      \App\Filament\Widgets\ProjectsOverview::class,
+      \App\Filament\Widgets\ContentCalendar::class,
     ];
   }
 }
