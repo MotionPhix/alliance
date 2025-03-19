@@ -1,4 +1,17 @@
 @import '../../../../vendor/filament/filament/resources/css/theme.css';
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+@import '../../../../vendor/awcodes/filament-tiptap-editor/resources/css/plugin.css';
+
+/* Optional: Add custom styles for the editor */
+.tiptap-editor {
+  .ProseMirror {
+    min-height: 12rem;
+
+    img {
+      @apply rounded-lg max-w-full mx-auto my-4;
+    }
+  }
+}
 
 /* Custom styles */
 .fi-sidebar {

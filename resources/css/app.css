@@ -90,3 +90,16 @@
     transform: translateY(0);
   }
 }
+
+.prose .image-container {
+  @apply my-8;
+}
+
+.prose .image-container img {
+  @apply w-full rounded-xl shadow-lg transition-transform duration-300 hover:scale-[1.02];
+}
+
+/* Override any default link styles from the editor */
+.prose a > img {
+  @apply no-underline;
+}

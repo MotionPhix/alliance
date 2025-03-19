@@ -3,18 +3,24 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Like extends Model
 {
-  protected $fillable = ['blog_post_id', 'user_id'];
+  protected $fillable = [
+    'user_id',
+    'likeable_id',
+    'likeable_type',
+  ];
 
-  public function blogPost()
-  {
-    return $this->belongsTo(BlogPost::class);
-  }
-
-  public function user()
+  public function user(): BelongsTo
   {
     return $this->belongsTo(User::class);
+  }
+
+  public function likeable(): MorphTo
+  {
+    return $this->morphTo();
   }
 }

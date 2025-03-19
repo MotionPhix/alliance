@@ -7,6 +7,8 @@ export default {
   content: [
     "./resources/**/*.blade.php",
     "./vendor/filament/**/*.blade.php",
+    "./resources/js/**/*.{js,ts,tsx,vue}",
+    "./vendor/awcodes/filament-tiptap-editor/resources/**/*.blade.php",
     "./resources/**/*.js",
     "./resources/**/*.vue",
   ],

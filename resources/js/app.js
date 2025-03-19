@@ -8,8 +8,15 @@ import intersect from '@alpinejs/intersect';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet.fullscreen/Control.FullScreen.css';
 
+import {createApp} from 'vue';
+import {ZiggyVue} from 'ziggy-js';
 import L from 'leaflet';
 import 'leaflet.fullscreen';
+
+import LikeButton from './components/LikeButton.vue'
+import BlogPostHeader from "@/components/BlogPostHeader.vue";
+import Comments from "@/components/Comments.vue";
+import ToastMessages from "@/components/ToastMessages.vue";
 
 // Fix Leaflet's icon path issues with Webpack
 delete L.Icon.Default.prototype._getIconUrl;
@@ -131,3 +138,13 @@ gsap.utils.toArray('.animate-on-scroll').forEach(element => {
     },
   });
 });
+
+const app = createApp({});
+
+app
+  .use(ZiggyVue)
+  .component('like-button', LikeButton)
+  .component('blog-post-header', BlogPostHeader)
+  .component('toast-messages', ToastMessages)
+  .component('comments', Comments)
+  .mount('#app')

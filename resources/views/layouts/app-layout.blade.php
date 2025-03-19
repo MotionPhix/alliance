@@ -62,8 +62,16 @@
   <link href="https://fonts.bunny.net/css?family=poppins:400,500,600,700&display=swap" rel="stylesheet"/>
   <link href="https://fonts.bunny.net/css?family=dm-serif-display:400" rel="stylesheet" />
 
+  <script>
+    window.sessionSuccess = @json(session('success'));
+    window.sessionError = @json(session('error'));
+  </script>
+
+  <!-- routes -->
+  @routes
+
   <!-- Scripts -->
-  @vite(['resources/css/app.css'])
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-poppins antialiased bg-white dark:bg-gray-900">
 <div class="min-h-screen">
@@ -79,7 +87,6 @@
 <!-- Toast Notifications -->
 <div id="toast-container" class="fixed bottom-4 right-4 z-50"></div>
 
-@vite(['resources/js/app.js'])
 @stack('scripts')
 </body>
 </html>

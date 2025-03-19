@@ -56,12 +56,12 @@ class AdminPanelProvider extends PanelProvider
       ->authMiddleware([
         Authenticate::class,
       ])
-      ->plugin(
+      ->plugins([
         FilamentFullCalendarPlugin::make()
           ->selectable()
           ->editable()
           ->timezone('Africa/Harare')
-      )
+      ])
       ->spa()
       ->databaseNotifications()
       ->sidebarCollapsibleOnDesktop()

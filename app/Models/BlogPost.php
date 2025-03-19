@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Support\ContentFormatter;
 use App\Traits\HasMediaUrls;
+use App\Traits\Likeable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
@@ -14,7 +16,7 @@ use Spatie\Tags\HasTags;
 
 class BlogPost extends Model implements HasMedia
 {
-  use HasFactory, HasSlug, InteractsWithMedia, HasTags, HasMediaUrls;
+  use HasFactory, HasSlug, InteractsWithMedia, HasTags, HasMediaUrls, Likeable;
 
   protected $fillable = [
     'title',
@@ -71,6 +73,11 @@ class BlogPost extends Model implements HasMedia
       ->singleFile()
       ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp'])
       ->withResponsiveImages();
+  }
+
+  public function getContentAttribute($value): string
+  {
+    return ContentFormatter::removeImageLinks($value);
   }
 
   // Helper method to get the featured image URL with different sizes

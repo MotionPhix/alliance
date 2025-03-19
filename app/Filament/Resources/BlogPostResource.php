@@ -11,6 +11,8 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Table;
+use FilamentTiptapEditor\Enums\TiptapOutput;
+use FilamentTiptapEditor\TiptapEditor;
 use Illuminate\Support\Str;
 
 class BlogPostResource extends Resource
@@ -43,8 +45,13 @@ class BlogPostResource extends Resource
                   ->unique(ignoreRecord: true)
                   ->disabled(),
 
-                Forms\Components\RichEditor::make('content')
-                  ->required()
+                TiptapEditor::make('content')
+                  ->profile('simple')
+                  ->disk('public')
+                  ->directory('blog-content')
+                  ->acceptedFileTypes(['image/png', 'image/jpg', 'image/jpeg', 'image/gif'])
+                  ->output(TiptapOutput::Html)
+                  ->maxContentWidth('full')
                   ->columnSpanFull(),
 
                 Forms\Components\Textarea::make('excerpt')

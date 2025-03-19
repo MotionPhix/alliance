@@ -3,38 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\BlogPost;
-use App\Models\Like;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\Middleware;
 
 class LikeController extends Controller
 {
-  public function __construct()
+  public static function middleware(): array
   {
-    $this->middleware('auth');
-  }
-  public function store(Request $request, BlogPost $post)
-  {
-    if ($post->isLikedBy($request->user())) {
-      return response()->json(['message' => 'Already liked'], 409);
-    }
-
-    $post->likes()->create([
-      'user_id' => $request->user()->id
-    ]);
-
-    return response()->json([
-      'likes_count' => $post->likes()->count(),
-      'message' => 'Post liked successfully'
-    ]);
+    return [
+      new Middleware(middleware: 'auth:sanctum', except: ['index', 'show']),
+    ];
   }
 
-  public function destroy(BlogPost $post)
+  public function toggle(Request $request, BlogPost $post)
   {
-    $post->likes()->where('user_id', auth()->id())->delete();
+    $post->toggleLike(auth()->user());
 
     return response()->json([
-      'likes_count' => $post->likes()->count(),
-      'message' => 'Post unliked successfully'
+      'liked' => $post->isLikedBy(auth()->user()),
+      'count' => $post->likes()->count(),
     ]);
   }
 }

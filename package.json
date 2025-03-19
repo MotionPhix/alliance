@@ -12,7 +12,7 @@
     "@tailwindcss/typography": "^0.5.16",
     "alpinejs": "^3.14.8",
     "autoprefixer": "^10.4.20",
-    "axios": "^1.7.4",
+    "axios": "^1.8.4",
     "concurrently": "^9.0.1",
     "gsap": "^3.12.7",
     "intersection-observer": "^0.12.2",
@@ -24,8 +24,12 @@
   },
   "dependencies": {
     "@alpinejs/intersect": "^3.14.8",
+    "@heroicons/vue": "^2.2.0",
+    "@vitejs/plugin-vue": "^5.2.3",
+    "date-fns": "^4.1.0",
     "leaflet": "^1.9.4",
     "leaflet.fullscreen": "^4.0.0",
-    "leaflet.markercluster": "^1.5.3"
+    "leaflet.markercluster": "^1.5.3",
+    "path": "^0.12.7"
   }
 }
