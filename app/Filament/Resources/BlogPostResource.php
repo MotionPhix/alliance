@@ -45,13 +45,6 @@ class BlogPostResource extends Resource
 
                 Forms\Components\RichEditor::make('content')
                   ->required()
-                  ->toolbarButtons([
-                    'bold',
-                    'italic',
-                    'link',
-                    'bulletList',
-                    'orderedList',
-                  ])
                   ->columnSpanFull(),
 
                 Forms\Components\Textarea::make('excerpt')

@@ -9,7 +9,8 @@
         @if($post->tags->isNotEmpty())
           <div class="flex flex-wrap justify-center gap-2 mb-6">
             @foreach($post->tags as $tag)
-              <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-ca-primary/10 text-ca-primary">
+              <span
+                class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-ca-primary/10 text-ca-primary">
                 {{ $tag->name }}
               </span>
             @endforeach
@@ -22,27 +23,27 @@
 
         <div class="flex items-center justify-center space-x-6 text-gray-600 dark:text-gray-400">
           <div class="flex items-center">
-            <x-heroicon-o-user-circle class="h-5 w-5 mr-2" />
+            <x-heroicon-o-user-circle class="h-5 w-5 mr-2"/>
             <span>{{ $post->user->name }}</span>
           </div>
 
           <div class="flex items-center">
-            <x-heroicon-o-calendar class="h-5 w-5 mr-2" />
+            <x-heroicon-o-calendar class="h-5 w-5 mr-2"/>
             <span>{{ $post->published_at->format('M d, Y') }}</span>
           </div>
 
           <div class="flex items-center">
-            <x-heroicon-o-heart class="h-5 w-5 mr-2" />
+            <x-heroicon-o-heart class="h-5 w-5 mr-2"/>
             <span>{{ $post->likes->count() }} Likes</span>
           </div>
 
           <div class="flex items-center">
-            <x-heroicon-o-clock class="h-5 w-5 mr-2" />
+            <x-heroicon-o-clock class="h-5 w-5 mr-2"/>
             <span>{{ $post->reading_time }} min read</span>
           </div>
 
           <div class="flex items-center">
-            <x-heroicon-o-eye class="h-5 w-5 mr-2" />
+            <x-heroicon-o-eye class="h-5 w-5 mr-2"/>
             <span>{{ $post->view_count }} views</span>
           </div>
         </div>
@@ -50,22 +51,22 @@
 
       <!-- Featured Image -->
       @if($post->hasMedia('blog_images'))
-    <div class="max-w-5xl mx-auto mb-12">
-        <div class="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-xl">
+        <div class="max-w-5xl mx-auto mb-12">
+          <div class="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-xl">
             <img
-                src="{{ $post->getFirstMediaUrl('blog_images', 'preview') }}"
-                srcset="{{ $post->getFirstMediaUrl('blog_images', 'thumbnail') }} 400w,
+              src="{{ $post->getFirstMediaUrl('blog_images', 'preview') }}"
+              srcset="{{ $post->getFirstMediaUrl('blog_images', 'thumbnail') }} 400w,
                         {{ $post->getFirstMediaUrl('blog_images') }} 1200w"
-                sizes="(max-width: 768px) 100vw,
+              sizes="(max-width: 768px) 100vw,
                        (max-width: 1200px) 85vw,
                        1200px"
-                alt="{{ $post->title }}"
-                class="w-full h-full object-cover"
-                loading="lazy"
+              alt="{{ $post->title }}"
+              class="w-full h-full object-cover"
+              loading="lazy"
             >
+          </div>
         </div>
-    </div>
-@endif
+      @endif
 
       <!-- Article Content -->
       <div class="max-w-4xl mx-auto">
@@ -105,8 +106,8 @@
                   }
                 }
               }"
-             class="flex flex-col items-center space-y-4">
-{{--              // {{ route('login') }}--}}
+              class="flex flex-col items-center space-y-4">
+              {{--              // {{ route('login') }}--}}
               <button
                 @click="toggleLike"
                 :disabled="isProcessing"
@@ -132,10 +133,9 @@
               </button>
 
 
-
               <!-- Like Counter with Animation -->
               <div class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
-                <x-heroicon-s-heart class="h-4 w-4 text-red-500" />
+                <x-heroicon-s-heart class="h-4 w-4 text-red-500"/>
                 <span
                   x-text="likesCount"
                   class="transition-all duration-300"
@@ -178,7 +178,7 @@
                 <button
                   type="submit"
                   class="inline-flex items-center px-6 py-3 bg-ca-primary text-white rounded-xl hover:bg-ca-highlight transition-colors duration-300">
-                  <x-heroicon-o-paper-airplane class="h-5 w-5 mr-2" />
+                  <x-heroicon-o-paper-airplane class="h-5 w-5 mr-2"/>
                   Post Comment
                 </button>
               </div>
@@ -213,7 +213,7 @@
                           @method('DELETE')
                           <button type="submit"
                                   class="text-red-600 hover:text-red-800 dark:hover:text-red-400 transition-colors duration-300">
-                            <x-heroicon-o-trash class="h-5 w-5" />
+                            <x-heroicon-o-trash class="h-5 w-5"/>
                           </button>
                         </form>
                       @endif
@@ -237,7 +237,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
               @foreach($relatedPosts as $relatedPost)
                 {{-- Add related post card component --}}
-                <x-blog-post-card :post="$relatedPost" />
+                <x-blog-post-card :post="$relatedPost"/>
               @endforeach
             </div>
           </div>
@@ -275,10 +275,10 @@
         }" class="flex items-center space-x-2 text-white px-6 py-4 rounded-xl shadow-lg">
           <div class="flex-shrink-0">
             <template x-if="!isError">
-              <x-heroicon-o-check-circle class="h-5 w-5" />
+              <x-heroicon-o-check-circle class="h-5 w-5"/>
             </template>
             <template x-if="isError">
-              <x-heroicon-o-x-circle class="h-5 w-5" />
+              <x-heroicon-o-x-circle class="h-5 w-5"/>
             </template>
           </div>
           <p x-text="message" class="font-medium"></p>

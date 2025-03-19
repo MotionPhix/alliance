@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class BlogPostController extends Controller
 {
@@ -30,14 +31,6 @@ class BlogPostController extends Controller
 
     return view('pages.blogs.index', compact('posts'));
   }
-
-  /*public function show($slug)
-  {
-    $post = BlogPost::where('slug', $slug)->firstOrFail();
-    $comments = $post->comments()->paginate(10);
-
-    return view('pages.blogs.show', compact('post', 'comments'));
-  }*/
 
   public function show($slug)
   {

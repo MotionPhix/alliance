@@ -477,8 +477,7 @@
           x-show="shown"
           x-transition:enter="transition ease-out delay-300 duration-500"
           x-transition:enter-start="opacity-0 translate-y-10"
-          x-transition:enter-end="opacity-100 translate-y-0"
-        >
+          x-transition:enter-end="opacity-100 translate-y-0">
           Whether you're an organization looking to partner with us or an individual wanting to support our cause,
           your involvement can help create lasting change in Malawi.
         </p>
@@ -488,15 +487,15 @@
           x-show="shown"
           x-transition:enter="transition ease-out delay-500 duration-500"
           x-transition:enter-start="opacity-0 translate-y-10"
-          x-transition:enter-end="opacity-100 translate-y-0"
-        >
+          x-transition:enter-end="opacity-100 translate-y-0">
           <a
-            href="{{ route('contact') }}"
+            href="{{ route('contact.index') }}"
             class="inline-flex items-center px-8 py-4 bg-white dark:bg-gray-900 text-ca-primary rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
           >
             Contact Us
             <x-heroicon-o-arrow-right class="w-5 h-5 ml-2"/>
           </a>
+
           <a
             href="{{ route('projects.index') }}"
             class="inline-flex items-center px-8 py-4 border-2 border-white text-white rounded-xl hover:bg-white/10 transition-all duration-300"
