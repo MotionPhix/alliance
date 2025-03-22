@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+[v-cloak] {
+  display: none;
+}
+
 @layer components {
   /* Timeline connector line styles */
   .timeline-connector {

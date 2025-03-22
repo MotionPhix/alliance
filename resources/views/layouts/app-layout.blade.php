@@ -74,19 +74,19 @@
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-poppins antialiased bg-white dark:bg-gray-900">
-<div class="min-h-screen">
-  @include('components.header')
+  <div class="min-h-screen" id="app">
+    @include('components.header')
 
-  <main>
-    {{ $slot }}
-  </main>
+    <main>
+      {{ $slot }}
+    </main>
 
-  @include('components.footer')
-</div>
+    @include('components.footer')
+  </div>
 
-<!-- Toast Notifications -->
-<div id="toast-container" class="fixed bottom-4 right-4 z-50"></div>
+  <!-- Toast Notifications -->
+  <div id="toast-container" class="fixed bottom-4 right-4 z-50"></div>
 
-@stack('scripts')
+  @stack('scripts')
 </body>
 </html>

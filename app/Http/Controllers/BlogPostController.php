@@ -32,26 +32,4 @@ class BlogPostController extends Controller
     return view('pages.blogs.index', compact('posts'));
   }
 
-  public function show($slug)
-  {
-    $post = Cache::remember("blog_post.{$slug}", 3600, function () use ($slug) {
-      return BlogPost::where('slug', $slug)
-        ->with(['user', 'tags', 'comments.user', 'media'])
-        ->firstOrFail();
-    });
-
-    // Increment view count
-    if (!session()->has("viewed_post_{$post->id}")) {
-      $post->incrementViewCount();
-      session()->put("viewed_post_{$post->id}", true);
-    }
-
-    $relatedPosts = BlogPost::published()
-      ->where('id', '!=', $post->id)
-      ->withAnyTags($post->tags->pluck('name')->toArray())
-      ->limit(3)
-      ->get();
-
-    return view('pages.blogs.show', compact('post', 'relatedPosts'));
-  }
 }

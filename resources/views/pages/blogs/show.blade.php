@@ -3,18 +3,18 @@
   <x-slot name="description">{{ $post->excerpt }}</x-slot>
 
   <article
-    class="min-h-screen bg-gray-50 dark:bg-gray-900 pt-12 pb-24" id="app">
+    class="min-h-screen bg-gray-50 dark:bg-gray-900 pt-12 pb-24">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
       <div>
         <!-- Blog Post Header Component -->
         <blog-post-header
-          :title="'{{ $post->title }}'"
-          :tags='@json($post->tags)'
-          :author="'{{ $post->user->name }}'"
-          :published-date="'{{ $post->published_at->format('M d, Y') }}'"
-          :likes-count="{{ $post->likes()->count() }}"
-          :reading-time="{{ $post->reading_time }}"
-          :view-count="{{ $post->view_count }}"
+          title="{{ $post->title }}"
+          :tags="@json($post->tags)"
+          author="{{ $post->user->name }}"
+          published-date="{{ $post->published_at->format('M d, Y') }}"
+          likes-count="{{ $post->likes()->count() }}"
+          reading-time="{{ $post->reading_time }}"
+          view-count="{{ $post->view_count }}"
         />
 
         <!-- Featured Image -->
@@ -46,7 +46,6 @@
             <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
               <like-button
                 :post-id="{{ $post->id }}"
-                :initial-liked="{{ json_encode($post->isLikedBy(auth()->user())) }}"
                 :initial-count="{{ $post->likes()->count() }}"
               />
             </div>

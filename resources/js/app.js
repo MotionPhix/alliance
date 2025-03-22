@@ -1,10 +1,8 @@
 import './bootstrap';
 import Swiper from 'swiper';
 import 'swiper/swiper-bundle.css';
-import Alpine from 'alpinejs';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import intersect from '@alpinejs/intersect';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet.fullscreen/Control.FullScreen.css';
 
@@ -17,6 +15,7 @@ import LikeButton from './components/LikeButton.vue'
 import BlogPostHeader from "@/components/BlogPostHeader.vue";
 import Comments from "@/components/Comments.vue";
 import ToastMessages from "@/components/ToastMessages.vue";
+import BlogPostContent from "@/components/BlogPostContent.vue";
 
 // Fix Leaflet's icon path issues with Webpack
 delete L.Icon.Default.prototype._getIconUrl;
@@ -98,11 +97,6 @@ window.initContactMap = function() {
   return map;
 };
 
-// Alpine setup
-window.Alpine = Alpine;
-Alpine.plugin(intersect);
-Alpine.start();
-
 // Swiper initialization
 const swiper = new Swiper('.swiper-container', {
   loop: true,
@@ -145,6 +139,7 @@ app
   .use(ZiggyVue)
   .component('like-button', LikeButton)
   .component('blog-post-header', BlogPostHeader)
+  .component('blog-post-content', BlogPostContent)
   .component('toast-messages', ToastMessages)
   .component('comments', Comments)
   .mount('#app')

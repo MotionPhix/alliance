@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { UserCircleIcon, CalendarIcon, HeartIcon, ClockIcon, EyeIcon } from '@heroicons/vue/24/outline'
 
-defineProps({
-  title: String,
-  tags: Array,
-  author: String,
-  publishedDate: String,
-  likesCount: Number,
-  readingTime: Number,
-  viewCount: Number
-})
+defineProps<{
+  title: string
+  tags: []
+  author: string
+  publishedDate: string
+  likesCount: string|number
+  readingTime: string|number
+  viewCount: string|number
+}>()
 </script>
 
 <template>
