@@ -142,4 +142,4 @@ app
   .component('blog-post-content', BlogPostContent)
   .component('toast-messages', ToastMessages)
   .component('comments', Comments)
-  .mount('#app')
+  .mount('#blog_app')

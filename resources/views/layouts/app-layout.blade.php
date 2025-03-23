@@ -69,12 +69,10 @@
 
   <!-- routes -->
   @routes
-
-  <!-- Scripts -->
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-poppins antialiased bg-white dark:bg-gray-900">
-  <div class="min-h-screen" id="app">
+
+<body class="font-poppins antialiased bg-white dark:bg-gray-900" id="blog_app">
+  <div class="min-h-screen">
     @include('components.header')
 
     <main>
@@ -87,6 +85,8 @@
   <!-- Toast Notifications -->
   <div id="toast-container" class="fixed bottom-4 right-4 z-50"></div>
 
+  <!-- Scripts -->
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
   @stack('scripts')
 </body>
 </html>
